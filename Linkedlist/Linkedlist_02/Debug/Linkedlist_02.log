@@ -1,0 +1,11 @@
+﻿  linkedlist_by_pointer.c
+c:\users\taemin\desktop\ds_practice\linkedlist\linkedlist_02\linkedlist_by_pointer.c(27): warning C4133: '=': 'Node *'과(와) 'Node *' 사이의 형식이 호환되지 않습니다.
+c:\users\taemin\desktop\ds_practice\linkedlist\linkedlist_02\linkedlist_by_pointer.c(28): warning C4133: '=': 'Node *'과(와) 'Node *' 사이의 형식이 호환되지 않습니다.
+c:\users\taemin\desktop\ds_practice\linkedlist\linkedlist_02\linkedlist_by_pointer.c(29): warning C4133: '=': 'Node *'과(와) 'Node *' 사이의 형식이 호환되지 않습니다.
+c:\users\taemin\desktop\ds_practice\linkedlist\linkedlist_02\linkedlist_by_pointer.c(49): warning C4133: '=': 'Node *'과(와) 'Node *' 사이의 형식이 호환되지 않습니다.
+c:\users\taemin\desktop\ds_practice\linkedlist\linkedlist_02\linkedlist_by_pointer.c(53): warning C4133: '초기화 중': 'Node *'과(와) 'Node *' 사이의 형식이 호환되지 않습니다.
+c:\users\taemin\desktop\ds_practice\linkedlist\linkedlist_02\linkedlist_by_pointer.c(59): warning C4133: '초기화 중': 'Node *'과(와) 'Node *' 사이의 형식이 호환되지 않습니다.
+c:\users\taemin\desktop\ds_practice\linkedlist\linkedlist_02\linkedlist_by_pointer.c(61): warning C4133: '초기화 중': 'Node *'과(와) 'Node *' 사이의 형식이 호환되지 않습니다.
+c:\users\taemin\desktop\ds_practice\linkedlist\linkedlist_02\linkedlist_by_pointer.c(72): warning C4133: '=': 'Node *'과(와) 'Node *' 사이의 형식이 호환되지 않습니다.
+c:\users\taemin\desktop\ds_practice\linkedlist\linkedlist_02\linkedlist_by_pointer.c(68): warning C4133: '초기화 중': 'Node *'과(와) 'Node *' 사이의 형식이 호환되지 않습니다.
+  Linkedlist_02.vcxproj -> C:\Users\Taemin\Desktop\DS_practice\Linkedlist\Debug\Linkedlist_02.exe
