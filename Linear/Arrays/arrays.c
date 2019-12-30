@@ -7,30 +7,30 @@
 	Title: 순차리스트(배열)
 
 	'데이터를 순차적으로 저장하고 처리하는 자료구조'
-	- 공간을 미리 할당 
+	- 공간을 미리 할당
 	- 데이터 수량 정보를 활용
 	- 삭제시 데이터 전체 이동
 
 
 	* 구현함수
 
-	[1] 탐색 
-	[2] 전방 입력 [3] 후방 입력 
-	[4] 전방 제거 [5] 후방 제거 [6] 특정 위치 제거 
+	[1] 탐색
+	[2] 전방 입력 [3] 후방 입력
+	[4] 전방 제거 [5] 후방 제거 [6] 특정 위치 제거
 	[7] 전체 출력
 */
 
 int array[SIZE];
 int count = 0;
 
-bool search(int arr[], int n);		
-void front_push(int arr[], int n);	
+bool search(int arr[], int n);
+void front_push(int arr[], int n);
 void rear_push(int arr[], int n);
 int front_pop(int arr[]);
 int rear_pop(int arr[]);
 int spot_pop(int arr[], int index);
-void showAll(int arr[]);				
-	
+void showAll(int arr[]);
+
 
 
 
@@ -113,7 +113,7 @@ int front_pop(int arr[]) {
 }
 
 int rear_pop(int arr[]) {
-	if(count <= 0) {
+	if (count <= 0) {
 		printf("배열 언더플로우가 발생했습니다.\n");
 		return -INF;
 	}
@@ -148,9 +148,11 @@ void showAll(int arr[]) {
 		printf("배열 언더플로우가 발생했습니다.\n");
 		return;
 	}
+	printf("--- 배열 상단부 ---\n");
 	for (int i = 0; i < count; i++) {
 		printf("%d\n", arr[i]);
 	}
+	printf("--- 배열 하단부 ---\n");
 }
 
 
