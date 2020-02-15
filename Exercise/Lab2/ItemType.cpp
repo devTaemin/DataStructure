@@ -66,6 +66,7 @@ void ItemType::DisplayRecordOnScreen()
 	DisplayIdOnScreen();
 	DisplayNameOnScreen();
 	DisplayAddressOnScreen();
+	cout << endl;
 }
 
 void ItemType::SetIdFromKB()

@@ -81,10 +81,16 @@ void Cmd::addItem()
 void Cmd::printAll()
 {
 	ItemType temp;
-	while (SL.GetNextItem(temp) != 0) {
-		temp.DisplayRecordOnScreen();
-		cout << endl;
+	if (!SL.IsEmpty()) {
+		while(SL.GetNextItem(temp) == 1){
+			temp.DisplayRecordOnScreen();
+			cout << endl;
+		}
 	}
+	else {
+		cerr << "List is empty!" << endl;
+	}
+
 	cout << endl;
 }
 
@@ -95,22 +101,74 @@ void Cmd::makeEmptyList()
 
 void Cmd::searchById()
 {
+	ItemType temp;
+	int input;
+	cout << "Enter the ID to search data: ";
+	cin >> input;
+	SL.ResetList();
 
+	while (true) {
+		if (SL.GetNextItem(temp) == 1) {
+			if (input == temp.GetId()) {
+				temp.DisplayRecordOnScreen();
+				break;
+			}
+		}
+		else {
+			cerr << "Fail to search file by ID!" << endl;
+			break;
+		}
+	}
 }
 
 void Cmd::searchByName()
 {
+	ItemType temp;
+	string input;
+	cout << "Enter the NAME to search data: ";
+	cin >> input;
+	SL.ResetList();
 
+	while (true) {
+		if (SL.GetNextItem(temp) == 1) {
+			if (input == temp.GetName()) {
+				temp.DisplayRecordOnScreen();
+				break;
+			}
+		}
+		else {
+			cerr << "Fail to search file by NAME!" << endl;
+			break;
+		}
+	}
 }
 
 void Cmd::deleteItem() 
 {
+	ItemType temp;
+	int key;
+	cout << "Enter the ID to delete data: ";
+	cin >> key;
 
+	while (true) {
+		if (SL.GetNextItem(temp) == 1) {
+			if (key == temp.GetId()) {
+				SL.Delete(temp);
+				break;
+			}
+		}
+		else {
+			cerr << "Fail to find and delete by NAME!" << endl;
+			break;
+		}
+	}
 }
 
 void Cmd::updateItem()
 {
-
+	ItemType temp;
+	temp.SetRecordFromKB();
+	SL.Add(temp);
 }
 
 
