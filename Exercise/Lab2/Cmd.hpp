@@ -1,6 +1,6 @@
 #ifndef _Cmd_hpp_
 #define _Cmd_hpp_
-#include "ArrayList.hpp"
+#include "SortedList.hpp"
 
 class Cmd
 {
@@ -12,12 +12,16 @@ public:
 	void addItem();
 	void printAll();
 	void makeEmptyList();
+	void searchById();
+	void searchByName();
+	void deleteItem();
+	void updateItem();
 	void getFromFile();
 	void putToFile();
 	bool quit();
 
 private:
-	ArrayList AL;
+	SortedList SL;
 };
 
 

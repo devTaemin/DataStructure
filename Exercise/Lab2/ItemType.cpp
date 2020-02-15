@@ -7,8 +7,7 @@ ItemType::ItemType()
 	SetAddress("default");
 }
 
-ItemType::~ItemType(){
-}
+ItemType::~ItemType(){}
 
 int ItemType::GetId()
 {

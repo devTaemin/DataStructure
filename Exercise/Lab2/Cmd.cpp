@@ -14,8 +14,12 @@ void Cmd::run()
 		cout << "1 : Add item" << endl;
 		cout << "2 : Print all on screen" << endl;
 		cout << "3 : Make empty list" << endl;
-		cout << "4 : Get from file" << endl;
-		cout << "5 : Put to file" << endl;
+		cout << "4 : Search item by ID" << endl;
+		cout << "5 : Search item by Name" << endl;
+		cout << "6 : Delete item" << endl;
+		cout << "7 : Update item" << endl;
+		cout << "8 : Get from file" << endl;
+		cout << "9 : Put to file" << endl;
 		cout << "0 : Quit" << endl;
 		cout << endl;
 		cout << endl;
@@ -34,9 +38,21 @@ void Cmd::run()
 			makeEmptyList();
 			break;
 		case(4):
-			getFromFile();
+			searchById();
 			break;
 		case(5):
+			searchByName();
+			break;
+		case(6):
+			deleteItem();
+			break;
+		case(7):
+			updateItem();
+			break;
+		case(8):
+			getFromFile();
+			break;
+		case(9):
 			putToFile();
 			break;
 		case(0):
@@ -50,10 +66,10 @@ void Cmd::run()
 
 void Cmd::addItem()
 {
-	if (!AL.IsFull()) {
+	if (!SL.IsFull()) {
 		ItemType temp;
 		temp.SetRecordFromKB();
-		AL.Add(temp);
+		SL.Add(temp);
 		cout << endl;
 	}
 	else {
@@ -65,7 +81,7 @@ void Cmd::addItem()
 void Cmd::printAll()
 {
 	ItemType temp;
-	while (AL.GetNextItem(temp) != 0) {
+	while (SL.GetNextItem(temp) != 0) {
 		temp.DisplayRecordOnScreen();
 		cout << endl;
 	}
@@ -74,8 +90,29 @@ void Cmd::printAll()
 
 void Cmd::makeEmptyList()
 {
-	AL.MakeEmpty();
+	SL.makeEmpty();
 }
+
+void Cmd::searchById()
+{
+
+}
+
+void Cmd::searchByName()
+{
+
+}
+
+void Cmd::deleteItem() 
+{
+
+}
+
+void Cmd::updateItem()
+{
+
+}
+
 
 void Cmd::getFromFile()
 {
@@ -91,7 +128,7 @@ void Cmd::getFromFile()
 	if (fin.is_open()) {
 		while (!fin.eof()){
 			temp.ReadDataFromFile(fin);
-			AL.Add(temp);
+			SL.Add(temp);
 		}
 	}
 	else {
@@ -110,7 +147,7 @@ void Cmd::putToFile()
 	fout.open(filename);
 	
 	if (fout.is_open()) {
-		while (AL.GetNextItem(temp) == 1) {
+		while (SL.GetNextItem(temp) == 1) {
 			temp.WriteDataToFile(fout);
 		}
 	}
