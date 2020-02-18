@@ -1,3 +1,4 @@
+/*
 #include "CircularQueueType.hpp"
 
 template <typename T>
@@ -15,7 +16,7 @@ CircularQueueType<T>::CircularQueueType(int max) : m_iFront(max - 1), m_iRear(ma
 template <typename T>
 CircularQueueType<T>::~CircularQueueType()
 {
-	delete[] m_pItme;
+	delete[] m_pItem;
 }
 
 template <typename T>
@@ -53,12 +54,13 @@ void CircularQueueType<T>::EnQueue(T item)
 }
 
 template <typename T>
-void CircularQueueType<T>::DeQueue(T& item)
+T CircularQueueType<T>::DeQueue(T& item)
 {
 	if (m_iFront == (m_nMaxQueue - 1)) {
 		m_iFront = -1;
 	}
 	item = m_pItem[++m_iFront];
+	return item;
 }
 
 template <typename T>
@@ -86,3 +88,4 @@ void CircularQueueType<T>::Print()
 	}
 	
 }
+*/
