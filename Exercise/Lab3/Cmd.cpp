@@ -10,6 +10,12 @@ template <typename T>
 Cmd<T>::~Cmd() {}
 
 template <typename T>
+void Cmd<T>::run()
+{
+
+}
+
+template <typename T>
 void Cmd<T>::enqueueElem()
 {
 

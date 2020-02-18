@@ -1,7 +1,8 @@
 #include "Cmd.hpp"
 
+template <typename T>
 int main()
 {
-	Cmd driver;
+	Cmd<T> driver;
 	driver.run();
 }

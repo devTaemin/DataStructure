@@ -9,6 +9,7 @@ public:
 	Cmd();
 	~Cmd();
 
+	void run();
 	void enqueueElem();
 	void dequeueElem();
 	void isEmpty();
