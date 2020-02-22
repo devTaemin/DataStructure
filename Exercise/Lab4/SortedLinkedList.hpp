@@ -16,7 +16,7 @@ public:
 	~LinkedList<T>()
 	{
 		m_pCurPointer = m_pList;
-		while (m_pCurPointer->next != NULL) {
+		while (m_pCurPointer != NULL) {
 			NodeType<T>* temp = m_pCurPointer;
 			m_pCurPointer = m_pCurPointer->next;
 			delete[] temp;
@@ -27,10 +27,9 @@ public:
 
 	void MakeEmpty()
 	{
-		m_pList->info = NULL;
 		m_pList->next = NULL;
-		ResetList();
 		m_nLength = 0;
+		ResetList();
 	}
 
 	int GetLength() const 
@@ -42,27 +41,27 @@ public:
 	{
 		ResetList();
 		if (GetLength() == 0) {
-			m_pCurPointer->info = item;
+			m_pList->info = item;
 		}
 		else {
 			NodeType<T>* temp = new NodeType<T>;
+			NodeType<T>* pre = m_pCurPointer;
 			temp->info = item;
 			temp->next = NULL;
-			if (m_pList->info >= temp->info) {
-				temp->next = m_pList;
+			if (temp->info <= m_pCurPointer->info) {
+				temp->next = m_pCurPointer;
 				m_pList = temp;
 			}
 			else {
-				NodeType<T>* compare = m_pCurPointer->next;
-				while (compare != NULL) {
-					if (temp->info < compare->info) {
+				while (m_pCurPointer != NULL) {
+					if (m_pCurPointer->info <= temp->info) {
+						pre = m_pCurPointer;
 						m_pCurPointer = m_pCurPointer->next;
-						continue;
 					}
 					else { break; }
 				}
-				temp->next = m_pCurPointer->next;
-				m_pCurPointer->next = temp;
+				temp->next = pre->next;
+				pre->next = temp;
 			}
 		}
 		m_nLength++;
@@ -76,21 +75,68 @@ public:
 			return 0;
 		}
 		else {
-			NodeType<T>* cur = m_pCurPointer;
-			NodeType<T>* pre = cur;
-			while (cur != NULL) {
-				if (cur->info != item) {
-					pre = cur;
-					cur = cur->next;
+			NodeType<T>* pre = m_pCurPointer;
+			if (item == m_pList->info) {
+				m_pList = m_pCurPointer->next;
+				m_nLength--;
+				return 1;
+			}
+			else {
+				while (m_pCurPointer != NULL) {
+					if (item == m_pCurPointer->info) {
+						pre->next = m_pCurPointer->next;
+						m_nLength--;
+						return 1;
+					}
+					else {
+						pre = m_pCurPointer;
+						m_pCurPointer = m_pCurPointer->next;
+					}
 				}
-				else {
-					pre->next = cur->next;
-					delete[] cur;
-				}
+				return 0;
 			}
 		}
-		m_nLength--;
-		return 1;
+	}
+
+
+	int ReplaceItem(T item_1, T item_2) 
+	{
+		ResetList();
+		if (GetLength() == 0) {
+			return 0;
+		}
+		else {
+			while (m_pCurPointer != NULL) {
+				if (item_1 == m_pCurPointer->info) {
+					DeleteItem(item_1);
+					Add(item_2);
+					return 1;
+				}
+				else {
+					m_pCurPointer = m_pCurPointer->next;
+				}
+			}
+			return 0;
+		}
+	}
+
+	int RetrieveItem(T item)
+	{
+		ResetList();
+		if (GetLength() == 0) {
+			return 0;
+		}
+		else {
+			while (m_pCurPointer != NULL) {
+				if (item == m_pCurPointer->info) {
+					return 1;
+				}
+				else {
+					m_pCurPointer = m_pCurPointer->next;
+				}
+			}
+			return 0;
+		}
 	}
 
 	int Get(T& item)
@@ -112,8 +158,18 @@ public:
 
 	void printAll()
 	{
-
+		ResetList();
+		if (GetLength() == 0) {
+			cerr << "       " << "Empty List" << endl;
+		}
+		else {
+			while (m_pCurPointer != NULL) {
+				cout << "  " << m_pCurPointer->info << endl;
+				m_pCurPointer = m_pCurPointer->next;
+			}
+		}
 	}
+
 private:
 	NodeType<T>* m_pList;
 	NodeType<T>* m_pCurPointer;

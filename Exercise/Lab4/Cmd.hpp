@@ -15,6 +15,7 @@ public:
 		bool run = true;
 		int cmd;
 		while (run) {
+			cout << endl;
 			cout << "       " << "--- ID - Command -----" << endl;
 			cout << "       " << "        1 : Insert Item" << endl;
 			cout << "       " << "        2 : Delete Item" << endl;
@@ -72,28 +73,42 @@ public:
 		else {
 			cout << "       " << "Delete Success!";
 		}
-		
 	}
 
 	void replaceItem()
 	{
-	
-		cout << "       " << "Replace item: ";
-	
-		
+		T item_1, item_2;
+		cout << "       " << "Enter item to replace: ";
+		cin >> item_1;
+		cout << "       " << "Enter item to add: ";
+		cin >> item_2;
+		int run = list.ReplaceItem(item_1, item_2);
+		if (run == 0) {
+			cout << "       " << "Fail to replace Item";
+		}
+		else {
+			cout << "       " << "Replace Success!";
+		}
 	}
 
 	void retrieveItem()
 	{
-		
+		T item;
 		cout << "       " << "Retrieve item: ";
-		
-		
+		cin >> item;
+		int run = list.RetrieveItem(item);
+		if (run == 0) {
+			cout << "       " << "Fail to retrieve Item";
+		}
+		else {
+			cout << "       " << "Retrieve Success!";
+		}
 	}
 
 	void displayAll()
 	{
-		
+		cout << "=================D=I=S=P=L=A=Y=================" << endl;
+		list.printAll();
 	}
 
 	bool quit()
