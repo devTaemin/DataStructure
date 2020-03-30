@@ -1,6 +1,8 @@
 /**
-*	@mainpage
+*	Lab 1_PT : Implementation of a list class using array.
 *
+*	@mainpage
+*	
 *
 *	@date	2020.03.30
 *	@author	Taemin Im

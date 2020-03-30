@@ -124,31 +124,28 @@ void ItemType::SetRecordFromKB()
 //Read a record from file.
 int ItemType::ReadDataFromFile(ifstream& fin)
 {
-    if (fin.is_open()) {
-        fin >> m_Id;
-        fin >> m_sName;
-        fin >> m_sAddress;
-        return 1;
-    }
-    else {
-        return -1;
-    }
+    int id;
+    string name, address;
+    fin >> id;
+    fin >> name;
+    fin >> address;
+    SetId(id);
+    SetName(name);
+    SetAddress(address);
+
+    return 1;
 }
 
 
 // Write a record into file.
 int ItemType::WriteDataToFIle(ofstream& fout)
 {
-    if (fout.is_open()) {
-        fout << m_Id << " ";
-        fout << m_sName << " ";
-        fout << m_sAddress << " ";
-        fout << '\n';
-        return 1;
-    }
-    else {
-        return -1;
-    }
+    fout << this->GetId() << " ";
+    fout << this->GetName() << " ";
+    fout << this->GetAddress() << " ";
+    fout << '\n';
+
+    return 1;
 }
 
 

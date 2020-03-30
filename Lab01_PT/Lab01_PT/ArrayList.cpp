@@ -18,8 +18,9 @@ int ArrayList::GetLength()
 // Check whether capacity of list is full.
 bool ArrayList::IsFull()
 {
-	if (m_Length == MAXSIZE)
+	if (m_Length >= MAXSIZE) {
 		return true;
+	}
 	return false;
 }
 
@@ -45,7 +46,6 @@ void ArrayList::ResetList()
 // move list iterator to the next item in list and get that item.
 int ArrayList::GetNextItem(ItemType& data)
 {
-	ResetList();
 	m_CurPointer++;
 	if (m_CurPointer == MAXSIZE) {
 		return -1;
@@ -97,9 +97,11 @@ int ArrayList::Delete(ItemType data)
 	}
 
 	if (isFind) {
+		m_Length--;
 		return 1;
 	}
 	else {
+		cout << "Fail to find and delete item!" << '\n';
 		return -1;
 	}
 }
@@ -126,6 +128,7 @@ int ArrayList::Replace(ItemType data)
 		return 1;
 	}
 	else {
+		cout << "Fail to find and replace item!" << '\n';
 		return -1;
 	}
 }
