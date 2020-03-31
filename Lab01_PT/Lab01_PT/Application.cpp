@@ -17,10 +17,19 @@ void Application::Run()
 		case 3:			// make empty list.
 			m_List.MakeEmpty();
 			break;
-		case 4:			// load list data from a file.
+		case 4:			// retrieve record.
+			RetrieveStudent();
+			break;
+		case 5:			// delete record.
+			DeleteStudent();
+			break;
+		case 6:			// replace record.
+			Replace();
+			break;
+		case 7:			// load list data from a file.
 			ReadDataFromFile();
 			break;
-		case 5:			// save list data into a file.
+		case 8:			// save list data into a file.
 			WriteDataToFile();
 			break;
 		case 0:
@@ -42,8 +51,11 @@ int Application::GetCommand()
 	cout << "\t	  1 : Add item" << '\n';
 	cout << "\t	  2 : Print all on screen" << '\n';
 	cout << "\t	  3 : Make empty list" << '\n';
-	cout << "\t	  4 : Get from file" << '\n';
-	cout << "\t	  5 : Put to file" << '\n';
+	cout << "\t	  4 : Retrieve item" << '\n';
+	cout << "\t	  5 : Delete item" << '\n';
+	cout << "\t	  6 : Replace item" << '\n';
+	cout << "\t	  7 : Get from file" << '\n';
+	cout << "\t	  8 : Put to file" << '\n';
 	cout << "\t	  0 : Quit" << '\n';
 
 	cout << '\n' << "\t Choose a Command--> ";
@@ -78,7 +90,7 @@ int Application::AddItem()
 			m_List.GetNextItem(temp);
 			if (temp == inItem) { isDuplicated = true; break; }
 		}
-		if (!isDuplicated) { m_List.Add(inItem); }
+		if (!isDuplicated) { m_List.Add(inItem); }	// if primary key is not duplicated, add in list.
 		else {
 			cout << "Error: ID is duplicated!" << '\n';
 		}
@@ -119,7 +131,6 @@ int Application::OpenInFile(char* fileName)
 	if (m_InFile.is_open()) {
 		return 1;
 	}
-	m_InFile.close();
 	return -1;
 }
 
@@ -144,7 +155,7 @@ int Application::ReadDataFromFile()
 	cout << "\n\tEnter file name : ";
 	cin >> filename;
 
-	// check if file is opened successfully, or not.
+	// check if file is opened successfully. if not, return -1.
 	if (OpenInFile(filename) == -1)
 		return -1;
 
@@ -176,7 +187,7 @@ int Application::WriteDataToFile()
 	cout << "\n\tEnter file name : ";
 	cin >> filename;
 
-	// check if file is opened successfully, or not.
+	// check if file is opened successfully. if not, return -1.
 	if (OpenOutFile(filename) == -1)
 		return -1;
 
@@ -205,11 +216,13 @@ int Application::RetrieveStudent()
 	ItemType Item;
 	Item.SetIdFromKB();
 	// display record and return 1 if item is founded, otherwise return -1.
-	if (m_List.Get(Item)) {
+	if (m_List.Get(Item) == 1) {
 		Item.DisplayRecordOnScreen();
 		return 1;
 	}
-	else { return -1; }
+	else { 
+		return -1; 
+	}
 }
 
 
@@ -220,10 +233,13 @@ int Application::DeleteStudent()
 	ItemType Item;
 	Item.SetIdFromKB();
 	// return 1 if item is foudned and deleted successfully, otherwise -1.
-	if (m_List.Delete(Item)) {
+	if (m_List.Delete(Item) == 1) {
+		cout << "Success to delete!" << '\n';
 		return 1;
 	}
-	else { return -1; }
+	else { 
+		return -1; 
+	}
 }
 
 
@@ -234,8 +250,11 @@ int Application::Replace()
 	ItemType Item;
 	Item.SetRecordFromKB();
 	// return 1 if item is founded and replaced successfully, otherwise -1.
-	if (m_List.Replace(Item)) {
+	if (m_List.Replace(Item) == 1) {
+		cout << "Success to replace!" << '\n';
 		return 1;
 	}
-	else { return -1; }
+	else { 
+		return -1; 
+	}
 }

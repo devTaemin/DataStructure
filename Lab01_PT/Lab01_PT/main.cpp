@@ -1,5 +1,6 @@
 /**
-*	Lab 1_PT : Implementation of a list class using array.
+*
+*	Lab 1_PT: Implementation of a list class using array.
 *
 *	@mainpage
 *	

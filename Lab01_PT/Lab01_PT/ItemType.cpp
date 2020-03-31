@@ -126,8 +126,8 @@ int ItemType::ReadDataFromFile(ifstream& fin)
 {
     int id;
     string name, address;
-    fin >> id;
-    fin >> name;
+    fin >> id; 
+    fin >> name; 
     fin >> address;
     SetId(id);
     SetName(name);
@@ -140,10 +140,10 @@ int ItemType::ReadDataFromFile(ifstream& fin)
 // Write a record into file.
 int ItemType::WriteDataToFIle(ofstream& fout)
 {
+    fout << '\n';
     fout << this->GetId() << " ";
     fout << this->GetName() << " ";
     fout << this->GetAddress() << " ";
-    fout << '\n';
 
     return 1;
 }
@@ -165,16 +165,21 @@ RelationType ItemType::CompareByID(const ItemType& data)
 // Compare id by operator==.
 bool ItemType::operator==(const ItemType& A)
 {
-    if (m_Id == A.GetId())
+    if (this->GetId() == A.GetId()) {
         return true;
-    return false;
+    }
+    else { return false; }
 }
 
 
 // Copy the rocord by operator=.
 void ItemType::operator=(const ItemType& _item)
 {
-    m_Id = _item.GetId();
-    m_sName = _item.GetName();
-    m_sAddress = _item.GetAddress();
+    int id = _item.GetId();
+    string name = _item.GetName();
+    string address = _item.GetAddress();
+
+    this->SetId(id);
+    this->SetName(name);
+    this->SetAddress(address);
 }
