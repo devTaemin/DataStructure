@@ -122,9 +122,9 @@ public:
 
 
 	/**
-	*		@brief	Replace studnet's record by finding based on student's id, and input information.
+	*		@brief	Replace studnet's record by finding based on serial number, and input information.
 	*		@pre	the list is initialized.
-	*		@post	a student's record is replaced from an array.
+	*		@post	record of music is replaced from an array.
 	*		@return	return 1 if this function works well, otherwise -1.
 	*/
 	int ReplaceMusic();
