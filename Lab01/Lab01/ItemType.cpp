@@ -59,7 +59,8 @@ void ItemType::SetPlayer(string inPlayer)
 
 // Set type of music.
 void ItemType::SetType(int inType)
-{	//CLASSIC(0), JAZZ(1), BLUES(2), HIPHOP(3), COUNTRY(4), POP(5), ELECTRONICA(6), REST(7), UNDECIDED(8)
+{
+	//CLASSIC(0), JAZZ(1), BLUES(2), HIPHOP(3), COUNTRY(4), POP(5), ELECTRONICA(6), REST(7), UNDECIDED(8)
 	switch (inType)
 	{
 	case(0):
@@ -164,30 +165,24 @@ void ItemType::DisplayRecordOnScreen()
 // Set music name from keyboard.
 void ItemType::SetMusicFromKB()
 {
-	string inMusic;
 	cout << "\tMusic : ";
-	cin >> inMusic;
-	SetMusic(inMusic);
+	cin >> Music;
 }
 
 
 // Set composer name from keyboard.
 void ItemType::SetComposerFromKB()
 {
-	string inComposer;
 	cout << "\tComposer : ";
-	cin >> inComposer;
-	SetComposer(inComposer);
+	cin >> Composer;
 }
 
 
 // Set player name from keyboard.
 void ItemType::SetPlayerFromKB()
 {
-	string inPlayer;
 	cout << "\tPlayer : ";
-	cin >> inPlayer;
-	SetPlayer(inPlayer);
+	cin >> Player;
 }
 
 
@@ -205,10 +200,8 @@ void ItemType::SetTypeFromKB()
 // Set serial number from keyboard.
 void ItemType::SetSerial_NumberFromKB()
 {
-	int inSerial_Number;
 	cout << "\tSerial Number : ";
-	cin >> inSerial_Number;
-	SetSerial_Number(inSerial_Number);
+	cin >> Serial_Number;
 }
 
 
@@ -227,10 +220,12 @@ void ItemType::SetRecordFromKB()
 // Read a record from file.
 int ItemType::ReadDataFromFile(ifstream& fin)
 {
-	string inMusic, inComposer, inPlayer;
-	int inType, inSerial_Number;
-	fin >> inMusic; fin >> inComposer; fin >> inPlayer; fin >> inType; fin >> inSerial_Number;
-	SetRecord(inMusic, inComposer, inPlayer, inType, inSerial_Number);
+	int inType;
+	fin >> Music;
+	fin >> Composer;
+	fin >> Player;
+	fin >> inType;
+	fin >> Serial_Number;
 	return 1;
 }
 
@@ -238,11 +233,11 @@ int ItemType::ReadDataFromFile(ifstream& fin)
 // Write a record into file.
 int ItemType::WriteDataToFile(ofstream& fout)
 {
-	fout << GetMusic() << " "; 
-	fout << GetComposer() << " "; 
-	fout << GetPlayer() << " ";
-	fout << GetType() << " "; 
-	fout << GetSerial_Number() << " "; 
+	fout << Music << " ";
+	fout << Composer << " ";
+	fout << Player << " ";
+	fout << Type << " ";
+	fout << Serial_Number << " ";
 	fout << '\n';
 	return 1;
 }
@@ -266,7 +261,7 @@ RelationType ItemType::CompareBySerial_Number(const ItemType& data)
 // Compare id by operator==.
 bool ItemType::operator==(const ItemType& A)
 {
-	if (this->GetSerial_Number() == A.GetSerial_Number()) {
+	if (CompareBySerial_Number(A) == EQUAL) {
 		return true;
 	}
 	else { return false; }

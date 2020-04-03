@@ -4,125 +4,132 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "ItemType.h"
-
 using namespace std;
 
+#include "ItemType.h"
 #define MAXSIZE 5
 
-/**
-*		Array based simple unsorted list.
-*/
+//--------------------------------------------------------------------
+//		Array based simple unsorted list.
+//--------------------------------------------------------------------
 class ArrayList
 {
 public:
-	/**
-	*		Default constructor.
-	*/
 	ArrayList()
+		//--------------------------------------------------------------------
+		//		Default Constructor.
+		//--------------------------------------------------------------------
 	{
 		m_Length = 0;
 		ResetList();
 	}
 
 
-	/**
-	*		Destructor.
-	*/
 	~ArrayList() {}
+	//--------------------------------------------------------------------
+	//		Destructor.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Make list empty.
-	*		@pre	none.
-	*		@post	clear list.
-	*/
 	void MakeEmpty();
+	//--------------------------------------------------------------------
+	//	Brief:	Make list empty.
+	//	Pre:	none.
+	//	Post:	clear list.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Get a number of records in current list.
-	*		@pre	none.
-	*		@post	none.
-	*		@return	number of records in current list.
-	*/
 	int GetLength();
+	//--------------------------------------------------------------------
+	//	Brief:	Get a number of records in current list.
+	//	Pre:	none.
+	//	Post:	none.
+	//	Return:	number of records in current list.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Check whether capacity of list is full.
-	*		@pre	none.
-	*		@post	none.
-	*		@return	return true if list capacity reached to the upper bound, other wise return false.
-	*/
 	bool IsFull();
+	//--------------------------------------------------------------------
+	//	Brief:	Check whether capacity of list is full.
+	//	Pre:	none.
+	//	Post:	none.
+	//	Return:	return true if list capacity reached to the upper bound, otherwise return false.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	add a new data into list.
-	*		@pre	list should be initialized.
-	*		@post	add the new record into the list.
-	*		@param	data	new data.
-	*		@return	return 1 if this function works well, otherwise -1.
-	*/
 	int Add(ItemType data);
+	//--------------------------------------------------------------------
+	//	Brief:	Add a new data into list.
+	//	Pre:	list should be initialized.
+	//	Post:	add the new record into the list.
+	//	Param:	data		new data.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Initialize list iterator.
-	*		@pre	list should be initialized.
-	*		@post	iterator is reset.
-	*/
 	void ResetList();
+	//--------------------------------------------------------------------
+	//	Brief:	Initialize list iterator.
+	//	Pre:	list should be initialized.
+	//	Post:	iterator is reset.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	move list iterator to the next item in list and get that item.
-	*		@pre	list and list iterator should not be initialized.
-	*		@post	iterator is moved to next item.
-	*		@param	data	get current iterator's item. it does not need to be initialized.
-	*		@return	index of current iterator's item if it is not end of list, otherwise return -1.
-	*/
 	int GetNextItem(ItemType& data);
+	//--------------------------------------------------------------------
+	//	Brief:	Move list iterator to the next item in list 
+	//			and get that item.
+	//	Pre:	list and list iterator should not be initialized.
+	//	Post:	iterator is moved to next item.
+	//	Param:	data		get current iterator's item. 
+	//						it does not need to be initialized
+	//	Return:	index of current iterator's item if it is not end of list,
+	//			otherwise return -1.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Check whether list is empty.
-	*		@pre	none.
-	*		@post	none.
-	*		@return	return true if list is empty, otherwise false.
-	*/
 	bool IsEmpty();
+	//--------------------------------------------------------------------
+	//	Brief:	Check whether list is empty.
+	//	Pre:	none.
+	//	Post:	none.
+	//	Return:	return true if list is empty, otherwise false.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Search item in accordance with data's student id as a primary key.
-	*		@pre	item's id should be set.
-	*		@post	none.
-	*		@param	data	get item from list.
-	*		@return	return 1 if this function works well, otherwise -1;
-	*/
 	int Get(ItemType& data);
+	//--------------------------------------------------------------------
+	//	Brief:	Search data in accordance with data's serial number,
+	//			and refer the record on argument 'data'.
+	//	Pre:	data's serial number should be set,
+	//			and data is searched from list.
+	//	Post:	the new item is added into the list.
+	//	Param:	data		the target data to be copied.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Delete item in accordance with data's student id as a primary key.
-	*		@pre	item's id should be set.
-	*		@post	an item is removed from an array.
-	*		@param	data	item to delete from list.
-	*		@return return 1 if this function works well, otherwise -1;
-	*/
 	int Delete(ItemType data);
+	//--------------------------------------------------------------------
+	//	Brief:	Delete item in accordance with data's serial number.
+	//	Pre:	data's serial number should be set.
+	//			and data is searched from list.
+	//	Post:	a item is removed from the list.
+	//	Param:	data		the target data to be deleted.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Replace item in accordance with data's student id as a primary key.
-	*		@pre	item's id should be set.
-	*		@post	an item is replaced from an array.
-	*		@param	data	item to be replaced with the data in list.
-	*		@return	return 1 if this function works well, otherwise -1;
-	*/
+
 	int Replace(ItemType data);
+	//--------------------------------------------------------------------
+	//	Brief:	Replace item in accordance with data's serial number.
+	//	Pre:	data's serial number should be set,
+	//			and data is searched from list.
+	//	Post:	a item's record is replaced with new information.
+	//	Param:	data		the target data to be replaced.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
 
 
 private:

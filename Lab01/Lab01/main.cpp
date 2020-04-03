@@ -1,18 +1,20 @@
-/**
-*		Lab01	Music management program
-*		
-*
-*		@mainpage		
-*
-*		@date		2020.04.01
-*		@author		Taemin Im
-*/
+//--------------------------------------------------------------------
+//		Lab01		Music management program
+//		
+//
+//		@mainpage
+//
+//		@date		2020.04.02
+//		@author		Taemin Im
+//--------------------------------------------------------------------
+
 
 #include "Application.h"
 
-/**
-*		Program main function for data structures course.
-*/
+
+//--------------------------------------------------------------------
+//		Program main function for data structures course.
+//--------------------------------------------------------------------
 int main()
 {
 	Application app;		// program application.

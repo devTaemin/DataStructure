@@ -4,137 +4,144 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "ArrayList.h"
-
 using namespace std;
 
+#include "ArrayList.h"
+#include "ItemType.h"
 #define FILENAMESIZE 1024
 
-/**
-*		Application class for item management simply.
-*/
+
+//--------------------------------------------------------------------
+//		Application class for item management simply.
+//--------------------------------------------------------------------
 class Application
 {
 public:
-	/**
-	*		Default constructor
-	*/
 	Application()
+		//--------------------------------------------------------------------
+		//		Default Constructor.
+		//--------------------------------------------------------------------
 	{
 		m_Command = 0;
 	}
 
 
-	/**
-	*		Destructor
-	*/
+
 	~Application() {}
+	//--------------------------------------------------------------------
+	//		Destructor.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Program driver.
-	*		@pre	program is started.
-	*		@post	program is finished.
-	*/
 	void Run();
+	//--------------------------------------------------------------------
+	//	Brief:	Program driver.
+	//	Pre:	program is started.
+	//	Post:	program is finished.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Display command on screen and get a input from keyboard.
-	*		@pre	none.
-	*		@post	none.
-	*		@return user's commands.
-	*/
 	int GetCommand();
+	//--------------------------------------------------------------------
+	//	Brief:	Display command on screen and get a input from keyboard.
+	//	Pre:	none.
+	//	Post:	none.
+	//	Return:	user's commands.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Add new record into list.
-	*		@pre	list should be initialized.
-	*		@post	new record is added into the list.
-	*		@return return 1 if this function works well, otherwise -1.
-	*/
 	int AddMusic();
+	//--------------------------------------------------------------------
+	//	Brief:	Add new music record into list.
+	//	Pre:	list should be initialized.
+	//	Post:	new music record is added into the list.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Display all record in the list on screen.
-	*		@pre	none.
-	*		@post	none.
-	*/
 	void DisplayAllMusic();
+	//--------------------------------------------------------------------
+	//	Brief:	Display all music record on screen.
+	//	Pre:	none.
+	//	Post:	none.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Open a file by file descriptor as an input file.
-	*		@pre	a file for reading is exist.
-	*		@post	open the file for reading.
-	*		@param	fileName	a file to open for reading.
-	*		@return return 1 if this function works well, otherwise -1.
-	*/
 	int OpenInFile(char* fileName);
+	//--------------------------------------------------------------------
+	//	Brief:	Open a file by file descriptor as an input file.
+	//	Pre:	a file for reading is exist.
+	//	Post:	open the file for reading.
+	//	Param:	fileName		a file to open for reading.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Open a file by file descriptor as an output file.
-	*		@pre	list should be initialized.
-	*		@post	open the file for writing.
-	*		@param	fileName	a filename to open for writing.
-	*		@return return 1 if this function works well, otherwise -1.
-	*/
 	int OpenOutFile(char* fileName);
+	//--------------------------------------------------------------------
+	//	Brief:	Open a file by file descriptor as an output file.
+	//	Pre:	list should be initialized.
+	//	Post:	open the file for writing.
+	//	Param	fileName		a filename to open for writing.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Open a file as a read mode, read all data on the file, and set list by the data.
-	*		@pre	The file is not opened.
-	*		@post	list holds all records from the file.
-	*		@return return 1 if this function works well, otherwise -1.
-	*/
 	int ReadDataFromFile();
+	//--------------------------------------------------------------------
+	//	Brief:	Open a file as a read mode, 
+	//			read all data on the file,
+	//			and set list by the data.
+	//	Pre:	The file is not opened.
+	//	Post:	list holds all records from the file.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Open a file as a write mode, and write all data into the file.
-	*		@pre	the file is not opened.
-	*		@post	the list is stored in the output file.
-	*		@return return 1 if this function works well, otherwise -1.
-	*/
 	int WriteDataToFile();
+	//--------------------------------------------------------------------
+	//	Brief:	Open a file as a write mode,
+	//			and write all data into the file.
+	//	Pre:	the file is not opened.
+	//	Post:	the list is stored in the output file.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Search record of music by serial number from KB.
-	*		@pre	the list is initialized.
-	*		@post	none.
-	*		@return	return 1 if this function works well, otherwise -1.
-	*/
 	int RetrieveMusic();
+	//--------------------------------------------------------------------
+	//	Brief:	Search record of music by serial number from KB.
+	//	Pre:	the list is initialized.
+	//	Post:	none.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Delete record of music by serial_number from KB.
-	*		@pre	the list is initialized.
-	*		@post	a student's record is deleted from an array.
-	*		@return return 1 if this function works well, otherwise -1.
-	*/
 	int DeleteMusic();
+	//--------------------------------------------------------------------
+	//	Brief:	Delete record of music by serial_number from KB.
+	//	Pre:	the list is initialized.
+	//	Post:	a record is deleted from the list.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
 
 
-	/**
-	*		@brief	Replace studnet's record by finding based on serial number, and input information.
-	*		@pre	the list is initialized.
-	*		@post	record of music is replaced from an array.
-	*		@return	return 1 if this function works well, otherwise -1.
-	*/
 	int ReplaceMusic();
+	//--------------------------------------------------------------------
+	//	Brief:	Replace record's contents with newly input contents.
+	//	Pre:	the list is initialized.
+	//	Post:	a record of music is replaced from the list.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
 
-	/**
-	*		@brief	Make list empty;
-	*		@pre	none.
-	*		@post	clear list
-	*/
+
 	void MakeEmpty();
+	//--------------------------------------------------------------------
+	//	Brief:	Make list empty.
+	//	Pre:	none.
+	//	Post:	clear list.
+	//--------------------------------------------------------------------
+
 
 private:
 	ifstream m_InFile;		///< input file descriptor.

@@ -73,7 +73,7 @@ int Application::AddMusic()
 	if (m_List.IsFull())
 	{
 		cout << "\tList is full!" << '\n';
-		return -1;
+		return 0;
 	}
 
 	// if array is not full, set record from keyboard input.
@@ -126,24 +126,24 @@ void Application::DisplayAllMusic()
 // Open a file by file descriptor as an input file.
 int Application::OpenInFile(char* fileName)
 {
-	// return 1 if the file is opened successfully, otherwise return -1.
+	// return 1 if the file is opened successfully, otherwise return 0.
 	m_InFile.open(fileName);
 	if (m_InFile.is_open()) {
 		return 1;
 	}
-	return -1;
+	return 0;
 }
 
 
 // Open a file by file descriptor as an output file.
 int Application::OpenOutFile(char* fileName)
 {
-	// return 1 if the file is opened successfully, otherwise return -1.
+	// return 1 if the file is opened successfully, otherwise return 0.
 	m_OutFile.open(fileName);
 	if (m_OutFile.is_open()) {
 		return 1;
 	}
-	return -1;
+	return 0;
 }
 
 
@@ -155,9 +155,9 @@ int Application::ReadDataFromFile()
 	cout << "\n\tEnter file name : ";
 	cin >> filename;
 
-	// check if file is opened successfully. if not, return -1.
-	if (OpenInFile(filename) == -1)
-		return -1;
+	// check if file is opened successfully. if not, return 0.
+	if (OpenInFile(filename) == 0)
+		return 0;
 
 	// Until file reaches the end of contents, read data from file to itemtype variable.
 	ItemType temp;
@@ -187,9 +187,9 @@ int Application::WriteDataToFile()
 	cout << "\n\tEnter file name : ";
 	cin >> filename;
 
-	// check if file is opened successfully. if not, return -1.
-	if (OpenOutFile(filename) == -1)
-		return -1;
+	// check if file is opened successfully. if not, return 0.
+	if (OpenOutFile(filename) == 0)
+		return 0;
 
 	// use the length of array to loop items in array.
 	ItemType temp;
@@ -215,13 +215,13 @@ int Application::RetrieveMusic()
 	// set id on itemtype variable to find out record in the array based on id as a primary key.
 	ItemType Item;
 	Item.SetSerial_NumberFromKB();
-	// display record and return 1 if item is founded, otherwise return -1.
+	// display record and return 1 if item is founded, otherwise return 0.
 	if (m_List.Get(Item) == 1) {
 		Item.DisplayRecordOnScreen();
 		return 1;
 	}
 	else {
-		return -1;
+		return 0;
 	}
 }
 
@@ -232,13 +232,13 @@ int Application::DeleteMusic()
 	// set serial number on itemtype variable to find out and delete the record in the array based on id as a primary key.
 	ItemType Item;
 	Item.SetSerial_NumberFromKB();
-	// return 1 if item is foudned and deleted successfully, otherwise -1.
+	// return 1 if item is foudned and deleted successfully, otherwise 0.
 	if (m_List.Delete(Item) == 1) {
 		cout << "\tSuccess to delete!" << '\n';
 		return 1;
 	}
 	else {
-		return -1;
+		return 0;
 	}
 }
 
@@ -250,13 +250,13 @@ int Application::ReplaceMusic()
 	// and replace the record in the array based on serial number as a primary key.
 	ItemType Item;
 	Item.SetRecordFromKB();
-	// return 1 if item is founded and replaced successfully, otherwise -1.
+	// return 1 if item is founded and replaced successfully, otherwise 0.
 	if (m_List.Replace(Item) == 1) {
 		cout << "\tSuccess to replace!" << '\n';
 		return 1;
 	}
 	else {
-		return -1;
+		return 0;
 	}
 }
 

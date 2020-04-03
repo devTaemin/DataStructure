@@ -69,7 +69,7 @@ bool ArrayList::IsEmpty()
 int ArrayList::Get(ItemType& data)
 {
 	if (IsEmpty()) {						// check if list is empty or not.
-		return -1;							// if list is empty, return -1 and stop the function.
+		return 0;							// if list is empty, return 0 and stop the function.
 	}
 
 	ResetList();							// before starting to search item, initialize pointer.
@@ -81,7 +81,7 @@ int ArrayList::Get(ItemType& data)
 		}
 	}
 	cout << "\tFail to get item!" << '\n';
-	return -1;	// if there's no matching item, return -1 and stop the function
+	return 0;	// if there's no matching item, return 0 and stop the function
 }
 
 
@@ -89,7 +89,7 @@ int ArrayList::Get(ItemType& data)
 int ArrayList::Delete(ItemType data)
 {
 	if (IsEmpty()) {							// check if list is empty or not.
-		return -1;								// if list is empty, return -1 and stop the function.
+		return 0;								// if list is empty, return 0 and stop the function.
 	}
 
 	bool isFind = false;						// check if matching item is founded or not.
@@ -109,9 +109,9 @@ int ArrayList::Delete(ItemType data)
 		m_Length--;
 		return 1;
 	}
-	else {										// if not, display the sign of failure, and return -1.
+	else {										// if not, display the sign of failure, and return 0.
 		cout << "\tFail to find and delete item!" << '\n';
-		return -1;
+		return 0;
 	}
 }
 
@@ -120,7 +120,7 @@ int ArrayList::Delete(ItemType data)
 int ArrayList::Replace(ItemType data)
 {
 	if (IsEmpty()) {							// check if list is empty or not.
-		return -1;								// if list is empty, return -1 and stop the function.
+		return 0;								// if list is empty, return 0 and stop the function.
 	}
 
 	bool isFind = false;						// check if matching item is founded or not.
@@ -140,8 +140,8 @@ int ArrayList::Replace(ItemType data)
 	if (isFind) {								// if matching item is founded, return 1.
 		return 1;
 	}
-	else {										// if not, display the sign of failure, and return -1.
+	else {										// if not, display the sign of failure, and return 0.
 		cout << "\tFail to find and replace item!" << '\n';
-		return -1;
+		return 0;
 	}
 }
