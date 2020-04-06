@@ -6,16 +6,10 @@
 #include <string>
 using namespace std;
 
-enum RelationType {LESS, EQUAL, GREATER};
-	//--------------------------------------------------------------------
-	//		Relation between items.
-	//--------------------------------------------------------------------
-
-
-enum Genre { CLASSIC, JAZZ, BLUES, HIPHOP, COUNTRY, POP, ELECTRONICA, REST, UNDECIDED };
-	//--------------------------------------------------------------------
-	//		Music genres
-	//--------------------------------------------------------------------	
+enum RelationType { LESS, EQUAL, GREATER };
+//--------------------------------------------------------------------
+//		Relation between items.
+//--------------------------------------------------------------------
 
 
 //--------------------------------------------------------------------
@@ -25,15 +19,13 @@ class ItemType
 {
 public:
 	ItemType()
-	//--------------------------------------------------------------------
-	//		Default Constructor.
-	//--------------------------------------------------------------------
+		//--------------------------------------------------------------------
+		//		Default Constructor.
+		//--------------------------------------------------------------------
 	{
-		Music = "";
-		Composer = "";
-		Player = "";
-		Type = UNDECIDED;
-		Serial_Number = -1;
+		m_Id = -1;
+		m_sName = "";
+		m_sAddress = "";
 	}
 
 
@@ -43,263 +35,190 @@ public:
 	//--------------------------------------------------------------------
 
 
-	string GetMusic() const;
-		//--------------------------------------------------------------------
-		//	Brief:	Get music name.
-		//	Pre:	music name is set.
-		//	Post:	none.
-		//	Return: music name.
-		//--------------------------------------------------------------------
+	int GetId() const;
+	//--------------------------------------------------------------------
+	//	Brief:	Get student id.
+	//	Pre:	student id is set.
+	//	Post:	none.
+	//	Return: student id.
+	//--------------------------------------------------------------------
 
 
-	string GetComposer() const;
-		//--------------------------------------------------------------------
-		//	Brief:	Get composer name.
-		//	Pre:	composer name is set.
-		//	Post:	none.
-		//	Return:	composer name.
-		//--------------------------------------------------------------------
+	string GetName() const;
+	//--------------------------------------------------------------------
+	//	Brief:	Get student name.
+	//	Pre:	student name is set.
+	//	Post:	none.
+	//	Return:	student name.
+	//--------------------------------------------------------------------
 
 
-	string GetPlayer() const;
-		//--------------------------------------------------------------------
-		//	Brief:	Get player name.
-		//	Pre:	player name is set.
-		//	Post:	none.
-		//	Return:	player name.
-		//--------------------------------------------------------------------
+	string GetAddress() const;
+	//--------------------------------------------------------------------
+	//	Brief:	Get student address.
+	//	Pre:	student address is set.
+	//	Post:	none.
+	//	Return:	student address.
+	//--------------------------------------------------------------------
+
+	void SetId(int inId);
+	//--------------------------------------------------------------------
+	//	Brief:	Set student id.
+	//	Pre:	none.
+	//	Post:	student id is set.
+	//	Param:	inId		studnet id.
+	//--------------------------------------------------------------------
 
 
-	Genre GetType() const;
-		//--------------------------------------------------------------------
-		//	Brief:	Get type name.
-		//	Pre:	type name is set.
-		//	Post:	none.
-		//	Return: type name.
-		//--------------------------------------------------------------------
+	void SetName(string inName);
+	//--------------------------------------------------------------------
+	//	Brief:	Set student name.
+	//	Pre:	none.
+	//	Post:	student name is set.
+	//	Param	inName		student name.
+	//--------------------------------------------------------------------
 
 
-	int GetSerial_Number() const;
-		//--------------------------------------------------------------------
-		//	Brief:	Get serial number.
-		//	Pre:	serial number is set.
-		//	Post:	none.
-		//	Return:	serial number.
-		//--------------------------------------------------------------------
+	void SetAddress(string inAddress);
+	//--------------------------------------------------------------------
+	//	Brief:	Set student address.
+	//	Pre:	none.
+	//	Post:	student address is set.
+	//	Param:	inAddress		student address.
+	//--------------------------------------------------------------------
 
 
-	void SetMusic(string inMusic);
-		//--------------------------------------------------------------------
-		//	Brief:	Set music name.
-		//	Pre:	none.
-		//	Post:	music name is set.
-		//	Param:	inMusic		music name.
-		//--------------------------------------------------------------------
+	void SetRecord(int inId, string inName, string inAddress);
+	//--------------------------------------------------------------------
+	//	Brief:	Set student record.
+	//	Pre:	none.
+	//	Post:	student record is set.
+	//	Param:	inId		student id.
+	//	Param	inName		student name.
+	//	Param:	inAddress		student address.
+	//--------------------------------------------------------------------
 
 
-	void SetComposer(string inComposer);
-		//--------------------------------------------------------------------
-		//	Brief:	Set composer name.
-		//	Pre:	none.
-		//	Post:	composer name is set.
-		//	Param	inComposer		composer name.
-		//--------------------------------------------------------------------
+	void DisplayIdOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display student id on screen.
+	//	Pre:	student id is set.
+	//	Post:	student id is on screen.
+	//--------------------------------------------------------------------
 
 
-	void SetPlayer(string inPlayer);
-		//--------------------------------------------------------------------
-		//	Brief:	Set player name.
-		//	Pre:	none.
-		//	Post:	player name is set.
-		//	Param:	inPlayer		player name.
-		//--------------------------------------------------------------------
+	void DisplayNameOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display student name on screen.
+	//	Pre:	student name is set.
+	//	Post:	student name is on screen.
+	//--------------------------------------------------------------------
 
 
-	void SetType(int inType);
-		//--------------------------------------------------------------------
-		//	Brief:	Set type name.
-		//	Pre:	none.
-		//	Post:	type name is set.
-		//	Param:	inType		type name.
-		//--------------------------------------------------------------------
-
-
-	void SetSerial_Number(int inSerial_Number);
-		//--------------------------------------------------------------------
-		//	Brief:	Set serial number.
-		//	Pre:	none.
-		//	Post:	serial number is set.
-		//	Param:	inSerial_Number		serial number.
-		//--------------------------------------------------------------------
-
-
-	void SetRecord(string inMusic, string inComposer, string inPlayer, int inType, int inSerial_Number);
-		//--------------------------------------------------------------------
-		//	Brief:	Set record of music.
-		//	Pre:	none.
-		//	Post:	a record of music is set.
-		//	Param:	inMusic		music name.
-		//	Param	inComposer		composer name.
-		//	Param:	inPlayer		player name.
-		//	Param:	inType		type name.
-		//	Param:	inSerial_Number		serial number.
-		//--------------------------------------------------------------------
-
-
-	void DisplayMusicOnScreen();
-		//--------------------------------------------------------------------
-		//	Brief:	Display music name on screen.
-		//	Pre:	music name is set.
-		//	Post:	music name is on screen.
-		//--------------------------------------------------------------------
-
-
-	void DisplayComposerOnScreen();
-		//--------------------------------------------------------------------
-		//	Brief:	Display composer name on screen.
-		//	Pre:	composer name is set.
-		//	Post:	composer name is on screen.
-		//--------------------------------------------------------------------
-
-
-	void DisplayPlayerOnScreen();
-		//--------------------------------------------------------------------
-		//	Brief:	Display player name on screen.
-		//	Pre:	player name is set.
-		//	Post:	player name is on screen.
-		//--------------------------------------------------------------------
-
-
-	void DisplayTypeOnScreen();
-		//--------------------------------------------------------------------
-		//	Brief:	Display type name on screen.
-		//	Pre:	type name is set.
-		//	Post:	type name is on screen.
-		//--------------------------------------------------------------------
-
-
-	void DisplaySerial_NumberOnScreen();
-		//--------------------------------------------------------------------
-		//	Brief:	Display serial number on screen.
-		//	Pre:	serial number is set.
-		//	Post:	serial number is on screen.
-		//--------------------------------------------------------------------
+	void DisplayAddressOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display student address on screen.
+	//	Pre:	student address is set.
+	//	Post:	student address is on screen.
+	//--------------------------------------------------------------------
 
 
 	void DisplayRecordOnScreen();
-		//--------------------------------------------------------------------
-		//	Brief:	Display record of music on screen.
-		//	Pre:	a record is set.
-		//	Post:	a record is on screen.
-		//--------------------------------------------------------------------
+	//--------------------------------------------------------------------
+	//	Brief:	Display student record on screen.
+	//	Pre:	student record is set.
+	//	Post:	student record is on screen.
+	//--------------------------------------------------------------------
 
 
-	void SetMusicFromKB();
-		//--------------------------------------------------------------------
-		//	Brief:	Set music name from keyboard.
-		//	Pre:	none.
-		//	Post:	music name is set.
-		//--------------------------------------------------------------------
+	void SetIdFromKB();
+	//--------------------------------------------------------------------
+	//	Brief:	Set student id from keyboard.
+	//	Pre:	none.
+	//	Post:	student id is set.
+	//--------------------------------------------------------------------
 
 
-	void SetComposerFromKB();
-		//--------------------------------------------------------------------
-		//	Brief:	Set composer name from keyboard
-		//	Pre:	none.
-		//	Post:	composer name is set.
-		//--------------------------------------------------------------------
+	void SetNameFromKB();
+	//--------------------------------------------------------------------
+	//	Brief:	Set student name from keyboard
+	//	Pre:	none.
+	//	Post:	student name is set.
+	//--------------------------------------------------------------------
 
 
-	void SetPlayerFromKB();
-		//--------------------------------------------------------------------
-		//	Brief:	Set player name from keyboard.
-		//	Pre:	none.
-		//	Post:	player name is set.
-		//--------------------------------------------------------------------
-
-
-	void SetTypeFromKB();
-		//--------------------------------------------------------------------
-		//	Brief:	Set type name from keyboard.
-		//	Pre:	none.
-		//	Post:	type name is set.
-		//--------------------------------------------------------------------
-
-
-	void SetSerial_NumberFromKB();
-		//--------------------------------------------------------------------
-		//	Brief:	Set serial number from keyboard.
-		//	Pre:	none.
-		//	Post:	serial number is set.
-		//--------------------------------------------------------------------
+	void SetAddressFromKB();
+	//--------------------------------------------------------------------
+	//	Brief:	Set student address from keyboard.
+	//	Pre:	none.
+	//	Post:	student address is set.
+	//--------------------------------------------------------------------
 
 
 	void SetRecordFromKB();
-		//--------------------------------------------------------------------
-		//	Brief:	Set a record from keyboard.
-		//	Pre:	none.
-		//	Post:	a record is set.
-		//--------------------------------------------------------------------
+	//--------------------------------------------------------------------
+	//	Brief:	Set student record from keyboard.
+	//	Pre:	none.
+	//	Post:	student record is set.
+	//--------------------------------------------------------------------
 
 
 	int ReadDataFromFile(ifstream& fin);
-		//--------------------------------------------------------------------
-		//	Brief:	Read a record from a file.
-		//	Pre:	the target file is opened.
-		//	Post:	new record is set.
-		//	Param:	fin		file descriptor.
-		//	Return:	return 1 if this function works well, otherwise 0.
-		//--------------------------------------------------------------------
+	//--------------------------------------------------------------------
+	//	Brief:	Read a record from a file.
+	//	Pre:	the target file is opened.
+	//	Post:	student record is set.
+	//	Param:	fin		file descriptor.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
 
 
 	int WriteDataToFile(ofstream& fout);
-		//--------------------------------------------------------------------
-		//	Brief:	Write a record into file.
-		//	Pre:	the target file is opened, and the list is initialized.
-		//	Post:	the target file includes new record.
-		//	Param:	fout		file descriptor.
-		//	Return:	return 1 if this function works well, otherwise 0.
-		//--------------------------------------------------------------------
+	//--------------------------------------------------------------------
+	//	Brief:	Write a record into file.
+	//	Pre:	the target file is opened, and the list is initialized.
+	//	Post:	the target file includes new record.
+	//	Param:	fout		file descriptor.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
 
 
-	RelationType CompareBySerial_Number(const ItemType& data);
-		//--------------------------------------------------------------------
-		//	Brief:	Compare two item's serial number.
-		//	Pre:	two items should be initialized.
-		//	Post:	the target file includes the new item record.
-		//	Param:	data		target item for comparing.
-		//	Return:	return LESS if this.Serial_Number < data.Serial_Number,
-		//				   EQUAL if this.Serial_Number == data.Serial_Number,
-		//				   GREATER if this.Serial_Number > data.Serial_Number.
-		//--------------------------------------------------------------------
+	RelationType Compare(const ItemType& data);
+	//--------------------------------------------------------------------
+	//	Brief:	Compare two itemtypes by item id.
+	//	Pre:	two items should be initialized.
+	//	Post:	the target file includes the new item record.
+	//	Param:	data		target item for comparing.
+	//	Return:	return LESS if this.id < data.id,
+	//				   EQUAL if this.id == data.id,
+	//				   GREATER if this.id > data.id.
+	//--------------------------------------------------------------------
 
 
 	bool operator==(const ItemType& A);
-		//--------------------------------------------------------------------
-		//	Brief:	Compare serial number by operator==.
-		//	Pre:	both items' serial number should be set.
-		//	Post:	none.
-		//	Param:	A		target item for comparing.
-		//	Return:	return true if this.Serial_Number == A.Serial_Number,
-		//				   false if this.Serial_Number != A.Serial_Number.
-		//--------------------------------------------------------------------
+	//--------------------------------------------------------------------
+	//	Brief:	Compare id by operator==.
+	//	Pre:	both items' serial number should be set.
+	//	Post:	none.
+	//	Param:	A		target item for comparing.
+	//	Return:	return true if this.id == A.id,
+	//				   false if this.id != A.id.
+	//--------------------------------------------------------------------
 
 
 	void operator=(const ItemType& _item);
-		//--------------------------------------------------------------------
-		//	Brief:	Copy the record by operator=.
-		//	Pre:	target item's record, going to be copied, should be set.
-		//	Post:	a record is copied from target item.
-		//	Param:	_item		the target item.
-		//--------------------------------------------------------------------
+	//--------------------------------------------------------------------
+	//	Brief:	Copy the record by operator=.
+	//	Pre:	target item's record, going to be copied, should be set.
+	//	Post:	a record is copied from target item.
+	//	Param:	_item		the target item.
+	//--------------------------------------------------------------------
 
 
 private:
-	string Music;
-	string Composer;
-	string Player;
-	Genre Type;
-	int Serial_Number;
+	int m_Id;			///< item ID.
+	string m_sName;		///< item name.
+	string m_sAddress;	///< item address.
 };
 
 #endif _ITEMTYPE_H_

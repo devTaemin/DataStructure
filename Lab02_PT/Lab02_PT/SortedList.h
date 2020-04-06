@@ -91,7 +91,7 @@ public:
 	//--------------------------------------------------------------------
 	//	Brief:	Add a new data into list.
 	//	Pre:	list should be initialized.
-	//	Post:	add the new record into the list.
+	//	Post:	add the new record in sorted ways into the list 
 	//	Param:	data		new data.
 	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
@@ -101,7 +101,6 @@ public:
 	//--------------------------------------------------------------------
 	//	Brief:	Delete item in accordance with data's primary key.
 	//	Pre:	data's serial number should be set.
-	//			and data is searched from list.
 	//	Post:	a item is removed from the list.
 	//	Param:	data		the target data to be deleted.
 	//	Return:	return 1 if this function works well, otherwise 0.
@@ -112,19 +111,18 @@ public:
 	//--------------------------------------------------------------------
 	//	Brief:	Find same record using primary key and replace it.
 	//	Pre:	data's serial number should be set,
-	//			and data is searched from list.
 	//	Post:	a item's record is replaced with new information.
 	//	Param:	data		the target data to be replaced.
 	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
 
 
-	int Retrieve(ItemType& target);
+	int Retrieve_SeqS(ItemType& data);
 	//--------------------------------------------------------------------
 	//	Brief:	Find the item whose primary key matches with the primary 
 	//			key of target. and get the item in target.
 	//	Pre:	the list should be initialized.
-	//	Post:	matching item is founded and refered by target.
+	//	Post:	matching item is founded and refered the record by target.
 	//	Param:	target		the target item to retrieve.
 	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
@@ -134,12 +132,12 @@ public:
 	//--------------------------------------------------------------------
 	//	Brief:	Retrieve by using binary search.
 	//	Pre:	the list should be initialized.
-	//	Post:	matching item is founded and refered by data.
+	//	Post:	matching item is founded and refered the record by data.
 	//	Param:	data		the target data to retrieve.
 	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
 
-	
+
 private:
 	ItemType m_Array[MAXSIZE];	///< list array.
 	int m_Length;				///< number of elements in list.

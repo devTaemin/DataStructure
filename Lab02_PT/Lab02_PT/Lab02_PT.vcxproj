@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{641394FA-F5D1-42BF-A868-B02A3E2301FE}</ProjectGuid>
+    <ProjectGuid>{6A0445AE-78EC-4707-A662-BE00A79913B0}</ProjectGuid>
     <RootNamespace>Lab02PT</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -139,14 +139,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="ArrayList.cpp" />
     <ClCompile Include="ItemType.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SortedList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
-    <ClInclude Include="ArrayList.h" />
     <ClInclude Include="ItemType.h" />
     <ClInclude Include="SortedList.h" />
   </ItemGroup>

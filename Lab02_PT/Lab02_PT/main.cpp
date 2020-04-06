@@ -4,10 +4,9 @@
 //
 //		@mainpage
 //
-//		@date		2020.04.03
+//		@date		2020.04.06
 //		@author		Taemin Im
 //
-//		Memo:		On working with 'SortedList.cpp' - want to optimize codes
 //--------------------------------------------------------------------
 
 #include "Application.h"

@@ -1,281 +1,172 @@
 #include "ItemType.h"
 
 
-// Get music name.
-string ItemType::GetMusic() const
+// Get student id.
+int ItemType::GetId() const
 {
-	return Music;
+	return m_Id;
 }
 
 
-// Get composer name.
-string ItemType::GetComposer() const
+// Get student name.
+string ItemType::GetName() const
 {
-	return Composer;
+	return m_sName;
 }
 
 
-// Get player name.
-string ItemType::GetPlayer() const
+// Get student address
+string ItemType::GetAddress() const
 {
-	return Player;
+	return m_sAddress;
 }
 
 
-// Get type of music.
-Genre ItemType::GetType() const
+// Set student id.
+void ItemType::SetId(int inId)
 {
-	return Type;
+	m_Id = inId;
 }
 
 
-// Get serial_number of music.
-int ItemType::GetSerial_Number() const
+// Set student name.
+void ItemType::SetName(string inName)
 {
-	return Serial_Number;
+	m_sName = inName;
 }
 
 
-// Set music name.
-void ItemType::SetMusic(string inMusic)
+// Set student address.
+void ItemType::SetAddress(string inAddress)
 {
-	Music = inMusic;
+	m_sAddress = inAddress;
 }
 
 
-// Set composer name.
-void ItemType::SetComposer(string inComposer)
+// Set student record.
+void ItemType::SetRecord(int inId, string inName, string inAddress)
 {
-	Composer = inComposer;
+	SetId(inId);
+	SetName(inName);
+	SetAddress(inAddress);
 }
 
 
-// Set player name.
-void ItemType::SetPlayer(string inPlayer)
+// Display student id on screen.
+void ItemType::DisplayIdOnScreen()
 {
-	Player = inPlayer;
-}
+	cout << "\tID   : " << m_Id << endl;
+};
 
 
-// Set type of music.
-void ItemType::SetType(int inType)
-{	
-	//CLASSIC(0), JAZZ(1), BLUES(2), HIPHOP(3), COUNTRY(4), POP(5), ELECTRONICA(6), REST(7), UNDECIDED(8)
-	switch (inType)
-	{
-	case(0):
-		Type = CLASSIC;
-		break;
-	case(1):
-		Type = JAZZ;
-		break;
-	case(2):
-		Type = BLUES;
-		break;
-	case(3):
-		Type = HIPHOP;
-		break;
-	case(4):
-		Type = COUNTRY;
-		break;
-	case(5):
-		Type = POP;
-		break;
-	case(6):
-		Type = ELECTRONICA;
-		break;
-	case(7):
-		Type = REST;
-		break;
-	case(8):
-		Type = UNDECIDED;
-		break;
-	default:
-		cout << "\tWrong type input!" << '\n';
-		break;
-	}
-}
-
-
-// Set serial number of music.
-void ItemType::SetSerial_Number(int inSerial_Number)
+// Display student name on screen.
+void ItemType::DisplayNameOnScreen()
 {
-	Serial_Number = inSerial_Number;
-}
+	cout << "\tName : " << m_sName << endl;
+};
 
 
-// Set record of music.
-void ItemType::SetRecord(string inMusic, string inComposer, string inPlayer, int inType, int inSerial_Number)
+// Display student address on screen.
+void ItemType::DisplayAddressOnScreen()
 {
-	SetMusic(inMusic);
-	SetComposer(inComposer);
-	SetPlayer(inPlayer);
-	SetType(inType);
-	SetSerial_Number(inSerial_Number);
-}
+	cout << "\tAddress : " << m_sAddress << endl;
+};
 
 
-// Display music name on screen.
-void ItemType::DisplayMusicOnScreen()
-{
-	cout << "\tMusic : " << GetMusic() << '\n';
-}
-
-
-// Display composer name on screen.
-void ItemType::DisplayComposerOnScreen()
-{
-	cout << "\tComposer : " << GetComposer() << '\n';
-}
-
-
-// Display player name on screen.
-void ItemType::DisplayPlayerOnScreen()
-{
-	cout << "\tPlayer : " << GetPlayer() << '\n';
-}
-
-
-// Display type name on screen.
-void ItemType::DisplayTypeOnScreen()
-{
-	cout << "\tType : " << GetType() << '\n';
-}
-
-
-// Display serial_number on screen.
-void ItemType::DisplaySerial_NumberOnScreen()
-{
-	cout << "\tSerial_number : " << GetSerial_Number() << '\n';
-}
-
-
-// Display a record on screen.
+// Display an student record on screen.
 void ItemType::DisplayRecordOnScreen()
 {
-	cout << '\n';
-	DisplayMusicOnScreen();
-	DisplayComposerOnScreen();
-	DisplayPlayerOnScreen();
-	DisplayTypeOnScreen();
-	DisplaySerial_NumberOnScreen();
-}
+	DisplayIdOnScreen();
+	DisplayNameOnScreen();
+	DisplayAddressOnScreen();
+};
 
 
-// Set music name from keyboard.
-void ItemType::SetMusicFromKB()
+// Set student id from keyboard.
+void ItemType::SetIdFromKB()
 {
-	cout << "\tMusic : ";
-	cin >> Music;
+	cout << "\tID : ";
+	cin >> m_Id;
 }
 
 
-// Set composer name from keyboard.
-void ItemType::SetComposerFromKB()
+// Set student name from keyboard.
+void ItemType::SetNameFromKB()
 {
-	cout << "\tComposer : ";
-	cin >> Composer;
+	cout << "\tName : ";
+	cin >> m_sName;
 }
 
 
-// Set player name from keyboard.
-void ItemType::SetPlayerFromKB()
+// Set student address from keyboard.
+void ItemType::SetAddressFromKB()
 {
-	cout << "\tPlayer : ";
-	cin >> Player;
+	cout << "\tAddress : ";
+	cin >> m_sAddress;
 }
 
 
-// Set type name from keyboard.
-void ItemType::SetTypeFromKB()
-{
-	int inType;
-	cout << "\tChoose among CLASSIC(0), JAZZ(1), BLUES(2), HIPHOP(3), COUNTRY(4), POP(5), ELECTRONICA(6), REST(7), UNDECIDED(8)\n";
-	cout << "\tGenre : ";
-	cin >> inType;
-	SetType(inType);
-}
-
-
-// Set serial number from keyboard.
-void ItemType::SetSerial_NumberFromKB()
-{
-	cout << "\tSerial Number : ";
-	cin >> Serial_Number;
-}
-
-
-
-// Set a record from keyboard.
+// Set student record from keyboard.
 void ItemType::SetRecordFromKB()
 {
-	SetMusicFromKB();
-	SetComposerFromKB();
-	SetPlayerFromKB();
-	SetTypeFromKB();
-	SetSerial_NumberFromKB();
+	SetIdFromKB();
+	SetNameFromKB();
+	SetAddressFromKB();
 }
 
 
 // Read a record from file.
 int ItemType::ReadDataFromFile(ifstream& fin)
 {
-	int inType;
-	fin >> Music; 
-	fin >> Composer; 
-	fin >> Player; 
-	fin >> inType; 
-	fin >> Serial_Number;
+	fin >> m_Id;
+	fin >> m_sName;
+	fin >> m_sAddress;
+
 	return 1;
-}
+};
 
 
 // Write a record into file.
 int ItemType::WriteDataToFile(ofstream& fout)
 {
-	fout << Music << " ";
-	fout << Composer << " ";
-	fout << Player << " ";
-	fout << Type << " ";
-	fout << Serial_Number << " ";
+	fout << m_Id << " ";
+	fout << m_sName << " ";
+	fout << m_sAddress;
 	fout << '\n';
+
 	return 1;
 }
 
 
-// Compare two items' serial number.
-RelationType ItemType::CompareBySerial_Number(const ItemType& data)
+// Compare two itemtypes.
+RelationType ItemType::Compare(const ItemType& data)
 {
-	if (this->GetSerial_Number() > data.GetSerial_Number()) {
+	if (this->m_Id > data.m_Id)
 		return GREATER;
-	}
-	else if (this->GetSerial_Number() < data.GetSerial_Number()) {
+	else if (this->m_Id < data.m_Id)
 		return LESS;
-	}
-	else {
+	else
 		return EQUAL;
-	}
 }
-
 
 // Compare id by operator==.
 bool ItemType::operator==(const ItemType& A)
 {
-	if (CompareBySerial_Number(A) == EQUAL) {
+	if (this->GetId() == A.GetId()) {
 		return true;
 	}
 	else { return false; }
 }
 
 
-
 // Copy the rocord by operator=.
 void ItemType::operator=(const ItemType& _item)
 {
-	string inMusic = _item.GetMusic();
-	string inComposer = _item.GetComposer();
-	string inPlayer = _item.GetPlayer();
-	Genre inType = _item.GetType();
-	int inSerial_Number = _item.GetSerial_Number();
-	this->SetRecord(inMusic, inComposer, inPlayer, inType, inSerial_Number);
+	int id = _item.GetId();
+	string name = _item.GetName();
+	string address = _item.GetAddress();
+
+	this->SetId(id);
+	this->SetName(name);
+	this->SetAddress(address);
 }
