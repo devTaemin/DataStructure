@@ -133,7 +133,7 @@ void ItemType::SetTypeFromKB()
 {
 	int inType;
 	while (1) {
-		cout << "\tType (1: 필기류, 2: 책)  : ";
+		cout << "\tType (1. 필기류, 2. 책)  : ";
 		cin >> inType;
 		if (inType == 1 || inType == 2) {
 			SetType(inType);
@@ -216,7 +216,7 @@ int ItemType::WriteDataToFile(ofstream& fout)
 }
 
 
-// Compare two itemtypes.
+// Compare two itemtypes by Serial.
 RelationType ItemType::Compare_Serial(const ItemType& data)
 {
 	if (this->Serial > data.Serial)
@@ -240,7 +240,7 @@ RelationType ItemType::Compare_Type(const ItemType& data)
 }
 
 
-//Compare two itemtypes by Type.
+//Compare two itemtypes by Name.
 RelationType ItemType::Compare_Name(const ItemType& data)
 {
 	if (this->Name > data.Name)
@@ -250,4 +250,3 @@ RelationType ItemType::Compare_Name(const ItemType& data)
 	else
 		return EQUAL;
 }
-

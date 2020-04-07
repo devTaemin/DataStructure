@@ -294,6 +294,7 @@ int Application::SearchBySerial_BinaryS()
 		return 1;
 	}
 	cout << "<==========I CAN'T FIND ITEM !==========>" << endl;
+
 	return 0;
 
 }
@@ -303,24 +304,20 @@ int Application::SearchBySerial_BinaryS()
 int Application::ReplaceFromKB_BinaryS()
 {
 	//----------------------------------------------------------------
-	// (1) 찾고자 하는 item의 id를 입력한다.
+	// (1) 찾고자 하는 item의 Record를 입력한다.
 	// (2) 이진탐색 함수를 이용하여 검색하고, 내용을 교체한다.
 	//     - 수행 성공(1)시, message, display and 1 return.
 	//     - 수행 실패(0)시, message and 0 return. 
 	// ---------------------------------------------------------------
 
 	ItemType item;												// (1).
-	item.SetSerialFromKB();
-
-	if (m_List.RetrieveByBS(item))								// (2).
-	{
+	item.SetRecordFromKB();
+	if (m_List.Replace(item)) {									// (2).
 		cout << "\t<==========I NEW RECORD |==========>" << endl;
-		item.SetRecordFromKB();
+		item.DisplayRecordOnScreen();
 		cout << "\t<==========I ========== |==========>" << endl;
-		m_List.Replace(item);
 		return 1;
 	}
-	cout << "<\t==========I FAIL TO FIND |==========>" << endl;
 	return 0;
 }
 

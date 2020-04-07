@@ -56,19 +56,19 @@ public:
 	//	Brief:	Check the list upper is reached to the limit.
 	//	Pre:	none.
 	//	Post:	none.
-	//	Return:	return true if list capacity reached to the upper bound, otherwise return false.
+	//	Return:	return true if list capacity reached to the upper bound, 
+	//			otherwise return false.
 	//--------------------------------------------------------------------
 	
 
-	int Add(ItemType data);
+	bool IsEmpty();
 	//--------------------------------------------------------------------
-	//	Brief:	Add a new data into list.
-	//	Pre:	list should be initialized.
-	//	Post:	add the new record in sorted ways into the list 
-	//	Param:	data		new data.
-	//	Return:	return 1 if this function works well, otherwise 0.
+	//	Brief:	Check whether list's length is 0 or not.
+	//	Pre:	none.
+	//	Post:	none.
+	//	Return:	return true if list is empty, otherwise return false.
 	//--------------------------------------------------------------------
-	
+
 
 	void ResetList();
 	//--------------------------------------------------------------------
@@ -76,7 +76,7 @@ public:
 	//	Pre:	list should be initialized.
 	//	Post:	iterator is reset.
 	//--------------------------------------------------------------------
-	
+
 
 	int GetNextItem(ItemType& data);
 	//--------------------------------------------------------------------
@@ -89,8 +89,38 @@ public:
 	//	Return:	index of current iterator's item if it is not end of list,
 	//			otherwise return -1.
 	//--------------------------------------------------------------------
+
+
+	int Add(ItemType data);
+	//--------------------------------------------------------------------
+	//	Brief:	Add a new data into list.
+	//	Pre:	list should be initialized.
+	//	Post:	add the new record in sorted ways into the list 
+	//	Param:	data		new data.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
 	
 
+	int Delete(ItemType data);
+	//--------------------------------------------------------------------
+	//	Brief:	Delete item in accordance with data's primary key.
+	//	Pre:	data's serial number should be set.
+	//	Post:	a item is removed from the list.
+	//	Param:	data		the target data to be deleted.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
+	
+	
+	int Replace(ItemType data);
+	//--------------------------------------------------------------------
+	//	Brief:	Find same record using primary key and replace it.
+	//	Pre:	data's serial number should be set,
+	//	Post:	a item's record is replaced with new information.
+	//	Param:	data		the target data to be replaced.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
+
+	
 	int Retrieve_SeqS(ItemType& data);
 	//--------------------------------------------------------------------
 	//	Brief:	Find the item whose primary key matches with the primary 
@@ -101,7 +131,7 @@ public:
 	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
 
-
+	
 	int Retrieve_SeqS_Type(ItemType& data);
 	//--------------------------------------------------------------------
 	//	Brief:	Find the item whose Type matches with the type
@@ -122,31 +152,11 @@ public:
 	//	Param:	target		the target item to retrieve.
 	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
-
-
-	int Delete(ItemType data);
-	//--------------------------------------------------------------------
-	//	Brief:	Delete item in accordance with data's primary key.
-	//	Pre:	data's serial number should be set.
-	//	Post:	a item is removed from the list.
-	//	Param:	data		the target data to be deleted.
-	//	Return:	return 1 if this function works well, otherwise 0.
-	//--------------------------------------------------------------------
-
-
-	int Replace(ItemType data);
-	//--------------------------------------------------------------------
-	//	Brief:	Find same record using primary key and replace it.
-	//	Pre:	data's serial number should be set,
-	//	Post:	a item's record is replaced with new information.
-	//	Param:	data		the target data to be replaced.
-	//	Return:	return 1 if this function works well, otherwise 0.
-	//--------------------------------------------------------------------
-
+	
 
 	int RetrieveByBS(ItemType& data);
 	//--------------------------------------------------------------------
-	//	Brief:	Retrieve by using binary search.
+	//	Brief:	Retrieve item by using binary search.
 	//	Pre:	the list should be initialized.
 	//	Post:	matching item is founded and refered the record by data.
 	//	Param:	data		the target data to retrieve.
