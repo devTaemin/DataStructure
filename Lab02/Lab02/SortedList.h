@@ -102,6 +102,28 @@ public:
 	//--------------------------------------------------------------------
 
 
+	int Retrieve_SeqS_Type(ItemType& data);
+	//--------------------------------------------------------------------
+	//	Brief:	Find the item whose Type matches with the type
+	//			of target. and get the item in target.
+	//	Pre:	the list should be initialized.
+	//	Post:	matching item is founded and refered the record by target.
+	//	Param:	target		the target item to retrieve.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
+
+
+	int Retrieve_SeqS_Name(ItemType& data);
+	//--------------------------------------------------------------------
+	//	Brief:	Find the item whose name matches with the name
+	//			of target. and get the item in target.
+	//	Pre:	the list should be initialized.
+	//	Post:	matching item is founded and refered the record by target.
+	//	Param:	target		the target item to retrieve.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
+
+
 	int Delete(ItemType data);
 	//--------------------------------------------------------------------
 	//	Brief:	Delete item in accordance with data's primary key.

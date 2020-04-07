@@ -152,6 +152,79 @@ int SortedList::Retrieve_SeqS(ItemType& data)
 }
 
 
+// Find the item whose type matches with the data's type.
+int SortedList::Retrieve_SeqS_Type(ItemType& data)
+{
+	//---------------------------------------------------------------
+	// (1) List의 element를 받아올 ItemType CurItem 생성.
+	// (2) List의 Current Pointer 초기화.
+	// (3) List의 첫번째 item을 받아옴.
+	// (4) 정렬 리스트, 검색 시작
+	//	   - case LESS  의 경우, 다음 item을 받아온다.
+	//	   - case EQUAL 의 경우, item을 반환하고, 1을 return한다.
+	//	   - case GRETER의 경우, item이 없으므로, 0을 return한다.
+	// (5) 함수가 실패하면, 0을 return한다.
+	// ---------------------------------------------------------------
+	ItemType CurItem;											// (1).
+	ResetList();												// (2).
+	GetNextItem(CurItem);										// (3).
+
+	while (m_CurPointer < m_Length)								// (4).
+	{
+		switch (CurItem.Compare_Type(data))
+		{
+		case EQUAL:
+			data = CurItem;
+			return 1;
+			break;
+		case GREATER:
+			return 0;
+			break;
+		default:
+			GetNextItem(CurItem);
+			break;
+		}
+	}
+	return 0;													// (5).
+}
+
+
+// Find the item whose name matches with the data's name.
+int SortedList::Retrieve_SeqS_Name(ItemType& data)
+{
+	//---------------------------------------------------------------
+	// (1) List의 element를 받아올 ItemType CurItem 생성.
+	// (2) List의 Current Pointer 초기화.
+	// (3) List의 첫번째 item을 받아옴.
+	// (4) 정렬 리스트, 검색 시작
+	//	   - case LESS  의 경우, 다음 item을 받아온다.
+	//	   - case EQUAL 의 경우, item을 반환하고, 1을 return한다.
+	//	   - case GRETER의 경우, item이 없으므로, 0을 return한다.
+	// (5) 함수가 실패하면, 0을 return한다.
+	// ---------------------------------------------------------------
+	ItemType CurItem;											// (1).
+	ResetList();												// (2).
+	GetNextItem(CurItem);										// (3).
+
+	while (m_CurPointer < m_Length)								// (4).
+	{
+		switch (CurItem.Compare_Name(data))
+		{
+		case EQUAL:
+			data = CurItem;
+			return 1;
+			break;
+		case GREATER:
+			return 0;
+			break;
+		default:
+			GetNextItem(CurItem);
+			break;
+		}
+	}
+	return 0;													// (5).
+}
+
 
 // Delete item in accordance with data's primary key.
 int SortedList::Delete(ItemType data)

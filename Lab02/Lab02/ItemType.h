@@ -26,9 +26,11 @@ public:
 		//		Default Constructor.
 		//--------------------------------------------------------------------
 	{
-		m_Id = -1;
-		m_sName = "";
-		m_sAddress = "";
+		Type = -1;
+		Date = -1;
+		Name = "";
+		Serial = -1;
+		Num = 0;
 	}
 
 
@@ -38,132 +40,202 @@ public:
 	//--------------------------------------------------------------------
 	
 
-	int GetId();
+	int GetType();
 	//--------------------------------------------------------------------
-	//	Brief:	Get student id.
-	//	Pre:	student id is set.
+	//	Brief:	Get commodity type.
+	//	Pre:	commodity type is set.
 	//	Post:	none.
-	//	Return: student id.
+	//	Return: commodity type.
 	//--------------------------------------------------------------------
 
 
+	int GetDate();
+	//--------------------------------------------------------------------
+	//	Brief:	Get commodity date.
+	//	Pre:	commodity date is set.
+	//	Post:	none.
+	//	Return: commodity date.
+	//--------------------------------------------------------------------
+
+	
 	string GetName();
 	//--------------------------------------------------------------------
-	//	Brief:	Get student name.
-	//	Pre:	student name is set.
+	//	Brief:	Get commodity name.
+	//	Pre:	commodity name is set.
 	//	Post:	none.
-	//	Return:	student name.
+	//	Return: commodity name.
 	//--------------------------------------------------------------------
 
 
-	string GetAddress();
+	int GetSerial();
 	//--------------------------------------------------------------------
-	//	Brief:	Get student address.
-	//	Pre:	student address is set.
+	//	Brief:	Get commodity serial.
+	//	Pre:	commodity serial is set.
 	//	Post:	none.
-	//	Return:	student address.
+	//	Return: commodity serial.
 	//--------------------------------------------------------------------
 
 
-	void SetId(int inId);
+	int GetNum();
 	//--------------------------------------------------------------------
-	//	Brief:	Set student id.
+	//	Brief:	Get commodity number.
+	//	Pre:	commodity number is set.
+	//	Post:	none.
+	//	Return: commodity number.
+	//--------------------------------------------------------------------
+
+
+	void SetType(int inType);
+	//--------------------------------------------------------------------
+	//	Brief:	Set commodity type.
 	//	Pre:	none.
-	//	Post:	student id is set.
-	//	Param:	inId		studnet id.
+	//	Post:	commodity type is set.
+	//	Param:	inType		commodity type.
+	//--------------------------------------------------------------------
+
+
+	void SetDate(int inDate);
+	//--------------------------------------------------------------------
+	//	Brief:	Set commodity date.
+	//	Pre:	none.
+	//	Post:	commodity date is set.
+	//	Param:	inDate		commodity date.
 	//--------------------------------------------------------------------
 
 
 	void SetName(string inName);
 	//--------------------------------------------------------------------
-	//	Brief:	Set student name.
+	//	Brief:	Set commodity name.
 	//	Pre:	none.
-	//	Post:	student name is set.
-	//	Param	inName		student name.
+	//	Post:	commodity name is set.
+	//	Param:	inName		commodity name.
 	//--------------------------------------------------------------------
 
 
-	void SetAddress(string inAddress);
+	void SetSerial(int inSerial);
 	//--------------------------------------------------------------------
-	//	Brief:	Set student address.
+	//	Brief:	Set commodity serial.
 	//	Pre:	none.
-	//	Post:	student address is set.
-	//	Param:	inAddress		student address.
+	//	Post:	commodity serial is set.
+	//	Param:	inName		commodity name.
 	//--------------------------------------------------------------------
 
 
-	void SetRecord(int inId, string inName, string inAddress);
+	void SetNum(int inNum);
 	//--------------------------------------------------------------------
-	//	Brief:	Set student record.
+	//	Brief:	Set commodity number.
 	//	Pre:	none.
-	//	Post:	student record is set.
-	//	Param:	inId		student id.
-	//	Param	inName		student name.
-	//	Param:	inAddress		student address.
+	//	Post:	commodity number is set.
+	//	Param:	inNum		commodity number.
 	//--------------------------------------------------------------------
 
 
-	void DisplayIdOnScreen();
+	void SetRecord(int inType, int inDate, string inName, int inSerial, int inNum);
 	//--------------------------------------------------------------------
-	//	Brief:	Display student id on screen.
-	//	Pre:	student id is set.
-	//	Post:	student id is on screen.
+	//	Brief:	Set commodity record.
+	//	Pre:	none.
+	//	Post:	commodity record is set.
+	//	Param:	inType		commodity type.
+	//	Param	inDate		commodity date.
+	//	Param:	inName		commodity name.
+	//	Param:	inSerial	commodity serial.
+	//	Param:	inNum		commodity number.
+	//--------------------------------------------------------------------
+
+
+	void DisplayTypeOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display commodity type on screen.
+	//	Pre:	commodity type is set.
+	//	Post:	commodity type is on screen.
+	//--------------------------------------------------------------------
+
+
+	void DisplayDateOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display commodity date on screen.
+	//	Pre:	commodity date is set.
+	//	Post:	commodity date is on screen.
 	//--------------------------------------------------------------------
 
 
 	void DisplayNameOnScreen();
 	//--------------------------------------------------------------------
-	//	Brief:	Display student name on screen.
-	//	Pre:	student name is set.
-	//	Post:	student name is on screen.
+	//	Brief:	Display commodity name on screen.
+	//	Pre:	commodity name is set.
+	//	Post:	commodity name is on screen.
 	//--------------------------------------------------------------------
 
 
-	void DisplayAddressOnScreen();
+	void DisplaySerialOnScreen();
 	//--------------------------------------------------------------------
-	//	Brief:	Display student address on screen.
-	//	Pre:	student address is set.
-	//	Post:	student address is on screen.
+	//	Brief:	Display commodity serial on screen.
+	//	Pre:	commodity serial is set.
+	//	Post:	commodity serial is on screen.
+	//--------------------------------------------------------------------
+
+
+	void DisplayNumOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display commodity number on screen.
+	//	Pre:	commodity number is set.
+	//	Post:	commodity number is on screen.
 	//--------------------------------------------------------------------
 
 
 	void DisplayRecordOnScreen();
 	//--------------------------------------------------------------------
-	//	Brief:	Display student record on screen.
-	//	Pre:	student record is set.
-	//	Post:	student record is on screen.
+	//	Brief:	Display commodity record on screen.
+	//	Pre:	commodity record is set.
+	//	Post:	commodity record is on screen.
 	//--------------------------------------------------------------------
 
 
-	void SetIdFromKB();
+	void SetTypeFromKB();
 	//--------------------------------------------------------------------
-	//	Brief:	Set student id from keyboard.
+	//	Brief:	Set commodity type from keyboard.
 	//	Pre:	none.
-	//	Post:	student id is set.
+	//	Post:	commodity type is set.
+	//--------------------------------------------------------------------
+
+
+	void SetDateFromKB();
+	//--------------------------------------------------------------------
+	//	Brief:	Set commodity date from keyboard
+	//	Pre:	none.
+	//	Post:	commodity date is set.
 	//--------------------------------------------------------------------
 
 
 	void SetNameFromKB();
 	//--------------------------------------------------------------------
-	//	Brief:	Set student name from keyboard
+	//	Brief:	Set commodity name from keyboard
 	//	Pre:	none.
-	//	Post:	student name is set.
+	//	Post:	commodity name is set.
 	//--------------------------------------------------------------------
 
 
-	void SetAddressFromKB();
+	void SetSerialFromKB();
 	//--------------------------------------------------------------------
-	//	Brief:	Set student address from keyboard.
+	//	Brief:	Set commodity serial from keyboard
 	//	Pre:	none.
-	//	Post:	student address is set.
+	//	Post:	commodity serial is set.
+	//--------------------------------------------------------------------
+
+
+	void SetNumFromKB();
+	//--------------------------------------------------------------------
+	//	Brief:	Set commodity number from keyboard.
+	//	Pre:	none.
+	//	Post:	commodity number is set.
 	//--------------------------------------------------------------------
 
 
 	void SetRecordFromKB();
 	//--------------------------------------------------------------------
-	//	Brief:	Set student record from keyboard.
+	//	Brief:	Set commodity record from keyboard.
 	//	Pre:	none.
-	//	Post:	student record is set.
+	//	Post:	commodity record is set.
 	//--------------------------------------------------------------------
 
 
@@ -189,20 +261,46 @@ public:
 
 	RelationType Compare(const ItemType& data);
 	//--------------------------------------------------------------------
-	//	Brief:	Compare two itemtypes by item id.
+	//	Brief:	Compare two itemtypes by item serial number.
 	//	Pre:	two items should be initialized.
 	//	Post:	the target file includes the new item record.
 	//	Param:	data		target item for comparing.
-	//	Return:	return LESS if this.id < data.id,
-	//				   EQUAL if this.id == data.id,
-	//				   GREATER if this.id > data.id.
+	//	Return:	return LESS if this.Serial < data.Serial,
+	//				   EQUAL if this.Serial == data.Serial,
+	//				   GREATER if this.Serial > data.Serial.
 	//--------------------------------------------------------------------
 
 
+	RelationType Compare_Type(const ItemType& data);
+	//--------------------------------------------------------------------
+	//	Brief:	Compare two itemtypes by item type.
+	//	Pre:	two items should be initialized.
+	//	Post:	the target file includes the new item record.
+	//	Param:	data		target item for comparing.
+	//	Return:	return LESS if this.Type < data.Type,
+	//				   EQUAL if this.Type == data.Type,
+	//				   GREATER if this.Type > data.Type.
+	//--------------------------------------------------------------------
+
+
+	//Compare two itemtypes by Type.
+	RelationType Compare_Name(const ItemType& data);
+	//--------------------------------------------------------------------
+	//	Brief:	Compare two itemtypes by item name.
+	//	Pre:	two items should be initialized.
+	//	Post:	the target file includes the new item record.
+	//	Param:	data		target item for comparing.
+	//	Return:	return LESS if this.Name < data.Name,
+	//				   EQUAL if this.Name == data.Name,
+	//				   GREATER if this.Name > data.Name.
+	//--------------------------------------------------------------------
+
 private:
-	int m_Id;			///< item ID.
-	string m_sName;		///< item name.
-	string m_sAddress;	///< item address.
+	int Type;
+	int Date;
+	string Name;
+	int Serial;
+	int Num;
 };
 
 #endif _ITEMTYPE_H_

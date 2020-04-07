@@ -1,126 +1,202 @@
 #include "ItemType.h"
 
 
-// Get student id.
-int ItemType::GetId()
+// Get commodity type.
+int ItemType::GetType()
 {
-	return m_Id;
+	return Type;
 }
 
 
-// Get student name.
+// Get commodity date.
+int ItemType::GetDate()
+{
+	return Date;
+}
+
+
+// Get commodity name.
 string ItemType::GetName()
 {
-	return m_sName;
+	return Name;
 }
 
 
-// Get student address
-string ItemType::GetAddress()
+// Get commodity serial.
+int ItemType::GetSerial()
 {
-	return m_sAddress;
+	return Serial;
 }
 
 
-// Set student id.
-void ItemType::SetId(int inId)
+// Get commodity number.
+int ItemType::GetNum()
 {
-	m_Id = inId;
+	return Num;
 }
 
 
-// Set student name.
+// Set commodity type.
+void ItemType::SetType(int inType)
+{
+	Type = inType;
+}
+
+
+// Set commodity date.
+void ItemType::SetDate(int inDate)
+{
+	Date = inDate;
+}
+
+
+// Set commodity name.
 void ItemType::SetName(string inName)
 {
-	m_sName = inName;
+	Name = inName;
 }
 
 
-// Set student address.
-void ItemType::SetAddress(string inAddress)
+// Set commodity serial.
+void ItemType::SetSerial(int inSerial)
 {
-	m_sAddress = inAddress;
+	Serial = inSerial;
 }
 
 
-// Set student record.
-void ItemType::SetRecord(int inId, string inName, string inAddress)
+// Set commodity number.
+void ItemType::SetNum(int inNum)
 {
-	SetId(inId);
+	Num = inNum;
+}
+
+
+// Set commodity record.
+void ItemType::SetRecord(int inType, int inDate, string inName, int inSerial, int inNum)
+{
+	SetType(inType);
+	SetDate(inDate);
 	SetName(inName);
-	SetAddress(inAddress);
+	SetSerial(inSerial);
+	SetNum(inNum);
 }
 
 
-// Display student id on screen.
-void ItemType::DisplayIdOnScreen()
+// Display commodity type on screen.
+void ItemType::DisplayTypeOnScreen()
 {
-	cout << "\tID   : " << m_Id << endl;
+	cout << "\tType   : " << Type << endl;
 };
 
 
-// Display student name on screen.
+// Display commodity date on screen.
+void ItemType::DisplayDateOnScreen()
+{
+	cout << "\tDate   : " << Date << endl;
+};
+
+
+// Display commodity name on screen.
 void ItemType::DisplayNameOnScreen()
 {
-	cout << "\tName : " << m_sName << endl;
+	cout << "\tName   : " << Name << endl;
 };
 
 
-// Display student address on screen.
-void ItemType::DisplayAddressOnScreen()
+// Display commodity serial on screen.
+void ItemType::DisplaySerialOnScreen()
 {
-	cout << "\tAddress : " << m_sAddress << endl;
+	cout << "\tSerial : " << Serial << endl;
 };
 
 
-// Display an student record on screen.
+// Display commodity number on screen.
+void ItemType::DisplayNumOnScreen()
+{
+	cout << "\tNumber : " << Num << endl;
+};
+
+
+// Display a commodity record on screen.
 void ItemType::DisplayRecordOnScreen()
 {
-	DisplayIdOnScreen();
+	DisplayTypeOnScreen();
+	DisplayDateOnScreen();
 	DisplayNameOnScreen();
-	DisplayAddressOnScreen();
+	DisplaySerialOnScreen();
+	DisplayNumOnScreen();
 };
 
 
-// Set student id from keyboard.
-void ItemType::SetIdFromKB()
+// Set commodity type from keyboard.
+void ItemType::SetTypeFromKB()
 {
-	cout << "\tID : ";
-	cin >> m_Id;
+	int inType;
+	while (1) {
+		cout << "\tType (1: 필기류, 2: 책)  : ";
+		cin >> inType;
+		if (inType == 1 || inType == 2) {
+			SetType(inType);
+			break;
+		}
+		else {
+			cout << "\tWrong Type!" << '\n';
+		}
+	}
 }
 
 
-// Set student name from keyboard.
+// Set commodity date from keyboard.
+void ItemType::SetDateFromKB()
+{
+	cout << "\tDate   : ";
+	cin >> Date;
+}
+
+
+// Set commodity name from keyboard.
 void ItemType::SetNameFromKB()
 {
-	cout << "\tName : ";
-	cin >> m_sName;
+	cout << "\tName   : ";
+	cin >> Name;
 }
 
 
-// Set student address from keyboard.
-void ItemType::SetAddressFromKB()
+// Set commodity serial from keyboard.
+void ItemType::SetSerialFromKB()
 {
-	cout << "\tAddress : ";
-	cin >> m_sAddress;
+	cout << "\tSerial : ";
+	cin >> Type;
 }
 
 
-// Set student record from keyboard.
+// Set commodity number from keyboard.
+void ItemType::SetNumFromKB()
+{
+	cout << "\tNumber : ";
+	cin >> Num;
+}
+
+
+// Set commodity record from keyboard.
 void ItemType::SetRecordFromKB()
 {
-	SetIdFromKB();
+	SetTypeFromKB();
+	SetDateFromKB();
 	SetNameFromKB();
-	SetAddressFromKB();
+	SetSerialFromKB();
+	SetNumFromKB();
 }
 
 
 // Read a record from file.
 int ItemType::ReadDataFromFile(ifstream& fin)
 {
-	fin >> m_Id;
-	fin >> m_sName;
-	fin >> m_sAddress;
+	fin >> Type;
+	fin >> Date;
+	fin >> Name;
+	fin >> Serial;
+	fin >> Num;
 
 	return 1;
 };
@@ -130,9 +206,11 @@ int ItemType::ReadDataFromFile(ifstream& fin)
 int ItemType::WriteDataToFile(ofstream& fout)
 {
 	fout << endl;
-	fout << m_Id << " ";
-	fout << m_sName << " ";
-	fout << m_sAddress;
+	fout << Type << " ";
+	fout << Date << " ";
+	fout << Name << " ";
+	fout << Serial << " ";
+	fout << Num;
 
 	return 1;
 }
@@ -141,10 +219,35 @@ int ItemType::WriteDataToFile(ofstream& fout)
 // Compare two itemtypes.
 RelationType ItemType::Compare(const ItemType& data)
 {
-	if (this->m_Id > data.m_Id)
+	if (this->Serial > data.Serial)
 		return GREATER;
-	else if (this->m_Id < data.m_Id)
+	else if (this->Serial < data.Serial)
 		return LESS;
 	else
 		return EQUAL;
 }
+
+
+//Compare two itemtypes by Type.
+RelationType ItemType::Compare_Type(const ItemType& data)
+{
+	if (this->Type > data.Type)
+		return GREATER;
+	else if (this->Type < data.Type)
+		return LESS;
+	else
+		return EQUAL;
+}
+
+
+//Compare two itemtypes by Type.
+RelationType ItemType::Compare_Name(const ItemType& data)
+{
+	if (this->Name > data.Name)
+		return GREATER;
+	else if (this->Name < data.Name)
+		return LESS;
+	else
+		return EQUAL;
+}
+

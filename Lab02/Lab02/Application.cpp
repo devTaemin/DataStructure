@@ -7,14 +7,15 @@ void Application::Run()
 	// case 1:  Add new record into list.
 	// case 2:  Delete student's record by student's id from KB.
 	// case 3:  Replace.
-	// case 4:  Search by id.
-	// case 5:	Searchy by binary search.
-	// case 6:	Search by name.
-	// case 7:  Display all record in the list on screen.
-	// case 8:  Make list empty.
-	// case 9:  Open a file as a read mode, read all data on the file, 
+	// case 4:  리스트에서 해당 Type를 가진 item을 찾아 출력한다.
+	// case 5:	리스트에서 해당 Name를 가진 item을 찾아 출력한다.
+	// case 6:	리스트에서 해당 id를 가진 item을 이진검색하여 출력한다.
+	// case 7:	리스트에서 해당 id를 가진 item을 이진검색, record를 바꾼다.
+	// case 8:  Display all record in the list on screen.
+	// case 9:  Make list empty.
+	// case 10:  Open a file as a read mode, read all data on the file, 
 	//		    and set list by the data.
-	// case 10: Open a file as a write mode, and write all data into the file.
+	// case 11: Open a file as a write mode, and write all data into the file.
 	// case 0:  Quit.
 	//------------------------------------------------------------------------
 	while (1)
@@ -33,24 +34,27 @@ void Application::Run()
 			ReplaceItem();
 			break;
 		case 4:		
-			SearchById_SequenS();
+			SearchByType_SequenS();
 			break;
 		case 5:
-			SearchByID_BinaryS();
+			SearchByName_SequenS();
 			break;
-		case 6:		
-			SearchByName();
+		case 6:
+			SearchBySerial_BinaryS();
 			break;
-		case 7:		
-			DisplayAllItem();
+		case 7:
+			ReplaceFromKB_BinaryS();
 			break;
 		case 8:		
-			m_List.MakeEmpty();
+			DisplayAllItem();
 			break;
 		case 9:		
-			ReadDataFromFile();
+			m_List.MakeEmpty();
 			break;
 		case 10:		
+			ReadDataFromFile();
+			break;
+		case 11:		
 			WriteDataToFile();
 			break;
 		case 0:
@@ -72,13 +76,14 @@ int Application::GetCommand()
 	cout << "\t   1 : Add item" << endl;
 	cout << "\t   2 : Delete item" << endl;
 	cout << "\t   3 : Replace item" << endl;
-	cout << "\t   4 : Search item by ID" << endl;
-	cout << "\t   5 : Search item by Binary Search" << endl;
-	cout << "\t   6 : Search item by name" << endl;
-	cout << "\t   7 : Print all on screen" << endl;
-	cout << "\t   8 : Make empty list" << endl;
-	cout << "\t   9 : Get from file" << endl;
-	cout << "\t   10 : Put to file " << endl;
+	cout << "\t   4 : Search item by Type" << endl;
+	cout << "\t   5 : Search item by Name" << endl;
+	cout << "\t   6 : Binary Search item by Serial" << endl;
+	cout << "\t   7 : Binary Search and Replace item from KB" << endl;
+	cout << "\t   8 : Print all on screen" << endl;
+	cout << "\t   9 : Make empty list" << endl;
+	cout << "\t   10 : Get from file" << endl;
+	cout << "\t   11 : Put to file " << endl;
 	cout << "\t   0 : Quit" << endl;
 
 	cout << endl << "\t Choose a Command--> ";
@@ -112,19 +117,87 @@ int Application::AddItem()
 }
 
 
-//id로 item을 찾아 출력한다.
-int Application::SearchById_SequenS()
+// Delete commodity record by commodity serial from KB.
+int Application::DeleteItem()
 {
 	//----------------------------------------------------------------
-	// (1) 찾고자 하는 item의 id를 입력한다.
+	// (1) 지우고자 하는 데이터를 입력하고 삭제한다.
+	//	   - 길이를 이용하여 성공 여부를 확인한다.
+	// (2) 삭제에 성공(1)하면 성공 메세지를 출력한다. 성공(1) return.
+	// (3) 삭제에 실패(0)하면 실패 메세지를 출력한다. 실패(0) return.
+	// ---------------------------------------------------------------
+	int pre = m_List.GetLength();								// (1).
+	ItemType item;
+	item.SetTypeFromKB();
+
+	m_List.Delete(item);
+
+	if (pre > m_List.GetLength())								// (2).
+	{
+		cout << "<========DELETE SUCCESS !===========>" << endl;
+		return 1;
+	}
+
+	cout << "<========DELETE FAIL !=======>" << endl;			// (3).
+	return 0;
+}
+
+
+
+//해당 Serial의 item을 변경한다.
+int Application::ReplaceItem()
+{
+	//----------------------------------------------------------------
+	// (1) 변경하고자 하는 아이템을 입력받는다.
+	// (2) 변경에 성공(1)하면 성공 메세지를 출력한다. 성공(1) return.
+	// (3) 변경에 실패(0)하면 실패 메세지를 출력한다. 실패(0) return.
+	//---------------------------------------------------------------
+	ItemType item;												// (1).
+	item.SetRecordFromKB();
+
+	m_List.Replace(item);									// (2),(3).
+	return 0;
+}
+
+
+
+//Type로 item을 찾아 출력한다.
+int Application::SearchByType_SequenS()
+{
+	//----------------------------------------------------------------
+	// (1) 찾고자 하는 item의 Type를 입력한다.
 	// (2) 선형탐색 함수를 이용하여 검색한다.
 	//     - 검색 성공(1)시, message, display and 1 return.
 	//     - 검색 실패(0)시, message and 0 return. 
 	// ---------------------------------------------------------------
 	ItemType item;												// (1).
-	item.SetIdFromKB(); 
+	item.SetTypeFromKB();
 
-	if (m_List.Retrieve_SeqS(item))								// (2).
+	if (m_List.Retrieve_SeqS_Type(item))								// (2).
+	{
+		cout << "<============ Item FOUND !==========>" << endl;
+		item.DisplayRecordOnScreen();
+		cout << "<====================================>" << endl;
+		return 1;
+	}
+	cout << "<======== ITEM Not Found!==========>" << endl;
+	return 0;
+}
+
+
+//Name로 item을 찾아 출력한다.
+int Application::SearchByName_SequenS()
+{
+	//----------------------------------------------------------------
+	// (1) 찾고자 하는 item의 name를 입력한다.
+	// (2) 선형탐색 함수를 이용하여 검색한다.
+	//     - 검색 성공(1)시, message, display and 1 return.
+	//     - 검색 실패(0)시, message and 0 return. 
+	// ---------------------------------------------------------------
+	ItemType item;												// (1).
+	item.SetNameFromKB(); 
+
+	if (m_List.Retrieve_SeqS_Name(item))						// (2).
 	{
 		cout << "<============ Item FOUND !==========>" << endl;
 		item.DisplayRecordOnScreen(); 
@@ -133,6 +206,53 @@ int Application::SearchById_SequenS()
 	}
 	cout << "<======== ITEM Not Found!==========>" << endl;
 	return 0;	
+}
+
+
+// 리스트에서 해당 Serial를 가진 item을 찾아 출력한다.
+int Application::SearchBySerial_BinaryS()
+{
+	//----------------------------------------------------------------
+	// (1) 찾고자 하는 item의 Serial을 입력한다.
+	// (2) 이진탐색 함수를 이용하여 검색한다.
+	//     - 검색 성공(1)시, message, display and 1 return.
+	//     - 검색 실패(0)시, message and 0 return. 
+	// ---------------------------------------------------------------
+	ItemType item;
+
+	item.SetSerialFromKB();
+	if (m_List.RetrieveByBS(item))
+	{
+		cout << "<============I FOUND ITEM !==========>" << endl;
+		item.DisplayRecordOnScreen();
+		cout << "<====================================>" << endl;
+		return 1;
+	}
+	cout << "<========I CAN'T FIND ITEM !==========>" << endl;
+	return 0;
+
+}
+
+
+// 리스트에서 해당 Serial를 가진 item을 찾아 출력한다.
+int Application::ReplaceFromKB_BinaryS()
+{
+	//----------------------------------------------------------------
+	// (1) 찾고자 하는 item의 id를 입력한다.
+	// (2) 이진탐색 함수를 이용하여 검색하고, 내용을 교체한다.
+	//     - 수행 성공(1)시, message, display and 1 return.
+	//     - 수행 실패(0)시, message and 0 return. 
+	// ---------------------------------------------------------------
+	ItemType item;
+
+	item.SetSerialFromKB();
+	if (m_List.RetrieveByBS(item))
+	{
+		ReplaceItem();
+		return 1;
+	}
+	cout << "<========I CAN'T FIND ITEM !==========>" << endl;
+	return 0;
 }
 
 
@@ -185,48 +305,6 @@ int Application::SearchAllItmeByName(ItemType& inData)
 	else	
 		cout << "<========I CAN'T FIND ITEM !==========>" << endl;
 	return result;
-}
-
-
-// Delete student's record by student's id from KB.
-int Application::DeleteItem()
-{
-	//----------------------------------------------------------------
-	// (1) 지우고자 하는 데이터를 입력하고 삭제한다.
-	//	   - 길이를 이용하여 성공 여부를 확인한다.
-	// (2) 삭제에 성공(1)하면 성공 메세지를 출력한다. 성공(1) return.
-	// (3) 삭제에 실패(0)하면 실패 메세지를 출력한다. 실패(0) return.
-	// ---------------------------------------------------------------
-	int pre = m_List.GetLength();								// (1).
-	ItemType item;
-	item.SetIdFromKB();
-
-	m_List.Delete(item);
-
-	if (pre > m_List.GetLength())								// (2).
-	{
-		cout << "<========DELETE SUCCESS !===========>" << endl;
-		return 1;
-	}
-
-	cout << "<========DELETE FAIL !=======>" << endl;			// (3).
-	return 0;
-}
-
-
-//해당 id의 item을 변경한다.
-int Application::ReplaceItem()
-{
-	//----------------------------------------------------------------
-	// (1) 변경하고자 하는 아이템을 입력받는다.
-	// (2) 변경에 성공(1)하면 성공 메세지를 출력한다. 성공(1) return.
-	// (3) 변경에 실패(0)하면 실패 메세지를 출력한다. 실패(0) return.
-	//---------------------------------------------------------------
-	ItemType item;												// (1).
-	item.SetRecordFromKB(); 
-
-	m_List.Replace(item);									// (2),(3).
-	return 0;
 }
 
 
@@ -354,25 +432,3 @@ int Application::WriteDataToFile()
 	return 1;
 }
 
-int Application::SearchByID_BinaryS()
-{
-	//----------------------------------------------------------------
-	// (1) 찾고자 하는 item의 id를 입력한다.
-	// (2) 이진탐색 함수를 이용하여 검색한다.
-	//     - 검색 성공(1)시, message, display and 1 return.
-	//     - 검색 실패(0)시, message and 0 return. 
-	// ---------------------------------------------------------------
-	ItemType item;
-
-	item.SetIdFromKB();	
-	if (m_List.RetrieveByBS(item))	
-	{
-		cout << "<============I FOUND ITEM !==========>" << endl;
-		item.DisplayRecordOnScreen();
-		cout << "<====================================>" << endl;
-		return 1;	
-	}
-	cout << "<========I CAN'T FIND ITEM !==========>" << endl;
-	return 0;	
-
-}
