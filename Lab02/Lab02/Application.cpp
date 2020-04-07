@@ -121,24 +121,22 @@ int Application::AddItem()
 int Application::DeleteItem()
 {
 	//----------------------------------------------------------------
-	// (1) 지우고자 하는 데이터를 입력하고 삭제한다.
-	//	   - 길이를 이용하여 성공 여부를 확인한다.
+	// (1) List가 비워져있는지 확인한다. 비었을 시, 실패(0) return.
+	// (2) 지우고자 하는 데이터를 입력받는다.
 	// (2) 삭제에 성공(1)하면 성공 메세지를 출력한다. 성공(1) return.
 	// (3) 삭제에 실패(0)하면 실패 메세지를 출력한다. 실패(0) return.
 	// ---------------------------------------------------------------
-	int pre = m_List.GetLength();								// (1).
-	ItemType item;
-	item.SetSerialFromKB();
+	if (m_List.IsEmpty()) { return 0; }							// (1).
+	ItemType item;												// (2).
+	item.SetSerialFromKB();				
 
-	m_List.Delete(item);
-
-	if (pre > m_List.GetLength())								// (2).
-	{
+	if (m_List.Delete(item)) {									// (3).
 		cout << "\t<==========| DELETE SUCCESS |==========>" << endl;
 		return 1;
 	}
+	cout << "\t<==========| DELETE FAIL |==========>" << endl;	// (4).
 
-	cout << "\t<==========| DELETE FAIL |==========>" << endl;	// (3).
+	
 	return 0;
 }
 
@@ -196,29 +194,34 @@ int Application::SearchAllItemByType(ItemType& inData)
 	// (1) 리스트의 item을 받기 위해서 변수 temp를 선언한다.
 	// (2) 탐색을 위해 iterator을 초기화한다.
 	// (3) 리스트의 마지막에 갈때까지 탐색 loop를 시작한다.
-	//     - 만약 같은 name을 찾았다면, result = 1로 하며 검색을 계속
+	//     - 만약 같은 type을 찾았다면, found = true로 하며 검색을 계속
 	//     - 찾을때마다, 출력을 해준다.
-	// (4) 검색 성공(1)시, result(1) return.
-	// (5) 검색 실패(0)시, result(0) return.
+	// (4) 검색 실패(0)시, result(0) return.
+	// (5) 검색 성공(1)시, result(1) return.
 	// ---------------------------------------------------------------
-	ItemType tmp;												// (1).
-	int result = 0;
+	ItemType temp;												// (1).
+	bool found = false;
 
 	m_List.ResetList();											// (2).
-	while (m_List.GetNextItem(tmp) != -1)						// (3).
+	int iPos = m_List.GetNextItem(temp);
+
+	
+	for (iPos; iPos > -1; iPos = m_List.GetNextItem(temp))		// (3).
 	{
-		if (tmp.GetType() == inData.GetType())
-		{
-			if (result == 0)
-				cout << "<=======I  STORAGE  |=======>" << endl;
-			tmp.DisplayRecordOnScreen();
-			cout << "<=======I  =======  |=======>" << endl;
-			result = 1;
+		if (temp.GetType() == inData.GetType()) {
+			cout << "<=======I  STORAGE  |=======>" << endl;
+			temp.DisplayRecordOnScreen();
+			cout << "<=======I  -------  |=======>" << endl;
+			cout << '\n';
+			found = true;
 		}
 	}
-	if (result == 0)
+
+	if (!found) {												// (4).
 		cout << "<==========I CAN'T FIND ITEM |==========>" << endl;
-	return result;
+		return 0;
+	}
+	return 1;													// (5).
 }
 
 
@@ -248,29 +251,34 @@ int Application::SearchAllItemByName(ItemType& inData)
 	// (1) 리스트의 item을 받기 위해서 변수 temp를 선언한다.
 	// (2) 탐색을 위해 iterator을 초기화한다.
 	// (3) 리스트의 마지막에 갈때까지 탐색 loop를 시작한다.
-	//     - 만약 같은 name을 찾았다면, result = 1로 하며 검색을 계속
+	//     - 만약 같은 name을 찾았다면, found = true로 하며 검색을 계속
 	//     - 찾을때마다, 출력을 해준다.
-	// (4) 검색 성공(1)시, result(1) return.
-	// (5) 검색 실패(0)시, result(0) return.
+	// (4) 검색 실패(0)시, result(0) return.
+	// (5) 검색 성공(1)시, result(1) return.
 	// ---------------------------------------------------------------
-	ItemType tmp;												// (1).
-	int result = 0;
+	ItemType temp;												// (1).
+	bool found = false;
 
 	m_List.ResetList();											// (2).
-	while (m_List.GetNextItem(tmp) != -1)						// (3).
+	int iPos = m_List.GetNextItem(temp);
+
+
+	for (iPos; iPos > -1; iPos = m_List.GetNextItem(temp))		// (3).
 	{
-		if (tmp.GetName() == inData.GetName())
-		{
-			if (result == 0)
-				cout << "<=======I  STORAGE  |=======>" << endl;
-			tmp.DisplayRecordOnScreen();
-			cout << "<=======I  =======  |=======>" << endl;
-			result = 1;
+		if (temp.GetName() == inData.GetName()) {
+			cout << "<=======I  STORAGE  |=======>" << endl;
+			temp.DisplayRecordOnScreen();
+			cout << "<=======I  -------  |=======>" << endl;
+			cout << '\n';
+			found = true;
 		}
 	}
-	if (result == 0)
-		cout << "<========I CAN'T FIND ITEM !==========>" << endl;
-	return result;
+
+	if (!found) {												// (4).
+		cout << "<==========I CAN'T FIND ITEM |==========>" << endl;
+		return 0;
+	}
+	return 1;													// (5).
 }
 
 
@@ -283,10 +291,9 @@ int Application::SearchBySerial_BinaryS()
 	//     - 검색 성공(1)시, message, display and 1 return.
 	//     - 검색 실패(0)시, message and 0 return. 
 	// ---------------------------------------------------------------
-	ItemType item;
-
+	ItemType item;												// (1).
 	item.SetSerialFromKB();
-	if (m_List.RetrieveByBS(item))
+	if (m_List.RetrieveByBS(item))								// (2).
 	{
 		cout << "<=======I  STORAGE  |=======>" << endl;
 		item.DisplayRecordOnScreen();
@@ -326,22 +333,28 @@ int Application::ReplaceFromKB_BinaryS()
 void Application::DisplayAllItem()
 {
 	//----------------------------------------------------------------
-	// (1) List가 비어있는지 확인 후, 출력
-	// (2) List가 비어있을 경우 message.
+	// (1) 리스트의 포인터 초기화, 리스트의 item을 받아옴.
+	// (2) List가 비어있는지 확인, 비어있을 경우 message를 남긴다.
+	// (3) 포인터가 끝까지 갈 때 까지 item을 출력.
 	// ---------------------------------------------------------------
-	ItemType data;
-
-	cout << "\n\tCurrent list" << endl;
+	
+	ItemType data;												// (1).
 	m_List.ResetList();
-	int length = m_List.GetLength();
-	int curIndex = m_List.GetNextItem(data);
-	while (curIndex < length && curIndex != -1)
-	{
-		cout << "<=======I  STORAGE  |=======>" << endl;
-		data.DisplayRecordOnScreen();
-		cout << "<=======I  =======  |=======>" << endl;
+	int iPos = m_List.GetNextItem(data);
+
+	if (m_List.IsEmpty()) {										// (2).
+		cout << "\t<==========I NO ITEM |==========>" << endl;
 		cout << '\n';
-		curIndex = m_List.GetNextItem(data);
+	}
+	else {
+		cout << "-------| Current list |-------" << endl;
+		cout << "------------------------------" << endl;
+		for (iPos; iPos > -1; iPos = m_List.GetNextItem(data)) {// (3).
+			cout << "<=======I  STORAGE  |=======>" << endl;
+			data.DisplayRecordOnScreen();
+			cout << "<=======I  =======  |=======>" << endl;
+			cout << endl;
+		}
 	}
 }
 
@@ -353,9 +366,7 @@ int Application::OpenInFile(char* fileName)
 	// (1) return 1 if the file is opened successfully, 
 	//	   otherwise return 0.
 	// ---------------------------------------------------------------
-	m_InFile.open(fileName);	
-
-	
+	m_InFile.open(fileName);									// (1).
 	if (!m_InFile)	return 0;
 	else	return 1;
 }
@@ -368,8 +379,7 @@ int Application::OpenOutFile(char* fileName)
 	// (1) return 1 if the file is opened successfully, 
 	//	   otherwise return 0.
 	// ---------------------------------------------------------------
-	m_OutFile.open(fileName);	
-
+	m_OutFile.open(fileName);									// (1).
 	if (!m_OutFile)	return 0;
 	else	return 1;
 }
@@ -386,28 +396,24 @@ int Application::ReadDataFromFile()
 	//	   - 파일의 끝에 도달할때까지 loop [!m_InFile.eof()] 시작
 	//	   - 읽어오기 -> 읽어온 부분이 끝인지 확인(정지판단) -> 리스트 삽입.
 	// (4) 파일 종료
-	// (5) 저장 정보 display
 	// ---------------------------------------------------------------
-	int index = 0;
-	ItemType data;	
-
-	char filename[FILENAMESIZE];
+	char filename[FILENAMESIZE];								// (1).
 	cout << "\n\tEnter Input file Name : ";
 	cin >> filename;
 
 	
-	if (!OpenInFile(filename))
+	if (!OpenInFile(filename))									// (2).
 		return 0;
 
-	
-	while (!m_InFile.eof())
+	ItemType temp;												// (3).
+	while (!m_InFile.eof())										
 	{
-		data.ReadDataFromFile(m_InFile);
-		m_List.Add(data);
+		temp.ReadDataFromFile(m_InFile);
+		m_List.Add(temp);
 	}
 
 
-	m_InFile.close();	
+	m_InFile.close();											// (4).
 	return 1;
 }
 
@@ -418,34 +424,30 @@ int Application::WriteDataToFile()
 	//----------------------------------------------------------------
 	// (1) file명을 입력받는다.
 	// (2) 파일이 성공적으로 열리지 않았으면, 실패(0)을 return.
-	// (3) 파일 읽어오기
+	// (3) 리스트가 비어있는지 확인. 비어있으면 실패(0)을 return.
+	// (4) 파일 읽어오기
 	//	   - 아이템을 저장할 temp 선언, 포인터 초기화.
-	//	   - 리스트의 길이를 이용하여, item에 접근.
+	//	   - 리스트의 마지막 item까지 순차적 접근.
 	//	   - 접근한 item을 파일에 작성.
-	// (4) 파일 종료
-	// (5) 저장 정보 display
+	// (5) 파일 종료
 	// ---------------------------------------------------------------
-	ItemType data;	
-
-	char filename[FILENAMESIZE];
+	char filename[FILENAMESIZE];								// (1).
 	cout << "\n\tEnter Output file Name : ";
 	cin >> filename;
 
-	if (!OpenOutFile(filename))
+	if (!OpenOutFile(filename))									// (2).
 		return 0;
 
-	m_List.ResetList();
+	if (m_List.IsEmpty()) { return 0; }							// (3).
 
-	int length = m_List.GetLength();
-	int curIndex = m_List.GetNextItem(data);
-	while (curIndex < length && curIndex != -1)
-	{
-		data.WriteDataToFile(m_OutFile);
-		curIndex = m_List.GetNextItem(data);
+	ItemType temp;												// (4).
+	m_List.ResetList();
+	int iPos = m_List.GetNextItem(temp);
+	for (iPos; iPos > -1; iPos = m_List.GetNextItem(temp)) {
+		temp.WriteDataToFile(m_OutFile);
 	}
 
-	m_OutFile.close();
-
+	m_OutFile.close();											// (5).
 	return 1;
 }
 

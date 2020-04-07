@@ -270,7 +270,7 @@ public:
 	//				   GREATER if this.Serial > data.Serial.
 	//--------------------------------------------------------------------
 
-	
+	/*
 	RelationType Compare_Type(const ItemType& data);
 	//--------------------------------------------------------------------
 	//	Brief:	Compare two itemtypes by item type.
@@ -293,7 +293,7 @@ public:
 	//				   EQUAL if this.Name == data.Name,
 	//				   GREATER if this.Name > data.Name.
 	//--------------------------------------------------------------------
-	
+	*/
 
 private:
 	int Type;

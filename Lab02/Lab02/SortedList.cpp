@@ -198,7 +198,7 @@ int SortedList::Retrieve_SeqS(ItemType& data)
 	return 0;													// (5).
 }
 
-
+/*
 // Find the item whose type matches with the data's type.
 int SortedList::Retrieve_SeqS_Type(ItemType& data)
 {
@@ -262,7 +262,7 @@ int SortedList::Retrieve_SeqS_Name(ItemType& data)
 	}
 	return 0;													// (5).
 }
-
+*/
 
 
 

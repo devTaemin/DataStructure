@@ -131,7 +131,7 @@ public:
 	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
 
-	
+	/*
 	int Retrieve_SeqS_Type(ItemType& data);
 	//--------------------------------------------------------------------
 	//	Brief:	Find the item whose Type matches with the type
@@ -152,7 +152,7 @@ public:
 	//	Param:	target		the target item to retrieve.
 	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
-	
+	*/
 
 	int RetrieveByBS(ItemType& data);
 	//--------------------------------------------------------------------

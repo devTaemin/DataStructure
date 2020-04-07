@@ -227,7 +227,7 @@ RelationType ItemType::Compare_Serial(const ItemType& data)
 		return EQUAL;
 }
 
-
+/*
 //Compare two itemtypes by Type.
 RelationType ItemType::Compare_Type(const ItemType& data)
 {
@@ -250,3 +250,4 @@ RelationType ItemType::Compare_Name(const ItemType& data)
 	else
 		return EQUAL;
 }
+*/
