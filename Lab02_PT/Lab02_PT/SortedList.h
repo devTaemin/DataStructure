@@ -2,12 +2,14 @@
 #define _SORTEDLIST_H_
 
 #include <iostream>
-#include <fstream>
+#include <fstream>	
 #include <string>
 using namespace std;
 
 #include "ItemType.h"
-#define MAXSIZE 5
+
+#define MAXSIZE 10
+
 
 //--------------------------------------------------------------------
 //		Array based simple 'Sorted list'.
@@ -15,13 +17,14 @@ using namespace std;
 class SortedList
 {
 public:
+
 	SortedList()
 		//--------------------------------------------------------------------
 		//		Default Constructor.
 		//--------------------------------------------------------------------
 	{
 		m_Length = 0;
-		ResetList();
+		m_CurPointer = 0;
 	}
 
 
@@ -57,12 +60,13 @@ public:
 	//--------------------------------------------------------------------
 
 
-	bool IsEmpty();
+	int Add(ItemType data);
 	//--------------------------------------------------------------------
-	//	Brief:	Check the list is empty.
-	//	Pre:	none.
-	//	Post:	none.
-	//	Return:	return true if list is empty, otherwise false.
+	//	Brief:	Add a new data into list.
+	//	Pre:	list should be initialized.
+	//	Post:	add the new record in sorted ways into the list 
+	//	Param:	data		new data.
+	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
 
 
@@ -87,12 +91,13 @@ public:
 	//--------------------------------------------------------------------
 
 
-	int Add(ItemType data);
+	int Retrieve_SeqS(ItemType& data);
 	//--------------------------------------------------------------------
-	//	Brief:	Add a new data into list.
-	//	Pre:	list should be initialized.
-	//	Post:	add the new record in sorted ways into the list 
-	//	Param:	data		new data.
+	//	Brief:	Find the item whose primary key matches with the primary 
+	//			key of target. and get the item in target.
+	//	Pre:	the list should be initialized.
+	//	Post:	matching item is founded and refered the record by target.
+	//	Param:	target		the target item to retrieve.
 	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
 
@@ -117,17 +122,6 @@ public:
 	//--------------------------------------------------------------------
 
 
-	int Retrieve_SeqS(ItemType& data);
-	//--------------------------------------------------------------------
-	//	Brief:	Find the item whose primary key matches with the primary 
-	//			key of target. and get the item in target.
-	//	Pre:	the list should be initialized.
-	//	Post:	matching item is founded and refered the record by target.
-	//	Param:	target		the target item to retrieve.
-	//	Return:	return 1 if this function works well, otherwise 0.
-	//--------------------------------------------------------------------
-
-
 	int RetrieveByBS(ItemType& data);
 	//--------------------------------------------------------------------
 	//	Brief:	Retrieve by using binary search.
@@ -139,9 +133,8 @@ public:
 
 
 private:
-	ItemType m_Array[MAXSIZE];	///< list array.
+	ItemType m_Array[MAXSIZE];  ///< list array.
 	int m_Length;				///< number of elements in list.
 	int m_CurPointer;			///< iterator pointer.
 };
-
 #endif _SORTEDLIST_H_

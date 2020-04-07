@@ -1,66 +1,32 @@
 #include "SortedList.h"
 
-// Make list empty. (Initialize list)
+
+// Make list empty.
 void SortedList::MakeEmpty()
 {
 	m_Length = 0;
 }
 
 
-// Return the number of records in the list.
+// Get a number of records in current list.
 int SortedList::GetLength()
 {
 	return m_Length;
 }
 
 
-// Check the list upper is reached to the limit.
+// Check capacity of list is full.
 bool SortedList::IsFull()
 {
-	if (m_Length >= MAXSIZE) {
+	if (m_Length > MAXSIZE - 1)
 		return true;
-	}
-	return false;
-}
-
-
-// Check the list is empty.
-bool SortedList::IsEmpty()
-{
-	if (m_Length == 0) {
-		return true;
-	}
-	return false;
-}
-
-
-// Initialize the list iterator.
-void SortedList::ResetList()
-{
-	m_CurPointer = -1;
-}
-
-
-// Update pointer to point to next record, and get that new record.
-int SortedList::GetNextItem(ItemType& data)
-{
-	//---------------------------------------------------------------
-	// (1) 현재 Pointer를 increment하여 다음 item의 index를 가리킨다.
-	// (2) Pointer가 capacity를 넘어서면, 실패(-1)를 return.
-	// (3) List에서 해당 index의 data를 가져온다.
-	// (4) 현재 위치를 출력한다.
-	// ---------------------------------------------------------------
-	m_CurPointer++;												// (1).
-	if (m_CurPointer == MAXSIZE) {								// (2).
-		return -1;
-	}
-	data = m_Array[m_CurPointer];								// (3).
-	return m_CurPointer;										// (4).
+	else
+		return false;
 }
 
 
 // Add a new data into list.
-int SortedList::Add(ItemType data)
+int SortedList::Add(ItemType inData)
 {
 	//---------------------------------------------------------------
 	// (1) 현재 list의 용량을 확인한다.
@@ -80,107 +46,73 @@ int SortedList::Add(ItemType data)
 	//	   - 중간에 삽입된 경우, 후방 데이터를 이동하고 삽입. 성공(1).
 	// ---------------------------------------------------------------
 
-	if (IsFull()) { return 0; }									// (1).
-	if (IsEmpty()) {
-		m_Array[m_Length++] = data;
+	if (IsFull()) return 0;									// (1).
+	if (m_Length == 0) {
+		m_Array[m_Length++] = inData;
 		return 1;
 	}
 
-	int Position = 0;											// (2).
+	int iPos = 0;											// (2).
 	bool found = false;
-	ItemType temp;
+	ItemType curItem;
 	ResetList();
-	Position = GetNextItem(temp);
-
-	while (Position > -1 && !found)								// (3).
+	iPos = GetNextItem(curItem);							// (3).
+	while (iPos > -1 && !found)
 	{
-		switch (temp.Compare(data))
+		switch (curItem.Compare(inData))
 		{
 		case EQUAL:
-			cout << "\tError: duplicated item in the list\n";
+			cout << " %%% same item exist in the list %%%\n";
 			return 0;
 		case GREATER:
 			found = true;
 			break;
 		case LESS:
-			Position = GetNextItem(temp);
+			iPos = GetNextItem(curItem);
 			break;
 		}
 	}
 
-	if (Position == -1) {										// (4).
-		m_Array[m_Length++] = data;
+
+	if (iPos == -1) {										// (4).
+		m_Array[m_Length++] = inData;
 		return 1;
 	}
 
-	for (int i = m_Length; i > Position; i--) {					// (5).
+	for (int i = m_Length; i > iPos; i--) {
 		m_Array[i] = m_Array[i - 1];
 	}
-	m_Array[Position] = data;
+	m_Array[iPos] = inData;
 	m_Length++;
+
 	return 1;
 }
 
 
-// Delete item in accordance with data's primary key.
-int SortedList::Delete(ItemType data)
+// Initialize list iterator.
+void SortedList::ResetList()
 {
-	//---------------------------------------------------------------
-	// (1) List가 비어있는지 확인. 비어있을시 삭제 실패(0)을 return.
-	// (2) List가 비어있지 않는 경우,
-	//	   - List에서 data를 검색한다. 
-	//	   [1] 성공(1) return시, 상위 data를 이동하고 길이를 줄인다.
-	//	   [2] 실패(0) return.
-	// ---------------------------------------------------------------
-	if (IsEmpty()) { return 0; }								// (1).
-	else {														// (2).
-		if (Retrieve_SeqS(data)) {
-			for (int i = m_CurPointer; i < m_Length; i++) {
-				m_Array[i] = m_Array[i + 1];
-			}
-			m_Length--;
-			return 1;
-		}
-		else { return 0; }
-	}
+	m_CurPointer = -1;
 }
 
 
-// Find same record using primary key and replace it.
-int SortedList::Replace(ItemType data)
+// Update pointer to point to next record, and get that new record.
+int SortedList::GetNextItem(ItemType& data)
 {
 	//---------------------------------------------------------------
-	// (1) List가 비어있는지 확인. 비어있을시 삭제 실패(0)을 return.
-	// (2) 검색 확인 변수 isFind, 포인터 초기화
-	// (3) 검색, 교체
-	//	   - List에서 data를 검색한다. 
-	//	   [1] 찾게 되면, 성공(1) return.
-	//	   [2] 실패(0) return.
-	// ---------------------------------------------------------------
-	if (IsEmpty()) { return 0; }								// (1).
-
-	bool isFind = false;										// (2).
-	ResetList();
-	m_CurPointer++;
-
-	for (m_CurPointer; m_CurPointer < m_Length; m_CurPointer++) {// (3).
-		if (!isFind) {
-			if (m_Array[m_CurPointer] == data) {
-				m_Array[m_CurPointer] = data;
-				isFind = true;
-				break;
-			}
-		}
-	}
-
-	if (isFind) {
-		return 1;
-	}
-	else {
-		cout << "\tFail to find and replace item!" << '\n';
-		return 0;
-	}
+	// (1) 현재 Pointer를 increment하여 다음 item의 index를 가리킨다.
+	// (2) Pointer가 capacity를 넘어서면, 실패(-1)를 return.
+	// (3) List에서 해당 index의 data를 가져온다.
+	// (4) 현재 위치를 출력한다.
+	//---------------------------------------------------------------
+	m_CurPointer++;												// (1).
+	if (m_CurPointer == m_Length)								// (2).
+		return -1;
+	data = m_Array[m_CurPointer];								// (3).
+	return m_CurPointer;										// (4).
 }
+
+
 
 
 // Find the item whose primary key matches with the primary 
@@ -221,6 +153,46 @@ int SortedList::Retrieve_SeqS(ItemType& data)
 
 
 
+// Delete item in accordance with data's primary key.
+int SortedList::Delete(ItemType data)
+{
+	//---------------------------------------------------------------
+	// (1) List가 비어있는지 확인. 비어있을시 삭제 실패(0)을 return.
+	// (2) List가 비어있지 않는 경우,
+	//	   - List에서 data를 검색한다. 
+	//	   [1] 성공(1) return시, 상위 data를 이동하고 길이를 줄인다.
+	//	   [2] 실패(0) return.
+	// ---------------------------------------------------------------
+	if (Retrieve_SeqS(data))									// (1).
+	{
+		for (int i = m_CurPointer; i < m_Length; i++)			// (2).
+			m_Array[i] = m_Array[i + 1];
+		m_Length--;
+		return 1;
+	}
+	return 0;
+}
+
+// Find same record using primary key and replace it.
+int SortedList::Replace(ItemType data)
+{
+	//---------------------------------------------------------------
+	// (1) 입력받은 item 백업.
+	// (2) 검색, 교체
+	//	   - List에서 data를 검색한다. 
+	//	   [1] 찾게 되면, 성공(1) return.
+	//	   [2] 실패(0) return.
+	// ---------------------------------------------------------------
+	ItemType tmp(data);											// (1)
+
+	if (Retrieve_SeqS(data))									// (2)
+	{
+		m_Array[m_CurPointer] = tmp;
+		return 1;
+	}
+	return 0;
+}
+
 // Retrieve by using binary search.
 int SortedList::RetrieveByBS(ItemType& data)
 {
@@ -238,29 +210,28 @@ int SortedList::RetrieveByBS(ItemType& data)
 	//		 [2] 아닌 경우, 해당 지점과 첫 지점의 사이로 Position 이동.
 	// (4) 함수가 실패하면, 실패(0)을 return.
 	// ---------------------------------------------------------------
-	if (IsEmpty()) { return 0; }								// (1).
-	int curPosition = m_Length / 2;								// (2).
-	while (1)													// (3).
+	if (m_Length == 0)											// (1).
+		return 0;												// (2).
+	int currentPos = m_Length / 2;								// (3).
+	while (1)
 	{
-		switch (m_Array[curPosition].Compare(data))
+		switch (m_Array[currentPos].Compare(data))
 		{
 		case EQUAL:
-			data = m_Array[curPosition];
+			data = m_Array[currentPos];
 			return 1;
 			break;
 		case GREATER:
-			if (curPosition == 0)
+			if (currentPos == 0)
 				return 0;
-			curPosition /= 2;
+			currentPos /= 2;
 			break;
 		case LESS:
-			if (curPosition == m_Length - 1)
+			if (currentPos == m_Length - 1)
 				return 0;
-			curPosition = (curPosition + m_Length) / 2;
+			currentPos = (currentPos + m_Length) / 2;
 			break;
 		}
 	}
-	return 0;													 // (4).
-
+	return 0;													// (4).
 }
-

@@ -2,21 +2,21 @@
 
 
 // Get student id.
-int ItemType::GetId() const
+int ItemType::GetId()
 {
 	return m_Id;
 }
 
 
 // Get student name.
-string ItemType::GetName() const
+string ItemType::GetName()
 {
 	return m_sName;
 }
 
 
 // Get student address
-string ItemType::GetAddress() const
+string ItemType::GetAddress()
 {
 	return m_sAddress;
 }
@@ -129,10 +129,10 @@ int ItemType::ReadDataFromFile(ifstream& fin)
 // Write a record into file.
 int ItemType::WriteDataToFile(ofstream& fout)
 {
+	fout << endl;
 	fout << m_Id << " ";
 	fout << m_sName << " ";
 	fout << m_sAddress;
-	fout << '\n';
 
 	return 1;
 }
@@ -147,26 +147,4 @@ RelationType ItemType::Compare(const ItemType& data)
 		return LESS;
 	else
 		return EQUAL;
-}
-
-// Compare id by operator==.
-bool ItemType::operator==(const ItemType& A)
-{
-	if (this->GetId() == A.GetId()) {
-		return true;
-	}
-	else { return false; }
-}
-
-
-// Copy the rocord by operator=.
-void ItemType::operator=(const ItemType& _item)
-{
-	int id = _item.GetId();
-	string name = _item.GetName();
-	string address = _item.GetAddress();
-
-	this->SetId(id);
-	this->SetName(name);
-	this->SetAddress(address);
 }

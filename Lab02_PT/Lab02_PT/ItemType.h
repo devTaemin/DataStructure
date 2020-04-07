@@ -4,9 +4,11 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+
 using namespace std;
 
-enum RelationType { LESS, EQUAL, GREATER };
+
+enum RelationType { LESS, GREATER, EQUAL };
 //--------------------------------------------------------------------
 //		Relation between items.
 //--------------------------------------------------------------------
@@ -18,6 +20,7 @@ enum RelationType { LESS, EQUAL, GREATER };
 class ItemType
 {
 public:
+
 	ItemType()
 		//--------------------------------------------------------------------
 		//		Default Constructor.
@@ -35,7 +38,7 @@ public:
 	//--------------------------------------------------------------------
 
 
-	int GetId() const;
+	int GetId();
 	//--------------------------------------------------------------------
 	//	Brief:	Get student id.
 	//	Pre:	student id is set.
@@ -44,7 +47,7 @@ public:
 	//--------------------------------------------------------------------
 
 
-	string GetName() const;
+	string GetName();
 	//--------------------------------------------------------------------
 	//	Brief:	Get student name.
 	//	Pre:	student name is set.
@@ -53,13 +56,14 @@ public:
 	//--------------------------------------------------------------------
 
 
-	string GetAddress() const;
+	string GetAddress();
 	//--------------------------------------------------------------------
 	//	Brief:	Get student address.
 	//	Pre:	student address is set.
 	//	Post:	none.
 	//	Return:	student address.
 	//--------------------------------------------------------------------
+
 
 	void SetId(int inId);
 	//--------------------------------------------------------------------
@@ -192,26 +196,6 @@ public:
 	//	Return:	return LESS if this.id < data.id,
 	//				   EQUAL if this.id == data.id,
 	//				   GREATER if this.id > data.id.
-	//--------------------------------------------------------------------
-
-
-	bool operator==(const ItemType& A);
-	//--------------------------------------------------------------------
-	//	Brief:	Compare id by operator==.
-	//	Pre:	both items' serial number should be set.
-	//	Post:	none.
-	//	Param:	A		target item for comparing.
-	//	Return:	return true if this.id == A.id,
-	//				   false if this.id != A.id.
-	//--------------------------------------------------------------------
-
-
-	void operator=(const ItemType& _item);
-	//--------------------------------------------------------------------
-	//	Brief:	Copy the record by operator=.
-	//	Pre:	target item's record, going to be copied, should be set.
-	//	Post:	a record is copied from target item.
-	//	Param:	_item		the target item.
 	//--------------------------------------------------------------------
 
 
