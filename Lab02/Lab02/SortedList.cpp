@@ -59,7 +59,7 @@ int SortedList::Add(ItemType inData)
 	iPos = GetNextItem(curItem);							// (3).
 	while (iPos > -1 && !found)								
 	{
-		switch (curItem.Compare(inData))
+		switch (curItem.Compare_Serial(inData))
 		{
 		case EQUAL:
 			cout << " %%% same item exist in the list %%%\n";
@@ -134,7 +134,7 @@ int SortedList::Retrieve_SeqS(ItemType& data)
 
 	while (m_CurPointer < m_Length)								// (4).
 	{
-		switch (CurItem.Compare(data))	
+		switch (CurItem.Compare_Serial(data))	
 		{
 		case EQUAL:	
 			data = CurItem;	
@@ -288,7 +288,7 @@ int SortedList::RetrieveByBS(ItemType& data)
 	int currentPos = m_Length / 2;								// (3).
 	while (1)
 	{
-		switch (m_Array[currentPos].Compare(data))
+		switch (m_Array[currentPos].Compare_Serial(data))
 		{
 		case EQUAL:	
 			data = m_Array[currentPos];	

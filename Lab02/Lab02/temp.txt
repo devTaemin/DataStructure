@@ -1,6 +1,6 @@
 
-1 a a
-2 b b
-4 d d
-5 e e
-6 f f
+1 2017 Pencil 1 20
+1 2018 ballpen 2 10
+2 2020 book2 3 11
+2 2019 book1 4 10
+1 2021 Eraser 5 13

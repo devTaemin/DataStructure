@@ -166,7 +166,7 @@ void ItemType::SetNameFromKB()
 void ItemType::SetSerialFromKB()
 {
 	cout << "\tSerial : ";
-	cin >> Type;
+	cin >> Serial;
 }
 
 
@@ -217,7 +217,7 @@ int ItemType::WriteDataToFile(ofstream& fout)
 
 
 // Compare two itemtypes.
-RelationType ItemType::Compare(const ItemType& data)
+RelationType ItemType::Compare_Serial(const ItemType& data)
 {
 	if (this->Serial > data.Serial)
 		return GREATER;
