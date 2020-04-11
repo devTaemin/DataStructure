@@ -36,7 +36,7 @@ public:
 	bool IsEmpty();
 
 
-	int Add(ItemType data);
+	int Add(ItemType inData);
 
 
 	void ResetList();
@@ -44,6 +44,14 @@ public:
 
 	int GetNextItem(ItemType& data);
 
+
+	int Get(ItemType& data);
+
+
+	int Delete(ItemType data);
+
+
+	int Replace(ItemType data);
 
 private:
 	ItemType m_Array[MAXSIZE];

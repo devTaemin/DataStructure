@@ -1,6 +1,6 @@
 #include "UnSorted_Application.h"
 
-// Command 와 Run 작성 숙지해야한다.
+
 void UnSorted_Application::Run()
 {
 	bool quit = false;
@@ -24,6 +24,15 @@ void UnSorted_Application::Run()
 		case 5:
 			WriteDataToFile();
 			break;
+		case 6:
+			RetrieveStudent();
+			break;
+		case 7:
+			DeleteStudent();
+			break;
+		case 8:
+			Replace();
+			break;
 		case 0:
 			quit = true;
 			break;
@@ -46,6 +55,9 @@ int UnSorted_Application::GetCommand()
 	cout << "\t    3: Make empty list" << '\n';
 	cout << "\t    4: Get from file" << '\n';
 	cout << "\t    5: Put to file" << '\n';
+	cout << "\t    6: Retrieve student by ID" << '\n';
+	cout << "\t    7: Delete student by ID" << '\n';
+	cout << "\t    8: Replace record of student" << '\n';
 	cout << "\t    0: Quit" << '\n';
 	cout << '\n';
 	cout << '\n';
@@ -148,23 +160,37 @@ int UnSorted_Application::OpenOutFile(char* inFilename)
 
 int UnSorted_Application::ReadDataFromFile()
 {
-	char filename[CHARMAXSIZE];
+	char filename[FILENAMESIZE];
 	cout << "\t[File name] : ";
 	cin >> filename;
 	if (OpenInFile(filename)) {
 		cout << "\t=====| FILE OPEN SUCCESS |======" << '\n';
 		ItemType item;
+		bool add = false;
+		m_List.ResetList(); // Write하고 Read할때 오류 방지하기 위해
 		while (!m_InFile.eof()) {
 			item.ReadDataFromFile(m_InFile);
-			if (m_List.Add(item)) {
+			if (m_List.Add(item) == 1) {
 				cout << "\t=====| READING   SUCCESS |======" << '\n';
+				add = true;
+			}
+			else if (m_List.Add(item) == -1) {
+				cout << "\t=====| ERROR:  DUPLICATED KEY |======" << '\n';
 			}
 			else {
 				cout << "\t=====| ERROR:  FULL LIST |======" << '\n';
+				m_InFile.close();
 				return 0;
 			}
 		}
-		return 1;
+		m_InFile.close();
+
+		if (add) { return 1; }
+		else { 
+			cout << "\t=====| ERROR:  ADDING FAIL |======" << '\n';
+			cout << "\t=====| SUSPICOUS:  ALL ELEMENTS ARE  DUPLICATED! |======" << '\n';
+			return 0; 
+		}
 	}
 	cout << "\t=====| ERROR: Fail to open file |======" << '\n';
 	return 0;
@@ -173,13 +199,14 @@ int UnSorted_Application::ReadDataFromFile()
 
 int UnSorted_Application::WriteDataToFile()
 {
-	char filename[CHARMAXSIZE];
+	char filename[FILENAMESIZE];
 	cout << "\t[File name] : ";
 	cin >> filename;
 	if (OpenOutFile(filename)) {
 		cout << "\t=====| FILE OPEN SUCCESS |======" << '\n';
 		if (m_List.IsEmpty()) {
 			cout << "\t=====| ERROR: EMPTY LIST |======" << '\n';
+			m_OutFile.close();
 			return 0;
 		}
 		ItemType item;
@@ -189,9 +216,56 @@ int UnSorted_Application::WriteDataToFile()
 			item.WriteDataToFile(m_OutFile);
 			cout << "\t=====| WRITING   SUCCESS |======" << '\n';
 		}
+		m_OutFile.close();
 		return 1;
 	}
 	cout << "\t=====| ERROR: Fail to open file |======" << '\n';
 	return 0;
 	
+}
+
+
+int UnSorted_Application::RetrieveStudent()
+{
+	ItemType item;
+	item.SetIdFromKB();
+	if (m_List.Get(item)) {
+		cout << '\n';
+		cout << "\t=====| RETRIEVE  SUCCESS |======" << '\n';
+		item.DisplayRecordOnScreen();
+		return 1;
+	}
+	cout << '\n';
+	cout << "\t=====| ERROR: RETRIEVE FAIL |======" << '\n';
+	return 0;
+}
+
+
+int UnSorted_Application::DeleteStudent()
+{
+	ItemType item;
+	item.SetIdFromKB();
+	if (m_List.Delete(item)) {
+		cout << '\n';
+		cout << "\t=====| DELETE  SUCCESS |======" << '\n';
+		return 1;
+	}
+	cout << '\n';
+	cout << "\t=====| ERROR: DELETE FAIL |======" << '\n';
+	return 0;
+}
+
+
+int UnSorted_Application::Replace()
+{
+	ItemType item;
+	item.SetRecordFromKB();
+	if (m_List.Replace(item)) {
+		cout << '\n';
+		cout << "\t=====| REPLACE  SUCCESS |======" << '\n';
+		return 1;
+	}
+	cout << '\n';
+	cout << "\t=====| ERROR: REPLACE FAIL |======" << '\n';
+	return 0;
 }

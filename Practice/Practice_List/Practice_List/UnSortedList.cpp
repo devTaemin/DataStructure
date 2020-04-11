@@ -32,6 +32,14 @@ bool UnSortedList::IsEmpty()
 int UnSortedList::Add(ItemType inData)
 {
 	if (!IsFull()) {
+		ItemType item;
+		ResetList();
+		int iPos = GetNextItem(item);
+		for (iPos; iPos > 0; iPos = GetNextItem(item)) {
+			if (item.CompareByID(inData) == EQUAL) {
+				return -1;
+			}
+		}
 		m_Array[m_Length++] = inData;
 		return 1;
 	}
@@ -45,13 +53,67 @@ void UnSortedList::ResetList()
 }
 
 
-// 포인터 증가 -> 끝지점 넘어가면 return 0, 안넘어가면 data reference, return 1
-int UnSortedList::GetNextItem(ItemType& inData)
+int UnSortedList::GetNextItem(ItemType& data)
 {
 	m_CurPointer++;
 	if (m_CurPointer > m_Length - 1) {
 		return 0;
 	}
-	inData = m_Array[m_CurPointer];
+	data = m_Array[m_CurPointer];
 	return 1;
+}
+
+
+int UnSortedList::Get(ItemType& data)
+{
+	ItemType item;
+	ResetList();
+	int iPos = GetNextItem(item);
+	for (iPos; iPos > 0; iPos = GetNextItem(item)) {
+		if (item.CompareByID(data) == EQUAL) {
+			data = item;
+			return 1;
+		}
+	}
+	return 0;
+}
+
+
+int UnSortedList::Delete(ItemType data)
+{
+	ItemType item;
+	bool found = false;
+	ResetList();
+	int iPos = GetNextItem(item);
+	for (iPos; iPos > 0; iPos = GetNextItem(item)) {
+		if (!found) {
+			if (item.CompareByID(data) == EQUAL) {
+				found = true;
+			}
+		}
+		else {
+			m_Array[m_CurPointer - 1] = m_Array[m_CurPointer];
+		}
+	}
+
+	if (!found){ return 0; }
+	else { 
+		m_Length--;
+		return 1; 
+	}
+}
+
+
+int UnSortedList::Replace(ItemType data)
+{
+	ItemType item;
+	ResetList();
+	int iPos = GetNextItem(item);
+	for (iPos; iPos > 0; iPos = GetNextItem(item)) {
+		if (item.CompareByID(data) == EQUAL) {
+			m_Array[m_CurPointer] = data;
+			return 1;
+		}
+	}
+	return 0;
 }

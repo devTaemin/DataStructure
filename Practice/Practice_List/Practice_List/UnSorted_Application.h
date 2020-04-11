@@ -7,7 +7,7 @@
 #include "UnSortedList.h"
 using namespace std;
 
-#define CHARMAXSIZE 1024
+#define FILENAMESIZE 1024
 
 class UnSorted_Application
 {
@@ -37,6 +37,15 @@ public:
 
 
 	int WriteDataToFile();
+
+
+	int RetrieveStudent();
+
+
+	int DeleteStudent();
+
+
+	int Replace();
 
 
 private:
