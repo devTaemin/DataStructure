@@ -139,9 +139,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CircularQueueType.h" />
+    <ClInclude Include="DynamicStackType.h" />
+    <ClInclude Include="GeneralStackType.h" />
+    <ClInclude Include="ItemType.h" />
+    <ClInclude Include="StackType.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CircularQueueType.cpp" />
+    <ClCompile Include="DynamicStackType.cpp" />
+    <ClCompile Include="GeneralStackType.cpp" />
+    <ClCompile Include="ItemType.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="StackType.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
