@@ -75,7 +75,7 @@ bool StackType<RecordType>::IsEmpty() const
 template <class RecordType>
 bool StackType<RecordType>::IsFull() const
 {
-	return (top == maxStack - 1)
+	return (top == maxStack - 1);
 }
 
 

@@ -295,10 +295,16 @@ public:
 	*/
 
 
-	void PushOnFullStack();
+	int PushOnFullStack();
 
 
-	void PopOnEmptyStack();
+	int PopOnEmptyStack();
+
+
+	int EmptyQueue();
+
+
+	int FullQueue();
 
 
 	

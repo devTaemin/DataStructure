@@ -133,7 +133,7 @@ void ItemType::SetTypeFromKB()
 {
 	int inType;
 	while (1) {
-		cout << "\tType (1. ÇÊ±â·ù, 2. Ã¥)  : ";
+		cout << "\tType  (1. 필기류, 2. 책)  : ";
 		cin >> inType;
 		if (inType == 1 || inType == 2) {
 			SetType(inType);
@@ -251,13 +251,29 @@ RelationType ItemType::Compare_Name(const ItemType& data)
 */
 
 
-void ItemType::PushOnFullStack()
+int ItemType::PushOnFullStack()
 {
-	cout << "=====|EROOR: FULL STACK|=====" << '\m';
+	cout << "=====|EROOR: FULL STACK|=====" << '\n';
+	return 0;
 }
 
 
-void ItemType::PopOnEmptyStack()
+int ItemType::PopOnEmptyStack()
 {
-	cout << "=====|ERROR: EMPTY STACK|=====" << '\m';
+	cout << "=====|ERROR: EMPTY STACK|=====" << '\n';
+	return 0;
+}
+
+
+int EmptyQueue()
+{
+	cout << "=====|ERROR: EMPTY Queue|=====" << '\n';
+	return 0;
+}
+
+
+int FullQueue()
+{
+	cout << "=====|ERROR: FULL QUEUE|=====" << '\n';
+	return 0;
 }
