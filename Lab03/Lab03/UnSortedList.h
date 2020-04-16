@@ -1,6 +1,5 @@
 #ifndef _UNSORTEDLIST_H_
-#define _UNOSRTEDLIST_H_
-#include "pch.h"
+#define _UNSORTEDLIST_H_
 //--------------------------------------------------------------------
 //		Array based on 'UnSorted list'.
 //--------------------------------------------------------------------
@@ -27,7 +26,7 @@ public:
 	//--------------------------------------------------------------------
 
 
-	~UnSortedList() {}
+	~UnSortedList();
 	//--------------------------------------------------------------------
 	//		Destructor.
 	//--------------------------------------------------------------------
@@ -131,9 +130,6 @@ public:
 	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
 };
-#endif _UNSORTEDLIST_H_
-
-
 // Default constructor.
 template <typename T>
 UnSortedList<T>::UnSortedList() {
@@ -209,14 +205,14 @@ void UnSortedList<T>::ResetList()
 template <typename T>
 int UnSortedList<T>::GetNextItem(T& data)
 //---------------------------------------------------------------
-// (1) 현재 list가 empty라면, 실패(0)을 return.
+// (1) 현재 list가 empty라면, 실패(-1)을 return.
 // (2) 다음 record를 가리키도록 Pointer를 increment.
 // (3) 만약 Pointer가 저장한 list의 index를 초과(=저장 개수)하면 
 //	   실패(-1)를 return.
 // (4) data에 현재 item을 refer하고 현재 위치 포인터를 return.
 //---------------------------------------------------------------
 {
-	if (IsEmpty()) { return 0; }							// (1).
+	if (IsEmpty()) { return -1; }							// (1).
 	m_CurPointer++;											// (2).
 	if (m_CurPointer == m_Length) {							// (3).
 		return -1;
@@ -242,8 +238,8 @@ int UnSortedList<T>::Add(T data)
 	T curItem;												// (2).
 	ResetList();
 	int iPos = GetNextItem(curItem);
-	for (iPos; iPos > 0; iPos = GetNextItem(curItem)) {
-		if (curItem.Compare_Serial(data) == EQUAL) {
+	for (iPos; iPos >= 0; iPos = GetNextItem(curItem)) {
+		if (curItem.Compare(data) == EQUAL) {
 			return -1;
 		}
 	}
@@ -272,7 +268,7 @@ int UnSortedList<T>::Delete(T data)
 	bool found = false;
 	for (iPos; iPos > 0; iPos = GetNextItem(curItem)) {
 		if (!found) {
-			if (curItem.Compare_Serial(data) == EQUAL) {
+			if (curItem.Compare(data) == EQUAL) {
 				found = true;
 			}
 		}
@@ -307,7 +303,7 @@ int UnSortedList<T>::Replace(T data)
 	ResetList();
 	int iPos = GetNextItem(curItem);
 	for (iPos; iPos > 0; iPos = GetNextItem(curItem)) {
-		if (curItem.Compare_Serial(data) == EQUAL) {
+		if (curItem.Compare(data) == EQUAL) {
 			m_Array[iPos] = data;
 			return 1;
 		}
@@ -334,10 +330,13 @@ int UnSortedList<T>::Get(T& data)
 	ResetList();
 	int iPos = GetNextItem(curItem);
 	for (iPos; iPos > 0; iPos = GetNextItem(curItem)) {
-		if (curItem.Compare_Serial(data) == EQUAL) {
+		if (curItem.Compare(data) == EQUAL) {
 			data = m_Array[iPos];
 			return 1;
 		}
 	}
 	return 0;												// (3).
 }
+#endif _UNSORTEDLIST_H_
+
+

@@ -22,6 +22,24 @@ public:
 	//--------------------------------------------------------------------
 
 
+	bool IsFull() const;
+	//--------------------------------------------------------------------
+	//	Brief:	Check whether CircularQueue is full.
+	//	Pre:	Queue has been initialized.
+	//	Post:	none.
+	//	Return:	return true if Queue is full, otherwise false.
+	//--------------------------------------------------------------------
+
+
+	bool IsEmpty() const;
+	//--------------------------------------------------------------------
+	//	Brief:	Check whether CircularQueue is empty.
+	//	Pre:	Queue has been initialized.
+	//	Post:	none.
+	//	Return: return true if stack is empty, otherwise false.
+	//--------------------------------------------------------------------
+
+
 	int Enqueue(ItemType data);
 	//--------------------------------------------------------------------
 	//	Brief:	Adds new data to the last of the queue.

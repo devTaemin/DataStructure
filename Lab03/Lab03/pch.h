@@ -1,40 +1,34 @@
 #ifndef _PCH_H_
 #define _PCH_H_
 
-
-// Precompiled Header
 #include <iostream>
 #include <fstream>
 #include <string>
 using namespace std;
 
-
-// Relation between items.
-enum RelationType { LESS, EQUAL, GREATER };
-
-
-// Pre-defined variables' value
 #define MAXLIST 10
 #define MAXSTACK 10
 #define MAXQUEUE 11
+// Relation between items.
+enum RelationType { LESS, EQUAL, GREATER };
 
-
-// Type
-#include "ItemType.h"
-#include "TempType.h"
-#include "ContainerType.h"
-#include "SimpleItemType.h"
-
-
-// List
+// DS
 #include "SortedList.h"
 #include "UnSortedList.h"
 #include "Stack.h"
 #include "CircularQueue.h"
 
 
+// Type
+#include "ItemType.h"
+#include "SimpleItemType.h"
+#include "TempType.h"
+#include "ContainerType.h"
+
+
 // App
 #include "Application.h"
+
 
 
 #endif _PCH_H_

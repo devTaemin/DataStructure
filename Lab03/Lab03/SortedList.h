@@ -1,6 +1,5 @@
 #ifndef _SORTEDLIST_H_
 #define _SORTEDLIST_H_
-#include "pch.h"
 //--------------------------------------------------------------------
 //		Array based on 'Sorted list'.
 //--------------------------------------------------------------------
@@ -27,7 +26,7 @@ public:
 	//--------------------------------------------------------------------
 
 
-	~SortedList() {}
+	~SortedList();
 	//--------------------------------------------------------------------
 	//		Destructor.
 	//--------------------------------------------------------------------
@@ -140,8 +139,6 @@ public:
 	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
 };
-#endif _SORTEDLIST_H_
-
 // Default constructor.
 template <typename T>
 SortedList<T>::SortedList()
@@ -218,14 +215,14 @@ void SortedList<T>::ResetList()
 template <typename T>
 int SortedList<T>::GetNextItem(T& data)
 //---------------------------------------------------------------
-// (1) 현재 list가 empty라면, 실패(0)을 return.
+// (1) 현재 list가 empty라면, 실패(-1)을 return.
 // (2) 다음 record를 가리키도록 Pointer를 increment.
 // (3) 만약 Pointer가 저장한 list의 index를 초과(=저장 개수)하면 
 //	   실패(-1)를 return.
 // (4) data에 현재 item을 refer하고 현재 위치 포인터를 return.
 //---------------------------------------------------------------
 {
-	if (IsEmpty()) { return 0; }							// (1).
+	if (IsEmpty()) { return -1; }							// (1).
 	m_CurPointer++;											// (2).
 	if (m_CurPointer == m_Length) {							// (3).
 		return -1;
@@ -264,24 +261,23 @@ int SortedList<T>::Add(T data)
 	T curItem;												// (2). 
 	ResetList();
 	int iPos = GetNextItem(curItem);
-	for (iPos; iPos > 0; iPos = GetNextItem(curItem)) {
-		if (data.Compare_Serial(curItem) == EQUAL) {
+	for (iPos; iPos >= 0; iPos = GetNextItem(curItem)) {
+		if (data.Compare(curItem) == EQUAL) {
 			return -1;
 		}
-		else if (data.Compare_Serial(curItem) == GREATER) {
+		else if (data.Compare(curItem) == GREATER) {
 			break;
 		}
 		else { continue; }
 	}
 
-	for (int i = m_Length; i > iPos; i--;) {				// (3).
+	for (int i = m_Length; i > iPos; i--) {				// (3).
 		m_Array[i] = m_Array[i - 1];
 	}
 	m_Array[iPos] = data;
 	m_Length++;
 	return 1;
 }
-
 
 
 // Delete item in accordance with data's primary key.
@@ -308,7 +304,7 @@ int SortedList<T>::Delete(T data)
 	bool found = false;
 	for (iPos; iPos > 0; iPos = GetNextItem(curItem)) {
 		if (!found) {
-			if (data.Compare_Serial(curItem) == EQUAL) {
+			if (data.Compare(curItem) == EQUAL) {
 				found = true;
 			}
 		}
@@ -345,11 +341,11 @@ int SortedList<T>::Replace(T data)
 	ResetList();
 	int iPos = GetNextItem(curItem);
 	for (iPos; iPos > 0; iPos = GetNextItem(curItem)) {
-		if (data.Compare_Serial(curItem) == EQUAL) {
+		if (data.Compare(curItem) == EQUAL) {
 			m_Array[iPos] = data;
 			return 1;
 		}
-		else if (data.Compare_Serial(curItem) == LESS) {
+		else if (data.Compare(curItem) == LESS) {
 			return 0;
 		}
 		else { continue; }
@@ -378,11 +374,11 @@ int SortedList<T>::Retrieve_SeqS(T& data)
 	ResetList();
 	int iPos = GetNextItem(curItem);
 	for (iPos; iPos > 0; iPos = GetNextItem(curItem)) {
-		if (data.Compare_Serial(curItem) == EQUAL) {
+		if (data.Compare(curItem) == EQUAL) {
 			data = m_Array[iPos];
 			return 1;
 		}
-		else if (data.Compare_Serial(curItem) == GREATER) {
+		else if (data.Compare(curItem) == GREATER) {
 			return 0;
 		}
 		else { continue; }
@@ -415,7 +411,7 @@ int SortedList<T>::RetrieveByBS(T& data)
 	{
 		m_CurPointer = m_Length / 2;
 		T curItem = m_Array[m_CurPointer];
-		switch (curItem.Compare_Serial(data))
+		switch (curItem.Compare(data))
 		{
 		case EQUAL:
 			data = curItem;
@@ -433,3 +429,6 @@ int SortedList<T>::RetrieveByBS(T& data)
 	}
 	return 0;
 }
+#endif _SORTEDLIST_H_
+
+

@@ -178,7 +178,7 @@ public:
 
 
 
-	RelationType Compare_Serial(const SimpleItemType& data);
+	RelationType Compare(const SimpleItemType& data);
 	//--------------------------------------------------------------------
 	//	Brief:	Compare two itemtypes by item serial number.
 	//	Pre:	two items should be initialized.

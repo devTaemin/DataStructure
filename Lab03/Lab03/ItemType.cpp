@@ -1,5 +1,5 @@
-#include "ItemType.h"
 #include "pch.h"
+#include "ItemType.h"
 
 
 // Get container id.
@@ -155,7 +155,7 @@ void ItemType::DisplayRecordOnScreen()
 // Set container id from keyboard.
 void ItemType::SetContainerIDFromKB()
 {
-	cout << "\C-ID   : ";
+	cout << "\tC-ID   : ";
 	cin >> m_ContainerID;
 }
 
@@ -242,7 +242,7 @@ int ItemType::WriteDataToFile(ofstream& fout)
 
 
 // Compare two itemtypes by Serial.
-RelationType ItemType::Compare_Serial(const ItemType& data)
+RelationType ItemType::Compare(const ItemType& data)
 {
 	if (this->m_Serial > data.m_Serial)
 		return GREATER;

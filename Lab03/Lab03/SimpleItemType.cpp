@@ -1,5 +1,5 @@
-#include "SimpleItemType.h"
 #include "pch.h"
+#include "SimpleItemType.h"
 
 
 // Get container id.
@@ -86,7 +86,7 @@ void SimpleItemType::DisplayRecordOnScreen()
 // Set container id from keyboard.
 void SimpleItemType::SetContainerIDFromKB()
 {
-	cout << "\C-ID   : ";
+	cout << "\tC-ID   : ";
 	cin >> s_ContainerID;
 }
 
@@ -140,7 +140,7 @@ int SimpleItemType::WriteDataToFile(ofstream& fout)
 
 
 // Compare two simpleitemtypes by Serial.
-RelationType SimpleItemType::Compare_Serial(const SimpleItemType& data)
+RelationType SimpleItemType::Compare(const SimpleItemType& data)
 {
 	if (this->s_Serial > data.s_Serial)
 		return GREATER;

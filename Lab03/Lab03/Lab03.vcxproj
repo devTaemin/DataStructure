@@ -146,12 +146,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="CircularQueue.cpp" />
     <ClCompile Include="ContainerType.cpp" />
     <ClCompile Include="ItemType.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="SimpleItemType.cpp" />
+    <ClCompile Include="SortedList.cpp" />
+    <ClCompile Include="Stack.cpp" />
     <ClCompile Include="TempType.cpp" />
+    <ClCompile Include="UnSortedList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />

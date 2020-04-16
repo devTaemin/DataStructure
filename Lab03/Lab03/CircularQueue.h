@@ -1,6 +1,5 @@
 #ifndef _CIRCULAR_QUEUE_H_
 #define _CIRCULAR_QUEUE_H_
-#include "pch.h"
 //--------------------------------------------------------------------
 //		Array based on 'Circular Queue'.
 //--------------------------------------------------------------------
@@ -100,8 +99,6 @@ public:
 	//	Return: return 1, if functions works well, otherwise 0.
 	//--------------------------------------------------------------------
 };
-#endif _CIRCULAR_QUEUE_H_
-
 
 // Default Constructor.
 template <typename T>
@@ -158,7 +155,7 @@ void CircularQueue<T>::ResetQueuePointer()
 template <typename T>
 int CircularQueue<T>::GetNextItem(T& data)
 //---------------------------------------------------------------
-// (1) 현재 Queue가 empty이면, 실패(0)을 return.
+// (1) 현재 Queue가 empty이면, 실패(-1)을 return.
 // (2) CircularQueue의 포인터가 다음 포인터를 가리키도록 한다.
 //     - 현재 포인터를 1 증가하고, 큐의 길이만큼 모듈러 계산
 // (3) 만약 가장 마지막 값을 가진 rear보다 1칸 앞까지 간다면, 초과
@@ -167,7 +164,7 @@ int CircularQueue<T>::GetNextItem(T& data)
 //	   현재 포인터의 값을 return.
 //---------------------------------------------------------------
 {
-	if (IsEmpty()) { return 0; }							// (1).
+	if (IsEmpty()) { return -1; }							// (1).
 	m_CurPointer = (m_CurPointer + 1) % m_Maxsize;			// (2).
 	if (m_CurPointer == (m_Rear + 1) % m_Maxsize) {			// (3).
 		return -1;
@@ -230,3 +227,7 @@ int CircularQueue<T>::DeQueue(T& data)
 	data = m_Queue[m_Front];
 	return 1;												// (3).
 }
+
+#endif _CIRCULAR_QUEUE_H_
+
+

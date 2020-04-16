@@ -1,5 +1,5 @@
-#include "TempType.h"
 #include "pch.h"
+#include "TempType.h"
 
 
 // Default Constructor.
@@ -11,6 +11,20 @@ TempType::TempType()
 
 // Destructor.
 TempType::~TempType() {}
+
+
+// Check whether CircularQueue is full.
+bool TempType::IsFull() const
+{
+	return tItemList.IsFull();
+}
+
+
+// Check whether CircularQueue is empty.
+bool TempType::IsEmpty() const
+{
+	return tItemList.IsEmpty();
+}
 
 
 // Adds new data to the last of the queue.

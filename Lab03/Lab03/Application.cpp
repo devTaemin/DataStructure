@@ -1,19 +1,16 @@
-#include "Application.h"
 #include "pch.h"
+#include "Application.h"
 
 
-// Application::
+
 
 Application::Application()
 {
-
+	m_Command = -1;
 }
 
 
-Application::~Application()
-{
-
-}
+Application::~Application(){}
 
 
 // Program driver.
@@ -26,7 +23,7 @@ void Application::Run()
 		switch (m_Command)
 		{
 		case 1:
-			
+			AddCommodityMaster();
 			break;
 		case 2:
 			
@@ -38,7 +35,7 @@ void Application::Run()
 			
 			break;
 		case 5:
-			
+			DisplayAllMaster();
 			break;
 		case 6:
 			
@@ -123,38 +120,3 @@ int Application::GetCommand()
 	return command;
 }
 
-
-int Application::AddItem()
-{
-
-}
-
-
-int Application::DeleteItem()
-{
-
-}
-
-
-int Application::UpdateItem()
-{
-
-}
-
-
-void Application::DisplayAllItem()
-{
-
-}
-
-
-void Application::DisplayContainerItem()
-{
-
-}
-
-
-void Application::DisplayTempItem()
-{
-
-}
