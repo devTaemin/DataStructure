@@ -45,11 +45,23 @@ public:
 
 	int AddCommodityMaster()
 	{
+		if (MasterList.IsFull()) { return 0; }
 		ItemType item;				// Commodity의 정보를 입력받는다.
 		item.SetRecordFromKB();
 		MasterList.Add(item);
-		return 1;
+
+		if (item.GetContainerID() < 0) {
+			TempList.Enqueue(item);
+			return 1;
+		}
+
+		ContainerType Container;	// 컨테이너 생성, 컨테이너 아이디와 정보 입력 후, 컨테이너 리스트에 추가.
+		Container.SetContainerID(item.GetContainerID()); // item의 container id에 대응하여 컨테이너 생성.
+		Container.DisplayContainerIDOnScreen();	// item의 container id 화면에 출력.
+		Container.SetContainerLocationFromKB(); // item의 container location을 입력받는다.
+		Container.AddItem(item);
 		
+		return 1;
 	}
 	/*
 	{
@@ -158,7 +170,7 @@ public:
 
 
 	int BinarySearchCommodityMaster();
-	2
+	
 
 	void DisplayAllMaster()
 	{

@@ -30,7 +30,9 @@
 
 int main()
 {
-	Application App;					///< Driver for running application.
-	App.Run();							///< Run application.
+	SortedList<ContainerType> list;
+	ContainerType a;
+	list.Add(a);
+
 	return 0;
 }
