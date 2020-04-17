@@ -33,6 +33,18 @@
     <ClCompile Include="ContainerType.cpp">
       <Filter>Type</Filter>
     </ClCompile>
+    <ClCompile Include="CircularQueue.cpp">
+      <Filter>DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="SortedList.cpp">
+      <Filter>DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="Stack.cpp">
+      <Filter>DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="UnSortedList.cpp">
+      <Filter>DataStructure</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">

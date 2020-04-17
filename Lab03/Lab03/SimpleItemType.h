@@ -199,17 +199,23 @@ public:
 
 
 	bool operator==(const SimpleItemType& _item) {
-		return (s_Serial == _item.GetSerial());
+		if (s_Serial == _item.GetSerial())
+			return true;
+		return false;
 	}
 
 
 	bool operator>(const SimpleItemType& _item) {
-		return (s_Serial > _item.GetSerial());
+		if (s_Serial > _item.GetSerial())
+			return true;
+		return false;
 	}
 
 
 	bool operator<(const SimpleItemType& _item) {
-		return (s_Serial < _item.GetSerial());
+		if (s_Serial < _item.GetSerial())
+			return true;
+		return false;
 	}
 
 

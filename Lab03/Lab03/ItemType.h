@@ -301,26 +301,34 @@ public:
 	
 
 	bool operator==(const ItemType& _item) {
-		return (m_Serial == _item.GetSerial());
+		if (m_Serial == _item.GetSerial())
+			return true;
+		return false;
 	}
 
 
 	bool operator>(const ItemType& _item) {
-		return (m_Serial > _item.GetSerial());
+		if (m_Serial > _item.GetSerial())
+			return true;
+		return false;
 	}
 
 
 	bool operator<(const ItemType& _item) {
-		return (m_Serial < _item.GetSerial());
+		if (m_Serial < _item.GetSerial())
+			return true;
+		return false;
 	}
 
 
 	void operator=(const ItemType& _item) {
-		m_ContainerID = _item.GetContainerID();				
-		m_Serial = _item.GetSerial();					
-		m_Name = _item.GetName();
-		m_Num = _item.GetNum();
-		m_Usage = _item.GetUsage();					
-		m_Date = _item.GetDate();					
+		if (m_Serial != _item.m_Serial) {      
+			m_ContainerID = _item.GetContainerID();				
+			m_Serial = _item.GetSerial();
+			m_Name = _item.GetName();
+			m_Usage = _item.GetUsage();
+			m_Date = _item.GetDate();
+			m_Num = _item.GetNum();
+		}
 	}
 };

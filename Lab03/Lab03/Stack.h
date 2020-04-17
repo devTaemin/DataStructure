@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 //--------------------------------------------------------------------
 //		Array based on 'Stack'.
 //--------------------------------------------------------------------
@@ -156,7 +155,7 @@ Stack<T>::Stack(int max)
 template <typename T>
 Stack<T>::~Stack()
 {
-	delete[] s_Stack;
+	//delete[] s_Stack;
 }
 
 

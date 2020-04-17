@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 //--------------------------------------------------------------------
 //		Array based on 'Circular Queue'.
 //--------------------------------------------------------------------
@@ -66,6 +65,21 @@ public:
 	//	Pre:	none.
 	//	Post:	iterator is reset.
 	//--------------------------------------------------------------------
+	
+
+	int GetFront() const;
+
+
+	int GetRear() const;
+
+
+	int GetMaxsize() const;
+
+
+	void SetFront(int inFront);
+
+
+	void SetRear(int inRear);
 
 
 	int GetLength() const;
@@ -108,17 +122,19 @@ public:
 	//  Param:	data			target data.
 	//	Return: return 1, if functions works well, otherwise 0.
 	//--------------------------------------------------------------------
+
+	int Delete(int iPos);
 };
 
 // Default Constructor.
 template <typename T>
 CircularQueue<T>::CircularQueue()
 {
-	m_Maxsize = MAXQUEUE;
-	m_Front = m_Maxsize - 1;
-	m_Rear = m_Maxsize - 1;
-	m_CurPointer = m_Front;
-	m_Queue = new T[m_Maxsize];
+	q_Maxsize = MAXQUEUE;
+	q_Front = q_Maxsize - 1;
+	q_Rear = q_Maxsize - 1;
+	q_CurPointer = q_Front;
+	q_Queue = new T[q_Maxsize];
 	q_Length = 0;
 }
 
@@ -127,11 +143,11 @@ CircularQueue<T>::CircularQueue()
 template <typename T>
 CircularQueue<T>::CircularQueue(int max)
 {
-	m_Maxsize = max + 1;
-	m_Front = m_Maxsize - 1;
-	m_Rear = m_Maxsize - 1;
-	m_CurPointer = m_Front;
-	m_Queue = new T[m_Maxsize];
+	q_Maxsize = max + 1;
+	q_Front = q_Maxsize - 1;
+	q_Rear = q_Maxsize - 1;
+	q_CurPointer = q_Front;
+	q_Queue = new T[q_Maxsize];
 	q_Length = 0;
 }
 
@@ -140,7 +156,7 @@ CircularQueue<T>::CircularQueue(int max)
 template <typename T>
 CircularQueue<T>::~CircularQueue()
 {
-	delete[] m_Queue;
+	//delete[] q_Queue;
 }
 
 
@@ -152,7 +168,7 @@ bool CircularQueue<T>::IsFull() const
 //     - 그러므로, queue의 시작지점 이전까지 rear가 도착하면 full.
 //---------------------------------------------------------------
 {
-	return ((m_Rear + 1) % m_Maxsize == m_Front);			// (1).
+	return ((q_Rear + 1) % q_Maxsize == q_Front);			// (1).
 }
 
 
@@ -163,7 +179,7 @@ bool CircularQueue<T>::IsEmpty() const
 // (1) 원형 Queue에서 Rear가 시작점에 있다는 것은, empty를 의미.
 //---------------------------------------------------------------
 {
-	return (m_Front == m_Rear);								// (1).
+	return (q_Front == q_Rear);								// (1).
 }
 
 
@@ -171,10 +187,10 @@ bool CircularQueue<T>::IsEmpty() const
 template <typename T>
 void CircularQueue<T>::MakeEmpty()
 {
-	m_Front = m_Maxsize - 1;
-	m_Rear = m_Maxsize - 1;
-	delete[] m_Queue;
-	m_Queue = new T[m_Maxsize];
+	q_Front = q_Maxsize - 1;
+	q_Rear = q_Maxsize - 1;
+	delete[] q_Queue;
+	q_Queue = new T[q_Maxsize];
 	q_Length = 0;
 }
 
@@ -183,7 +199,43 @@ void CircularQueue<T>::MakeEmpty()
 template <typename T>
 void CircularQueue<T>::ResetList()
 {
-	m_CurPointer = m_Front;
+	q_CurPointer = q_Front;
+}
+
+
+template <typename T>
+int CircularQueue<T>::GetFront() const
+{
+	return q_Front;
+}
+
+
+template <typename T>
+int CircularQueue<T>::GetRear() const
+{
+	return q_Rear;
+}
+
+
+template <typename T>
+int  CircularQueue<T>::GetMaxsize() const
+{
+	return q_Maxsize;
+}
+
+
+
+template <typename T>
+void CircularQueue<T>::SetFront(int inFront)
+{
+	q_Front = inFront;
+}
+
+
+template <typename T>
+void CircularQueue<T>::SetRear(int inRear)
+{
+	q_Rear = inRear;
 }
 
 
@@ -209,12 +261,12 @@ int CircularQueue<T>::GetNextItem(T& data)
 //---------------------------------------------------------------
 {
 	if (IsEmpty()) { return -1; }							// (1).
-	m_CurPointer = (m_CurPointer + 1) % m_Maxsize;			// (2).
-	if (m_CurPointer == (m_Rear + 1) % m_Maxsize) {			// (3).
+	q_CurPointer = (q_CurPointer + 1) % q_Maxsize;			// (2).
+	if (q_CurPointer == (q_Rear + 1) % q_Maxsize) {			// (3).
 		return -1;
 	}
-	data = m_Queue[m_CurPointer];							// (4).
-	return m_CurPointer;
+	data = q_Queue[q_CurPointer];							// (4).
+	return q_CurPointer;
 }
 
 
@@ -228,8 +280,8 @@ int CircularQueue<T>::EnQueue(T data)
 //---------------------------------------------------------------
 {
 	if (IsFull()) { return 0; }								// (1).
-	m_Rear = (m_Rear + 1) % m_Maxsize;						// (2).
-	m_Queue[m_Rear] = data;
+	q_Rear = (q_Rear + 1) % q_Maxsize;						// (2).
+	q_Queue[q_Rear] = data;
 	q_Length++;
 	return 1;												// (3).
 }
@@ -245,10 +297,23 @@ int CircularQueue<T>::DeQueue(T& data)
 //---------------------------------------------------------------
 {
 	if (IsEmpty()) { return 0; };							// (1).
-	m_Front = (m_Front + 1) % m_Maxsize;					// (2).
-	data = m_Queue[m_Front];
+	q_Front = (q_Front + 1) % q_Maxsize;					// (2).
+	data = q_Queue[q_Front];
 	q_Length--;
 	return 1;												// (3).
 }
 
 
+
+// Application을 위한 함수
+template <typename T>
+int CircularQueue<T>::Delete(int iPos)
+{
+	if (IsEmpty()) { return 0; }
+	for (int i = iPos; i != q_Front; i = (i - 1) % q_Maxsize) {
+		q_Queue[i] = q_Queue[(i - 1) % q_Maxsize];
+	}
+	q_Front = (q_Front + 1) % q_Maxsize;
+	q_Length--;
+	return 1;
+}

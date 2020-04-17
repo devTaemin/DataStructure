@@ -30,9 +30,8 @@
 
 int main()
 {
-	SortedList<ContainerType> list;
-	ContainerType a;
-	list.Add(a);
 
+	Application App;
+	App.Run();
 	return 0;
 }

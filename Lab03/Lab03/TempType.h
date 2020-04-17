@@ -82,4 +82,49 @@ public:
 	//	Pre:	TempType has been initialized.
 	//	Post:	none.
 	//--------------------------------------------------------------------
+
+
+	// Application을 위한 함수
+	int DeleteItem(ItemType data)
+	{
+		if (tItemList.IsEmpty()) { return 0; }
+		bool found = false;
+		ItemType curItem;
+		tItemList.ResetList();
+		int iPos = tItemList.GetNextItem(curItem);
+		for (iPos; iPos >= 0; iPos = tItemList.GetNextItem(curItem)) {
+			if (data.GetSerial() == curItem.GetSerial()) {
+				found = true;
+				break;
+			}
+		}
+		
+		if (!found) { return -1; }
+		if (tItemList.Delete(iPos)) { return 1; }
+		return 0;
+	}
+
+
+	// Application을 위한 함수
+	int ReplaceItem(ItemType data)
+	{
+		if (tItemList.IsEmpty()) { return 0; }
+		bool found = false;
+		ItemType curItem;
+		tItemList.ResetList();
+		int iPos = tItemList.GetNextItem(curItem);
+		for (iPos; iPos >= 0; iPos = tItemList.GetNextItem(curItem)) {
+			if (data.GetSerial() == curItem.GetSerial()) {
+				curItem = data;
+				found = true;
+				break;
+			}
+		}
+
+		if (!found) { return -1; }
+		return 1;
+	}
+
+
+	
 };

@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 //--------------------------------------------------------------------
 //		Array based on 'Sorted list'.
 //--------------------------------------------------------------------
@@ -167,7 +166,7 @@ SortedList<T>::SortedList(int max)
 template <typename T>
 SortedList<T>::~SortedList()
 {
-	delete[] m_Array;
+	//delete[] m_Array;
 }
 
 
@@ -266,19 +265,24 @@ int SortedList<T>::Add(const T& inData)
 	ResetList();
 	int iPos = GetNextItem(curItem);
 	for (iPos; iPos >= 0; iPos = GetNextItem(curItem)) {
-		if (curItem == inData) {
+		if (m_Array[iPos] == inData) {
 			return -1;
 		}
-		else if (curItem > inData) { // 오름차순
+		else if (m_Array[iPos] > inData) {
 			break;
 		}
-		else { continue; }
+		else if (m_Array[iPos]<inData&&iPos + 1 == m_Length) { //*****
+		//맨 뒤어 넣고 리턴
+			m_Array[m_Length++] = inData;
+			return 1;
+		}
 	}
 
 	for (int i = m_Length; i > iPos; i--) {				// (3).
 		m_Array[i] = m_Array[i - 1];
 	}
-	m_Array[iPos] = data;
+
+	m_Array[iPos] = inData;
 	m_Length++;
 	return 1;
 }
@@ -382,7 +386,7 @@ int SortedList<T>::Retrieve_SeqS(T& data)
 			data = m_Array[iPos];
 			return 1;
 		}
-		else if (curItem > data) {
+		else if (curItem < data) {
 			return 0;
 		}
 		else { continue; }
@@ -435,3 +439,4 @@ int SortedList<T>::RetrieveByBS(T& data)
 
 
 
+ 

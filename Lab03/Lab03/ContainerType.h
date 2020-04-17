@@ -120,88 +120,191 @@ public:
 
 
 	bool operator==(const ContainerType& _item) {
-		return (c_Id == _item.GetContainerID());
+		if (c_Id == _item.GetContainerID())
+			return true;
+		return false;
 	}
 
 
 	bool operator>(const ContainerType& _item) {
-		return (c_Id > _item.GetContainerID());
+		if (c_Id > _item.GetContainerID())
+			return true;
+		return false;
 	}
 
 
 	bool operator<(const ContainerType& _item) {
-		return (c_Id < _item.GetContainerID());
+		if (c_Id < _item.GetContainerID())
+			return true;
+		return false;
 	}
 
 
 	void operator=(const ContainerType& _item) {
-		c_Id = _item.c_Id;
-		c_Location = _item.c_Location;
-		c_Photo_list = _item.c_Photo_list;
-		c_itemList = _item.c_itemList;
+		if (c_Id != _item.c_Id) {			// 조건으로 정의해야한다.
+			c_Id = _item.c_Id;
+			c_Location = _item.c_Location;
+			c_Photo_list = _item.c_Photo_list;
+			c_itemList = _item.c_itemList;
+		}
 	}
 
 
 	int AddItem(ItemType data)
 	//--------------------------------------------------------------------
-	//	
+	//	Brief:	SimpleItemType의 자료를 Container에 추가한다.
+	//  Pre:	ContainerType이 선언되어 있어야한다.
+	//  Post:	SimpleItemType자료가 Container에 추가된다.
+	//  Param:	data		target data for convert and save in list.
+	//	return: return 1 if function works well, otherwise 0.
 	//--------------------------------------------------------------------
 	{
-
+		SimpleItemType s_Item;
+		s_Item.GetRecordFromItemType(data);
+		if (c_itemList.Add(s_Item)) { return 1; }
+		return 0;
 	}
 
 
-	int DeleteItem(ItemType& data);
+	int DeleteItem(ItemType data)
 	//--------------------------------------------------------------------
-	//		
+	//	Brief:	SimpleItemType의 자료를 Container에서 삭제한다.
+	//  Pre:	ContainerType이 선언되어 있어야한다.
+	//  Post:	SimpleItemType자료가 Container으로부터 삭제된다.
+	//  Param:	data		target data for convert and delete from list.
+	//	return: return 1 if function works well, otherwise 0.		
 	//--------------------------------------------------------------------
+	{
+		SimpleItemType s_Item;
+		s_Item.GetRecordFromItemType(data);
+		if (c_itemList.Delete(s_Item)) { return 1; }
+		return 0;
+	}
 
 
-	int UpdateItem(ItemType data);
+	int UpdateItem(ItemType data)
 	//--------------------------------------------------------------------
-	//		
+	//	Brief:	SimpleItemType의 자료를 Container에서 교체한다.
+	//  Pre:	ContainerType이 선언되어 있어야한다.
+	//  Post:	SimpleItemType자료가 Container에서 교체된다.
+	//  Param:	data		target data for convert and replace from list.
+	//	return: return 1 if function works well, otherwise 0.	
 	//--------------------------------------------------------------------
+	{
+		SimpleItemType s_Item;
+		s_Item.GetRecordFromItemType(data);
+		if (c_itemList.Replace(s_Item)) { return 1; }
+		return 0;
+	}
 
 
-	int AddPhoto(string data);
+	int AddPhoto(string data)
 	//--------------------------------------------------------------------
-	//		
+	//		UnSortedList<string> c_Photo_list;	
+	//		Opencv 4.3.0 을 이용한 코드 작성, 수정 필요
 	//--------------------------------------------------------------------
+	{
+		if (c_Photo_list.Add(data)) { return 1; }
+		return 0;
+	}
 
 
-	int DeletePhoto(string& data);
+	int DeletePhoto(string data)
 	//--------------------------------------------------------------------
-	//		
+	//		UnSortedList<string> c_Photo_list;	
+	//		Opencv 4.3.0 을 이용한 코드 작성, 수정 필요
 	//--------------------------------------------------------------------
+	{
+		if (c_Photo_list.Delete(data)){ return 1; }
+		return 0;
+	}
 
 
-	int UpdatePhoto(string data);
+	int UpdatePhoto(string data)
 	//--------------------------------------------------------------------
-	//		
+	//		UnSortedList<string> c_Photo_list;	
+	//		Opencv 4.3.0 을 이용한 코드 작성, 수정 필요
 	//--------------------------------------------------------------------
+	{
+		if (c_Photo_list.Replace(data)) { return 1; }
+		return 0;
+	}
 
 
-	int DisplayAllItem();
+	void DisplayAllItem()
 	//--------------------------------------------------------------------
-	//		
+	//		UnSortedList<SimpleItemType> c_itemList;
 	//--------------------------------------------------------------------
+	{
+		SimpleItemType curItem;
+		c_itemList.ResetList();
+		int iPos = c_itemList.GetNextItem(curItem);
+		for (iPos; iPos >= 0; iPos = c_itemList.GetNextItem(curItem)) {
+			curItem.DisplayRecordOnScreen();
+		}
+	}
 
 
-	int DisplayAllPhoto();
+	void DisplayAllPhoto()
 	//--------------------------------------------------------------------
-	//		
+	//		UnSortedList<string> c_Photo_list;
+	//		Opencv 4.3.0 을 이용한 코드 작성, 수정 필요
 	//--------------------------------------------------------------------
+	{
+		cout << "코드가 구현되지 않았습니다 :)" << '\n';
+	}
 
 
-	int FindByName();
+	int FindByName()
 	//--------------------------------------------------------------------
-	//		
+	//		UnSortedList<SimpleItemType> c_itemList;
 	//--------------------------------------------------------------------
+	{
+		bool found = false;
+		SimpleItemType findItem;
+		findItem.GetName();
+		SimpleItemType curItem;
+		c_itemList.ResetList();
+		int iPos = c_itemList.GetNextItem(curItem);
+		for (iPos; iPos >= 0; iPos = c_itemList.GetNextItem(curItem)) {
+			if (curItem.GetName() == findItem.GetName()) {
+				curItem.DisplayRecordOnScreen();
+				found = true;
+			}
+		}
+
+		if (!found) { return 0; }
+		return 1;
+	}
 
 
-	int FindByUsage();
+	int FindByUsage(SortedList<ItemType>& list)
 	//--------------------------------------------------------------------
-	//		
+	//		UnSortedList<SimpleItemType> c_itemList;
 	//--------------------------------------------------------------------
-
+	{
+		bool found = false;
+		ItemType findItem;
+		ItemType curItem;
+		SimpleItemType curSimpleItem;
+		
+		findItem.SetUsageFromKB();
+		list.ResetList();
+		int iPos = list.GetNextItem(curItem);
+		for (iPos; iPos >= 0; iPos = list.GetNextItem(curItem)) {
+			if (curItem.GetUsage() == findItem.GetUsage()) {
+				int serial = curItem.GetSerial();
+				c_itemList.ResetList();
+				int sPos = c_itemList.GetNextItem(curSimpleItem);
+				for (sPos; sPos >= 0; sPos = c_itemList.GetNextItem(curSimpleItem)) {
+					if (curSimpleItem.GetSerial() == serial) {
+						curSimpleItem.DisplayRecordOnScreen();
+						found = true;
+					}
+				}
+			}
+		}
+		if (!found) { return 0; }
+		return 1;
+	}
 };

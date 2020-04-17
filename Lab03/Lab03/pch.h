@@ -1,6 +1,5 @@
 #ifndef _PCH_H_
 #define _PCH_H_
-
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -9,6 +8,8 @@ using namespace std;
 #define MAXLIST 10
 #define MAXSTACK 10
 #define MAXQUEUE 11
+#define FILENAMESIZE 1024
+
 // Relation between items.
 enum RelationType { LESS, EQUAL, GREATER };
 

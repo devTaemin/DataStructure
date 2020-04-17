@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 //--------------------------------------------------------------------
 //		Array based on 'UnSorted list'.
 //--------------------------------------------------------------------
@@ -158,7 +157,7 @@ UnSortedList<T>::UnSortedList(int max)
 template <typename T>
 UnSortedList<T>::~UnSortedList()
 {
-	delete[] m_Array;
+	//delete[] m_Array;
 }
 
 

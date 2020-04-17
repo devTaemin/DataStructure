@@ -71,7 +71,11 @@ void TempType::DisplayAllItems()
 	int iPos = tItemList.GetNextItem(curItem);
 	for (iPos; iPos >= 0; iPos = tItemList.GetNextItem(curItem)) {
 		cout << '\n';
-		curItem.DisplayRecordOnScreen();
+		curItem.DisplaySerialOnScreen();
+		curItem.DisplayNameOnScreen();
+		curItem.DisplayNumOnScreen();
+		curItem.DisplayUsageOnScreen();
+		curItem.DisplayDateOnScreen();
 	}
 }
 
