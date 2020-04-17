@@ -1,5 +1,4 @@
-#ifndef _SIMPLE_ITEMTYPE_H_
-#define _SIMPLE_ITEMTYPE_H_
+#pragma once
 //--------------------------------------------------------------------
 //		Simple Item information class.
 //--------------------------------------------------------------------
@@ -28,7 +27,7 @@ public:
 	//--------------------------------------------------------------------
 
 
-	int GetContainerID();
+	int GetContainerID() const;
 	//--------------------------------------------------------------------
 	//	Brief:	Get Container ID.
 	//	Pre:	container id is set.
@@ -37,7 +36,7 @@ public:
 	//--------------------------------------------------------------------
 
 
-	int GetSerial();
+	int GetSerial() const;
 	//--------------------------------------------------------------------
 	//	Brief:	Get commodity serial.
 	//	Pre:	commodity serial is set.
@@ -46,7 +45,7 @@ public:
 	//--------------------------------------------------------------------
 
 
-	string GetName();
+	string GetName() const;
 	//--------------------------------------------------------------------
 	//	Brief:	Get commodity name.
 	//	Pre:	commodity name is set.
@@ -93,38 +92,6 @@ public:
 	//--------------------------------------------------------------------
 
 
-	void DisplayContainerIDOnScreen();
-	//--------------------------------------------------------------------
-	//	Brief:	Display container id on screen.
-	//	Pre:	container id is set.
-	//	Post:	container id is on screen.
-	//--------------------------------------------------------------------
-
-
-	void DisplaySerialOnScreen();
-	//--------------------------------------------------------------------
-	//	Brief:	Display commodity serial on screen.
-	//	Pre:	commodity serial is set.
-	//	Post:	commodity serial is on screen.
-	//--------------------------------------------------------------------
-
-
-	void DisplayNameOnScreen();
-	//--------------------------------------------------------------------
-	//	Brief:	Display commodity name on screen.
-	//	Pre:	commodity name is set.
-	//	Post:	commodity name is on screen.
-	//--------------------------------------------------------------------
-
-
-	void DisplayRecordOnScreen();
-	//--------------------------------------------------------------------
-	//	Brief:	Display commodity record on screen.
-	//	Pre:	commodity record is set.
-	//	Post:	commodity record is on screen.
-	//--------------------------------------------------------------------
-
-
 	void SetContainerIDFromKB();
 	//--------------------------------------------------------------------
 	//	Brief:	Set container id from keyboard.
@@ -157,6 +124,38 @@ public:
 	//--------------------------------------------------------------------
 
 
+	void DisplayContainerIDOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display container id on screen.
+	//	Pre:	container id is set.
+	//	Post:	container id is on screen.
+	//--------------------------------------------------------------------
+
+
+	void DisplaySerialOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display commodity serial on screen.
+	//	Pre:	commodity serial is set.
+	//	Post:	commodity serial is on screen.
+	//--------------------------------------------------------------------
+
+
+	void DisplayNameOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display commodity name on screen.
+	//	Pre:	commodity name is set.
+	//	Post:	commodity name is on screen.
+	//--------------------------------------------------------------------
+
+
+	void DisplayRecordOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display commodity record on screen.
+	//	Pre:	commodity record is set.
+	//	Post:	commodity record is on screen.
+	//--------------------------------------------------------------------
+
+
 	int ReadDataFromFile(ifstream& fin);
 	//--------------------------------------------------------------------
 	//	Brief:	Read a record from a file.
@@ -180,13 +179,13 @@ public:
 
 	RelationType Compare(const SimpleItemType& data);
 	//--------------------------------------------------------------------
-	//	Brief:	Compare two itemtypes by item serial number.
+	//	Brief:	Compare two Simpleitemtypes by item container id.
 	//	Pre:	two items should be initialized.
-	//	Post:	the target file includes the new item record.
+	//	Post:	none.
 	//	Param:	data		target item for comparing.
-	//	Return:	return LESS if this.Serial < data.Serial,
-	//				   EQUAL if this.Serial == data.Serial,
-	//				   GREATER if this.Serial > data.Serial.
+	//	Return:	return LESS if this.ContainerID < data.ContainerID,
+	//				   EQUAL if this.ContainerID == data.ContainerID,
+	//				   GREATER if this.ContainerID > data.ContainerID.
 	//--------------------------------------------------------------------	
 
 
@@ -198,5 +197,25 @@ public:
 	//	Param:	data		target item for update 
 	//--------------------------------------------------------------------	
 
+
+	bool operator==(const SimpleItemType& _item) {
+		return (s_Serial == _item.GetSerial());
+	}
+
+
+	bool operator>(const SimpleItemType& _item) {
+		return (s_Serial > _item.GetSerial());
+	}
+
+
+	bool operator<(const SimpleItemType& _item) {
+		return (s_Serial < _item.GetSerial());
+	}
+
+
+	void operator=(const SimpleItemType& _item) {
+		s_ContainerID = _item.GetContainerID();
+		s_Serial = _item.GetSerial();
+		s_Name = _item.GetName();
+	}
 };
-#endif _SIMPLE_ITEMTYPE_H_

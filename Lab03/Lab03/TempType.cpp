@@ -1,5 +1,4 @@
 #include "pch.h"
-#include "TempType.h"
 
 
 // Default Constructor.
@@ -27,6 +26,14 @@ bool TempType::IsEmpty() const
 }
 
 
+// Get number of items in tItemList.
+int TempType::GetNumOfItems() const
+{
+	return numOfItems;
+}
+
+
+
 // Adds new data to the last of the queue.
 int TempType::Enqueue(ItemType data)
 {
@@ -49,15 +56,22 @@ int TempType::Dequeue(ItemType& data)
 }
 
 
-// Get number of items in tItemList.
-int TempType::GetNumOfItems()
-{
-	return numOfItems;
-}
-
-
 // Display number of items in tItemList.
 void TempType::DisplayNumOfItems()
 {
 	cout << "\tNumber  : " << numOfItems << '\n';
 }
+
+
+// Display all items in tItemList.
+void TempType::DisplayAllItems()
+{
+	ItemType curItem;
+	tItemList.ResetList();
+	int iPos = tItemList.GetNextItem(curItem);
+	for (iPos; iPos >= 0; iPos = tItemList.GetNextItem(curItem)) {
+		cout << '\n';
+		curItem.DisplayRecordOnScreen();
+	}
+}
+

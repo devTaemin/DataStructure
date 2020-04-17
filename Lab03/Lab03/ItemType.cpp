@@ -1,44 +1,43 @@
 #include "pch.h"
-#include "ItemType.h"
 
 
 // Get container id.
-int ItemType::GetContainerID()
+int ItemType::GetContainerID() const
 {
 	return m_ContainerID;
 }
 
 
 // Get commodity serial.
-int ItemType::GetSerial()
+int ItemType::GetSerial() const
 {
 	return m_Serial;
 }
 
 
 // Get commodity name.
-string ItemType::GetName()
+string ItemType::GetName() const
 {
 	return m_Name;
 }
 
 
 // Get commodity number.
-int ItemType::GetNum()
+int ItemType::GetNum() const
 {
 	return m_Num;
 }
 
 
 // Get commodity usage.
-string ItemType::GetUsage()
+string ItemType::GetUsage() const
 {
 	return m_Usage;
 }
 
 
 // Get commodity date.
-int ItemType::GetDate()
+int ItemType::GetDate() const
 {
 	return m_Date;
 }
@@ -96,60 +95,6 @@ void ItemType::SetRecord(int inContainerID, int inSerial, string inName, int inN
 	SetUsage(inUsage);
 	SetDate(inDate);
 }
-
-
-// Display container id on screen.
-void ItemType::DisplayContainerIDOnScreen()
-{
-	cout << "\tC-ID   : " << m_ContainerID << endl;
-}
-
-
-// Display commodity serial on screen.
-void ItemType::DisplaySerialOnScreen()
-{
-	cout << "\tSerial : " << m_Serial << endl;
-};
-
-
-// Display commodity name on screen.
-void ItemType::DisplayNameOnScreen()
-{
-	cout << "\tName   : " << m_Name << endl;
-};
-
-
-// Display commodity number on screen.
-void ItemType::DisplayNumOnScreen()
-{
-	cout << "\tNumber : " << m_Num << endl;
-};
-
-
-// Display commodity usage on screen.
-void ItemType::DisplayUsageOnScreen()
-{
-	cout << "\tUsage  : " << m_Usage << endl;
-};
-
-
-// Display commodity date on screen.
-void ItemType::DisplayDateOnScreen()
-{
-	cout << "\tDate   : " << m_Date << endl;
-};
-
-
-// Display a commodity record on screen.
-void ItemType::DisplayRecordOnScreen()
-{
-	DisplayContainerIDOnScreen();
-	DisplaySerialOnScreen();
-	DisplayNameOnScreen();
-	DisplayNumOnScreen();
-	DisplayUsageOnScreen();
-	DisplayDateOnScreen();
-};
 
 
 // Set container id from keyboard.
@@ -212,6 +157,60 @@ void ItemType::SetRecordFromKB()
 }
 
 
+// Display container id on screen.
+void ItemType::DisplayContainerIDOnScreen()
+{
+	cout << "\tC-ID   : " << m_ContainerID << endl;
+}
+
+
+// Display commodity serial on screen.
+void ItemType::DisplaySerialOnScreen()
+{
+	cout << "\tSerial : " << m_Serial << endl;
+};
+
+
+// Display commodity name on screen.
+void ItemType::DisplayNameOnScreen()
+{
+	cout << "\tName   : " << m_Name << endl;
+};
+
+
+// Display commodity number on screen.
+void ItemType::DisplayNumOnScreen()
+{
+	cout << "\tNumber : " << m_Num << endl;
+};
+
+
+// Display commodity usage on screen.
+void ItemType::DisplayUsageOnScreen()
+{
+	cout << "\tUsage  : " << m_Usage << endl;
+};
+
+
+// Display commodity date on screen.
+void ItemType::DisplayDateOnScreen()
+{
+	cout << "\tDate   : " << m_Date << endl;
+};
+
+
+// Display a commodity record on screen.
+void ItemType::DisplayRecordOnScreen()
+{
+	DisplayContainerIDOnScreen();
+	DisplaySerialOnScreen();
+	DisplayNameOnScreen();
+	DisplayNumOnScreen();
+	DisplayUsageOnScreen();
+	DisplayDateOnScreen();
+};
+
+
 // Read a record from file.
 int ItemType::ReadDataFromFile(ifstream& fin)
 {
@@ -244,9 +243,9 @@ int ItemType::WriteDataToFile(ofstream& fout)
 // Compare two itemtypes by Serial.
 RelationType ItemType::Compare(const ItemType& data)
 {
-	if (this->m_Serial > data.m_Serial)
+	if (m_ContainerID > data.GetContainerID())
 		return GREATER;
-	else if (this->m_Serial < data.m_Serial)
+	else if (m_ContainerID < data.GetContainerID())
 		return LESS;
 	else
 		return EQUAL;

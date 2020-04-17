@@ -1,5 +1,4 @@
-#ifndef _ITEMTYPE_H_
-#define _ITEMTYPE_H_
+#pragma once
 //--------------------------------------------------------------------
 //		Item information class.
 //--------------------------------------------------------------------
@@ -35,7 +34,7 @@ public:
 	//--------------------------------------------------------------------
 
 
-	int GetContainerID();
+	int GetContainerID() const;
 	//--------------------------------------------------------------------
 	//	Brief:	Get Container ID.
 	//	Pre:	container id is set.
@@ -44,7 +43,7 @@ public:
 	//--------------------------------------------------------------------
 
 
-	int GetSerial();
+	int GetSerial() const;
 	//--------------------------------------------------------------------
 	//	Brief:	Get commodity serial.
 	//	Pre:	commodity serial is set.
@@ -53,7 +52,7 @@ public:
 	//--------------------------------------------------------------------
 
 
-	string GetName();
+	string GetName() const;
 	//--------------------------------------------------------------------
 	//	Brief:	Get commodity name.
 	//	Pre:	commodity name is set.
@@ -62,7 +61,7 @@ public:
 	//--------------------------------------------------------------------
 
 
-	int GetNum();
+	int GetNum() const;
 	//--------------------------------------------------------------------
 	//	Brief:	Get commodity number.
 	//	Pre:	commodity number is set.
@@ -71,7 +70,7 @@ public:
 	//--------------------------------------------------------------------
 
 
-	string GetUsage();
+	string GetUsage() const;
 	//--------------------------------------------------------------------
 	//	Brief:	Get commodity usage.
 	//	Pre:	commodity usage is set.
@@ -80,7 +79,7 @@ public:
 	//--------------------------------------------------------------------
 
 
-	int GetDate();
+	int GetDate() const;
 	//--------------------------------------------------------------------
 	//	Brief:	Get commodity date.
 	//	Pre:	commodity date is set.
@@ -157,62 +156,6 @@ public:
 	//--------------------------------------------------------------------
 
 
-	void DisplayContainerIDOnScreen();
-	//--------------------------------------------------------------------
-	//	Brief:	Display container id on screen.
-	//	Pre:	container id is set.
-	//	Post:	container id is on screen.
-	//--------------------------------------------------------------------
-
-
-	void DisplaySerialOnScreen();
-	//--------------------------------------------------------------------
-	//	Brief:	Display commodity serial on screen.
-	//	Pre:	commodity serial is set.
-	//	Post:	commodity serial is on screen.
-	//--------------------------------------------------------------------
-
-
-	void DisplayNameOnScreen();
-	//--------------------------------------------------------------------
-	//	Brief:	Display commodity name on screen.
-	//	Pre:	commodity name is set.
-	//	Post:	commodity name is on screen.
-	//--------------------------------------------------------------------
-
-
-	void DisplayNumOnScreen();
-	//--------------------------------------------------------------------
-	//	Brief:	Display commodity number on screen.
-	//	Pre:	commodity number is set.
-	//	Post:	commodity number is on screen.
-	//--------------------------------------------------------------------
-
-
-	void DisplayUsageOnScreen();
-	//--------------------------------------------------------------------
-	//	Brief:	Display commodity usage on screen.
-	//	Pre:	commodity usage is set.
-	//	Post:	commodity usage is on screen.
-	//--------------------------------------------------------------------
-
-
-	void DisplayDateOnScreen();
-	//--------------------------------------------------------------------
-	//	Brief:	Display commodity date on screen.
-	//	Pre:	commodity date is set.
-	//	Post:	commodity date is on screen.
-	//--------------------------------------------------------------------
-
-
-	void DisplayRecordOnScreen();
-	//--------------------------------------------------------------------
-	//	Brief:	Display commodity record on screen.
-	//	Pre:	commodity record is set.
-	//	Post:	commodity record is on screen.
-	//--------------------------------------------------------------------
-
-
 	void SetContainerIDFromKB();
 	//--------------------------------------------------------------------
 	//	Brief:	Set container id from keyboard.
@@ -269,6 +212,62 @@ public:
 	//--------------------------------------------------------------------
 
 
+	void DisplayContainerIDOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display container id on screen.
+	//	Pre:	container id is set.
+	//	Post:	container id is on screen.
+	//--------------------------------------------------------------------
+
+
+	void DisplaySerialOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display commodity serial on screen.
+	//	Pre:	commodity serial is set.
+	//	Post:	commodity serial is on screen.
+	//--------------------------------------------------------------------
+
+
+	void DisplayNameOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display commodity name on screen.
+	//	Pre:	commodity name is set.
+	//	Post:	commodity name is on screen.
+	//--------------------------------------------------------------------
+
+
+	void DisplayNumOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display commodity number on screen.
+	//	Pre:	commodity number is set.
+	//	Post:	commodity number is on screen.
+	//--------------------------------------------------------------------
+
+
+	void DisplayUsageOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display commodity usage on screen.
+	//	Pre:	commodity usage is set.
+	//	Post:	commodity usage is on screen.
+	//--------------------------------------------------------------------
+
+
+	void DisplayDateOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display commodity date on screen.
+	//	Pre:	commodity date is set.
+	//	Post:	commodity date is on screen.
+	//--------------------------------------------------------------------
+
+
+	void DisplayRecordOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display commodity record on screen.
+	//	Pre:	commodity record is set.
+	//	Post:	commodity record is on screen.
+	//--------------------------------------------------------------------
+
+
 	int ReadDataFromFile(ifstream& fin);
 	//--------------------------------------------------------------------
 	//	Brief:	Read a record from a file.
@@ -288,16 +287,40 @@ public:
 	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
 
-
+	
 	RelationType Compare(const ItemType& data);
 	//--------------------------------------------------------------------
-	//	Brief:	Compare two itemtypes by item serial number.
+	//	Brief:	Compare two itemtypes by item container id.
 	//	Pre:	two items should be initialized.
-	//	Post:	the target file includes the new item record.
+	//	Post:	none.
 	//	Param:	data		target item for comparing.
-	//	Return:	return LESS if this.Serial < data.Serial,
-	//				   EQUAL if this.Serial == data.Serial,
-	//				   GREATER if this.Serial > data.Serial.
-	//--------------------------------------------------------------------	
+	//	Return:	return LESS if this.m_ContainerID < data.m_ContainerID,
+	//				   EQUAL if this.m_ContainerID == data.m_ContainerID,
+	//				   GREATER if this.m_ContainerID > data.m_ContainerID.
+	//--------------------------------------------------------------------
+	
+
+	bool operator==(const ItemType& _item) {
+		return (m_Serial == _item.GetSerial());
+	}
+
+
+	bool operator>(const ItemType& _item) {
+		return (m_Serial > _item.GetSerial());
+	}
+
+
+	bool operator<(const ItemType& _item) {
+		return (m_Serial < _item.GetSerial());
+	}
+
+
+	void operator=(const ItemType& _item) {
+		m_ContainerID = _item.GetContainerID();				
+		m_Serial = _item.GetSerial();					
+		m_Name = _item.GetName();
+		m_Num = _item.GetNum();
+		m_Usage = _item.GetUsage();					
+		m_Date = _item.GetDate();					
+	}
 };
-#endif _ITEMTYPE_H_

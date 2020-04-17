@@ -1,5 +1,4 @@
-#ifndef _TEMPTYPE_H_
-#define _TEMPTYPE_H_
+#pragma once
 //--------------------------------------------------------------------
 //		Temp Item information class.
 //--------------------------------------------------------------------
@@ -40,6 +39,15 @@ public:
 	//--------------------------------------------------------------------
 
 
+	int GetNumOfItems() const;
+	//--------------------------------------------------------------------
+	//	Brief:	Get number of items in tItemList.
+	//	Pre:	the number of Items is set. 
+	//	Post:	none.
+	//  Return:	number of items in tItemlist.
+	//--------------------------------------------------------------------
+
+
 	int Enqueue(ItemType data);
 	//--------------------------------------------------------------------
 	//	Brief:	Adds new data to the last of the queue.
@@ -60,20 +68,18 @@ public:
 	//--------------------------------------------------------------------
 
 
-	int GetNumOfItems();
-	//--------------------------------------------------------------------
-	//	Brief:	Get number of items in tItemList.
-	//	Pre:	the number of Items is set. 
-	//	Post:	none.
-	//  Return:	number of items in tItemlist.
-	//--------------------------------------------------------------------
-
-
 	void DisplayNumOfItems();
 	//--------------------------------------------------------------------
 	//	Brief:	Display number of items in tItemList.
-	//	Pre:	the number of Items is set. 
+	//	Pre:	TempType has been initialized.
+	//	Post:	none.
+	//--------------------------------------------------------------------
+
+
+	void DisplayAllItems();
+	//--------------------------------------------------------------------
+	//	Brief:	Display all items in tItemList.
+	//	Pre:	TempType has been initialized.
 	//	Post:	none.
 	//--------------------------------------------------------------------
 };
-#endif _TEMPTYPE_H_

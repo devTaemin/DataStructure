@@ -1,5 +1,4 @@
 #include "pch.h"
-#include "ContainerType.h"
 
 
 ContainerType::ContainerType()
@@ -14,14 +13,14 @@ ContainerType::~ContainerType() {}
 
 
 // Get Container ID.
-int ContainerType::GetContainerID()
+int ContainerType::GetContainerID() const
 {
 	return c_Id;
 }
 
 
 // Get Container location.
-string ContainerType::GetContainerLocation()
+string ContainerType::GetContainerLocation() const
 {
 	return c_Location;
 }
@@ -49,28 +48,6 @@ void ContainerType::SetRecord(int inContainerID, string inContainerLocation)
 }
 
 
-// Display container id on screen.
-void ContainerType::DisplayContainerIDOnScreen()
-{
-	cout << "\tC-ID       : " << c_Id << endl;
-}
-
-
-// Display container location on screen.
-void ContainerType::DisplayContainerLocationOnScreen()
-{
-	cout << "\tC-Location : " << c_Location << endl;
-}
-
-
-// Display container record on screen.
-void ContainerType::DisplayContainerRecordOnScreen()
-{
-	DisplayContainerIDOnScreen();
-	DisplayContainerLocationOnScreen();
-}
-
-
 // Set container id from keyboard.
 void ContainerType::SetContainerIDFromKB()
 {
@@ -95,17 +72,29 @@ void ContainerType::SetContainerRecordFromKB()
 }
 
 
-// Compare two itemtypes by Serial.
-RelationType ContainerType::Compare(const ContainerType& data)
+// Display container id on screen.
+void ContainerType::DisplayContainerIDOnScreen()
 {
-	if (this->c_Id > data.c_Id)
-		return GREATER;
-	else if (this->c_Id < data.c_Id)
-		return LESS;
-	else
-		return EQUAL;
+	cout << "\tC-ID       : " << c_Id << endl;
 }
 
+
+// Display container location on screen.
+void ContainerType::DisplayContainerLocationOnScreen()
+{
+	cout << "\tC-Location : " << c_Location << endl;
+}
+
+
+// Display container record on screen.
+void ContainerType::DisplayContainerRecordOnScreen()
+{
+	DisplayContainerIDOnScreen();
+	DisplayContainerLocationOnScreen();
+}
+
+
+/*
 int ContainerType::AddItem(ItemType data)
 {
 	SimpleItemType temp;
@@ -186,3 +175,4 @@ int ContainerType::FindByUsage()
 	cout << "구현되지 않았다" << '\n';
 	return 1;
 }
+*/

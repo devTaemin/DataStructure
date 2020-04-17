@@ -1,5 +1,4 @@
-#ifndef _CONTAINERTYPE_H_
-#define _CONTAINERTYPE_H_
+#pragma once
 //--------------------------------------------------------------------
 //		Container type class.
 //--------------------------------------------------------------------
@@ -21,13 +20,11 @@ public:
 
 	~ContainerType();
 	//--------------------------------------------------------------------
-	//		
+	//		Destructor.
 	//--------------------------------------------------------------------
 
-	//=================================================================================================
 
-	
-	int GetContainerID();
+	int GetContainerID() const;
 	//--------------------------------------------------------------------
 	//	Brief:	Get Container ID.
 	//	Pre:	container id is set.
@@ -36,12 +33,13 @@ public:
 	//--------------------------------------------------------------------
 
 
-	string GetContainerLocation();
+	string GetContainerLocation() const;
 	//--------------------------------------------------------------------
 	//	Brief:	Get Container location.
 	//	Pre:	container location is set.
 	//	Post:	none.
 	//	Return: container location.
+	//--------------------------------------------------------------------
 
 
 	void SetContainerID(int inContainerID);
@@ -62,7 +60,6 @@ public:
 	//--------------------------------------------------------------------
 
 
-
 	void SetRecord(int inContainerID, string inContainerLocation);
 	//--------------------------------------------------------------------
 	//	Brief:	Set container record.
@@ -70,30 +67,6 @@ public:
 	//	Post:	commodity record is set.
 	//	Param:	inContainerID			container id.
 	//	Param:	inContainerLocation		commodity location.
-	//--------------------------------------------------------------------
-
-
-	void DisplayContainerIDOnScreen();
-	//--------------------------------------------------------------------
-	//	Brief:	Display container id on screen.
-	//	Pre:	container id is set.
-	//	Post:	container id is on screen.
-	//--------------------------------------------------------------------
-
-
-	void DisplayContainerLocationOnScreen();
-	//--------------------------------------------------------------------
-	//	Brief:	Display container location on screen.
-	//	Pre:	container location is set.
-	//	Post:	container location is on screen.
-	//--------------------------------------------------------------------
-
-
-	void DisplayContainerRecordOnScreen();
-	//--------------------------------------------------------------------
-	//	Brief:	Display container record on screen.
-	//	Pre:	container record is set.
-	//	Post:	container record is on screen.
 	//--------------------------------------------------------------------
 
 
@@ -121,26 +94,61 @@ public:
 	//--------------------------------------------------------------------
 
 
-	RelationType Compare(const ContainerType& data);
+	void DisplayContainerIDOnScreen();
 	//--------------------------------------------------------------------
-	//	Brief:	Compare two ContainerType by container id.
-	//	Pre:	two Containers should be initialized.
-	//	Post:	none.
-	//	Param:	data		target container for comparing.
-	//	Return:	return LESS if this.c_Id < data.c_Id,
-	//				   EQUAL if this.c_Id == data.c_Id,
-	//				   GREATER if this.c_Id > data.c_Id.
-	//--------------------------------------------------------------------	
+	//	Brief:	Display container id on screen.
+	//	Pre:	container id is set.
+	//	Post:	container id is on screen.
+	//--------------------------------------------------------------------
 
 
-	//=================================================================================================
+	void DisplayContainerLocationOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display container location on screen.
+	//	Pre:	container location is set.
+	//	Post:	container location is on screen.
+	//--------------------------------------------------------------------
+
+
+	void DisplayContainerRecordOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display container record on screen.
+	//	Pre:	container record is set.
+	//	Post:	container record is on screen.
+	//--------------------------------------------------------------------
 
 
 
-	int AddItem(ItemType data);
+	bool operator==(const ContainerType& _item) {
+		return (c_Id == _item.GetContainerID());
+	}
+
+
+	bool operator>(const ContainerType& _item) {
+		return (c_Id > _item.GetContainerID());
+	}
+
+
+	bool operator<(const ContainerType& _item) {
+		return (c_Id < _item.GetContainerID());
+	}
+
+
+	void operator=(const ContainerType& _item) {
+		c_Id = _item.c_Id;
+		c_Location = _item.c_Location;
+		c_Photo_list = _item.c_Photo_list;
+		c_itemList = _item.c_itemList;
+	}
+
+
+	int AddItem(ItemType data)
 	//--------------------------------------------------------------------
 	//	
 	//--------------------------------------------------------------------
+	{
+
+	}
 
 
 	int DeleteItem(ItemType& data);
@@ -195,6 +203,5 @@ public:
 	//--------------------------------------------------------------------
 	//		
 	//--------------------------------------------------------------------
-	
+
 };
-#endif _CONTAINERTYPE_H_

@@ -1,23 +1,22 @@
 #include "pch.h"
-#include "SimpleItemType.h"
 
 
 // Get container id.
-int SimpleItemType::GetContainerID()
+int SimpleItemType::GetContainerID() const
 {
 	return s_ContainerID;
 }
 
 
 // Get commodity serial.
-int SimpleItemType::GetSerial()
+int SimpleItemType::GetSerial() const
 {
 	return s_Serial;
 }
 
 
 // Get commodity name.
-string SimpleItemType::GetName()
+string SimpleItemType::GetName() const
 {
 	return s_Name;
 }
@@ -53,36 +52,6 @@ void SimpleItemType::SetRecord(int inContainerID, int inSerial, string inName)
 }
 
 
-// Display container id on screen.
-void SimpleItemType::DisplayContainerIDOnScreen()
-{
-	cout << "\tC-ID   : " << s_ContainerID << endl;
-}
-
-
-// Display commodity serial on screen.
-void SimpleItemType::DisplaySerialOnScreen()
-{
-	cout << "\tSerial : " << s_Serial << endl;
-};
-
-
-// Display commodity name on screen.
-void SimpleItemType::DisplayNameOnScreen()
-{
-	cout << "\tName   : " << s_Name << endl;
-};
-
-
-// Display a commodity record on screen.
-void SimpleItemType::DisplayRecordOnScreen()
-{
-	DisplayContainerIDOnScreen();
-	DisplaySerialOnScreen();
-	DisplayNameOnScreen();
-};
-
-
 // Set container id from keyboard.
 void SimpleItemType::SetContainerIDFromKB()
 {
@@ -116,6 +85,36 @@ void SimpleItemType::SetRecordFromKB()
 }
 
 
+// Display container id on screen.
+void SimpleItemType::DisplayContainerIDOnScreen()
+{
+	cout << "\tC-ID   : " << s_ContainerID << endl;
+}
+
+
+// Display commodity serial on screen.
+void SimpleItemType::DisplaySerialOnScreen()
+{
+	cout << "\tSerial : " << s_Serial << endl;
+};
+
+
+// Display commodity name on screen.
+void SimpleItemType::DisplayNameOnScreen()
+{
+	cout << "\tName   : " << s_Name << endl;
+};
+
+
+// Display a commodity record on screen.
+void SimpleItemType::DisplayRecordOnScreen()
+{
+	DisplayContainerIDOnScreen();
+	DisplaySerialOnScreen();
+	DisplayNameOnScreen();
+};
+
+
 // Read a record from file.
 int SimpleItemType::ReadDataFromFile(ifstream& fin)
 {
@@ -142,9 +141,9 @@ int SimpleItemType::WriteDataToFile(ofstream& fout)
 // Compare two simpleitemtypes by Serial.
 RelationType SimpleItemType::Compare(const SimpleItemType& data)
 {
-	if (this->s_Serial > data.s_Serial)
+	if (s_ContainerID > data.GetContainerID())
 		return GREATER;
-	else if (this->s_Serial < data.s_Serial)
+	else if (s_ContainerID < data.GetContainerID())
 		return LESS;
 	else
 		return EQUAL;

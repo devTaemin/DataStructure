@@ -1,5 +1,5 @@
-#ifndef _SORTEDLIST_H_
-#define _SORTEDLIST_H_
+#pragma once
+#include "pch.h"
 //--------------------------------------------------------------------
 //		Array based on 'Sorted list'.
 //--------------------------------------------------------------------
@@ -32,23 +32,6 @@ public:
 	//--------------------------------------------------------------------
 
 
-	void MakeEmpty();
-	//--------------------------------------------------------------------
-	//	Brief:	Make list empty. (Initialize list)
-	//	Pre:	none.
-	//	Post:	clear list.
-	//--------------------------------------------------------------------
-
-
-	int GetLength() const;
-	//--------------------------------------------------------------------
-	//	Brief:	Return the number of records in the list.
-	//	Pre:	none.
-	//	Post:	none.
-	//	Return:	number of records in current list.
-	//--------------------------------------------------------------------
-
-
 	bool IsFull() const;
 	//--------------------------------------------------------------------
 	//	Brief:	Check the list upper is reached to the limit.
@@ -68,11 +51,28 @@ public:
 	//--------------------------------------------------------------------
 
 
+	void MakeEmpty();
+	//--------------------------------------------------------------------
+	//	Brief:	Make list empty. (Initialize list)
+	//	Pre:	none.
+	//	Post:	clear list.
+	//--------------------------------------------------------------------
+
+
 	void ResetList();
 	//--------------------------------------------------------------------
 	//	Brief:	Initialize the list iterator.
 	//	Pre:	list should be initialized.
 	//	Post:	iterator is reset.
+	//--------------------------------------------------------------------
+
+
+	int GetLength() const;
+	//--------------------------------------------------------------------
+	//	Brief:	Return the number of records in the list.
+	//	Pre:	none.
+	//	Post:	none.
+	//	Return:	number of records in current list.
 	//--------------------------------------------------------------------
 
 
@@ -89,7 +89,7 @@ public:
 	//--------------------------------------------------------------------
 
 
-	int Add(T data);
+	int Add(const T& inData);
 	//--------------------------------------------------------------------
 	//	Brief:	Add a new data into list.
 	//	Pre:	list should be initialized.
@@ -109,7 +109,7 @@ public:
 	//--------------------------------------------------------------------
 
 
-	int Replace(T data);
+	int Replace(const T& data);
 	//--------------------------------------------------------------------
 	//	Brief:	Find same record using primary key and replace it.
 	//	Pre:	data's serial number should be set,
@@ -139,13 +139,15 @@ public:
 	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
 };
+
+
 // Default constructor.
 template <typename T>
 SortedList<T>::SortedList()
 {
 	m_Maxsize = MAXLIST;
 	m_Length = 0;
-	m_CurPointer = -1;
+	ResetList();
 	m_Array = new T[m_Maxsize];
 }
 
@@ -156,7 +158,7 @@ SortedList<T>::SortedList(int max)
 {
 	m_Maxsize = max;
 	m_Length = 0;
-	m_CurPointer = -1;
+	ResetList();
 	m_Array = new T[m_Maxsize];
 }
 
@@ -166,6 +168,22 @@ template <typename T>
 SortedList<T>::~SortedList()
 {
 	delete[] m_Array;
+}
+
+
+// Check capacity of list is full.
+template <typename T>
+bool SortedList<T>::IsFull() const
+{
+	return (m_Length > m_Maxsize - 1);
+}
+
+
+// Check capacity of list is empty.
+template <typename T>
+bool SortedList<T>::IsEmpty() const
+{
+	return (m_Length == 0);
 }
 
 
@@ -179,6 +197,14 @@ void SortedList<T>::MakeEmpty()
 }
 
 
+// Initialize list iterator.
+template <typename T>
+void SortedList<T>::ResetList()
+{
+	m_CurPointer = -1;
+}
+
+
 // Get a number of records in current list.
 template <typename T>
 int SortedList<T>::GetLength() const
@@ -186,29 +212,6 @@ int SortedList<T>::GetLength() const
 	return m_Length;
 }
 
-
-// Check capacity of list is full.
-template <typename T>
-bool SortedList<T>::IsFull() const
-{
-	return (m_Length == m_Maxsize);
-}
-
-
-// Check capacity of list is empty.
-template <typename T>
-bool SortedList<T>::IsEmpty() const
-{
-	return (m_Length == 0);
-}
-
-
-// Initialize list iterator.
-template <typename T>
-void SortedList<T>::ResetList()
-{
-	m_CurPointer = -1;
-}
 
 
 // Update pointer to point next record, and get the new record.
@@ -234,7 +237,7 @@ int SortedList<T>::GetNextItem(T& data)
 
 // Add a new data into list.
 template <typename T>
-int SortedList<T>::Add(T data)
+int SortedList<T>::Add(const T& inData)
 //---------------------------------------------------------------
 // (1) 현재 list의 용량을 확인한다.
 //	   - 다 채워져있을 경우, 실패(0)을 return.
@@ -253,9 +256,9 @@ int SortedList<T>::Add(T data)
 //----------------------------------------------------------------
 {
 	if (IsFull()) { return 0; }								// (1).
-	
+
 	if (IsEmpty()) {
-		m_Array[m_Length++] = data;
+		m_Array[m_Length++] = inData;
 		return 1;
 	}
 
@@ -263,10 +266,10 @@ int SortedList<T>::Add(T data)
 	ResetList();
 	int iPos = GetNextItem(curItem);
 	for (iPos; iPos >= 0; iPos = GetNextItem(curItem)) {
-		if (data.Compare(curItem) == EQUAL) {
+		if (curItem == inData) {
 			return -1;
 		}
-		else if (data.Compare(curItem) == GREATER) {
+		else if (curItem > inData) { // 오름차순
 			break;
 		}
 		else { continue; }
@@ -303,9 +306,9 @@ int SortedList<T>::Delete(T data)
 	ResetList();
 	int iPos = GetNextItem(curItem);
 	bool found = false;
-	for (iPos; iPos > 0; iPos = GetNextItem(curItem)) {
+	for (iPos; iPos >= 0; iPos = GetNextItem(curItem)) {
 		if (!found) {
-			if (data.Compare(curItem) == EQUAL) {
+			if (curItem == data) {
 				found = true;
 			}
 		}
@@ -324,7 +327,7 @@ int SortedList<T>::Delete(T data)
 
 // Find same record using primary key and replace it.
 template <typename T>
-int SortedList<T>::Replace(T data)
+int SortedList<T>::Replace(const T& data)
 //---------------------------------------------------------------
 // (1) 현재 list의 용량을 확인한다.
 //	   - list가 비어있으면, 실패(0)을 return.
@@ -341,12 +344,12 @@ int SortedList<T>::Replace(T data)
 	T curItem;												// (2).
 	ResetList();
 	int iPos = GetNextItem(curItem);
-	for (iPos; iPos > 0; iPos = GetNextItem(curItem)) {
-		if (data.Compare(curItem) == EQUAL) {
+	for (iPos; iPos >= 0; iPos = GetNextItem(curItem)) {
+		if (curItem == data) {
 			m_Array[iPos] = data;
 			return 1;
 		}
-		else if (data.Compare(curItem) == LESS) {
+		else if (curItem > data) {
 			return 0;
 		}
 		else { continue; }
@@ -374,12 +377,12 @@ int SortedList<T>::Retrieve_SeqS(T& data)
 	T curItem;												// (2).
 	ResetList();
 	int iPos = GetNextItem(curItem);
-	for (iPos; iPos > 0; iPos = GetNextItem(curItem)) {
-		if (data.Compare(curItem) == EQUAL) {
+	for (iPos; iPos >= 0; iPos = GetNextItem(curItem)) {
+		if (curItem == data) {
 			data = m_Array[iPos];
 			return 1;
 		}
-		else if (data.Compare(curItem) == GREATER) {
+		else if (curItem > data) {
 			return 0;
 		}
 		else { continue; }
@@ -408,28 +411,27 @@ int SortedList<T>::RetrieveByBS(T& data)
 // ---------------------------------------------------------------
 {
 	if (IsEmpty()) { return 0; }							// (1).
-	while (1)												// (2).
+
+	int first = 0;											// (2).
+	int last = m_Length - 1;
+	bool found = false;
+	while (first <= last && !found)
 	{
-		m_CurPointer = m_Length / 2;
-		T curItem = m_Array[m_CurPointer];
-		switch (curItem.Compare(data))
-		{
-		case EQUAL:
-			data = curItem;
+		int mid = (first + last) / 2;
+		if (data < m_Array[mid]) {
+			last = mid - 1;
+		}
+		else if (data > m_Array[mid]) {
+			first = mid + 1;
+		}
+		else {
+			data = m_Array[mid];
+			found = true;
 			return 1;
-			break;
-		case GREATER:
-			if (m_CurPointer == 0) { return 0; }
-			m_CurPointer /= 2;
-			break;
-		case LESS:
-			if (m_CurPointer >= m_Length - 1) { return 0; }
-			m_CurPointer = (m_CurPointer + m_Length) / 2;
-			break;
 		}
 	}
-	return 0;
+	return 0;												// (3).
 }
-#endif _SORTEDLIST_H_
+
 
 

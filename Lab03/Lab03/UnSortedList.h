@@ -1,5 +1,5 @@
-#ifndef _UNSORTEDLIST_H_
-#define _UNSORTEDLIST_H_
+#pragma once
+#include "pch.h"
 //--------------------------------------------------------------------
 //		Array based on 'UnSorted list'.
 //--------------------------------------------------------------------
@@ -32,20 +32,12 @@ public:
 	//--------------------------------------------------------------------
 
 
-	void MakeEmpty();
+	bool IsEmpty() const;
 	//--------------------------------------------------------------------
-	//	Brief:	Make list empty. (Initialize list)
-	//	Pre:	none.
-	//	Post:	clear list.
-	//--------------------------------------------------------------------
-
-
-	int GetLength() const;
-	//--------------------------------------------------------------------
-	//	Brief:	Return the number of records in the list.
+	//	Brief:	Check whether list's length is 0 or not.
 	//	Pre:	none.
 	//	Post:	none.
-	//	Return:	number of records in current list.
+	//	Return:	return true if list is empty, otherwise return false.
 	//--------------------------------------------------------------------
 
 
@@ -59,12 +51,11 @@ public:
 	//--------------------------------------------------------------------
 
 
-	bool IsEmpty() const;
+	void MakeEmpty();
 	//--------------------------------------------------------------------
-	//	Brief:	Check whether list's length is 0 or not.
+	//	Brief:	Make list empty. (Initialize list)
 	//	Pre:	none.
-	//	Post:	none.
-	//	Return:	return true if list is empty, otherwise return false.
+	//	Post:	clear list.
 	//--------------------------------------------------------------------
 
 
@@ -73,6 +64,16 @@ public:
 	//	Brief:	Initialize the list iterator.
 	//	Pre:	list should be initialized.
 	//	Post:	iterator is reset.
+	//--------------------------------------------------------------------
+
+
+
+	int GetLength() const;
+	//--------------------------------------------------------------------
+	//	Brief:	Return the number of records in the list.
+	//	Pre:	none.
+	//	Post:	none.
+	//	Return:	number of records in current list.
 	//--------------------------------------------------------------------
 
 
@@ -89,7 +90,7 @@ public:
 	//--------------------------------------------------------------------
 
 
-	int Add(T data);
+	int Add(const T& inData);
 	//--------------------------------------------------------------------
 	//	Brief:	Add a new data into list.
 	//	Pre:	list should be initialized.
@@ -109,7 +110,7 @@ public:
 	//--------------------------------------------------------------------
 
 
-	int Replace(T data);
+	int Replace(const T& data);
 	//--------------------------------------------------------------------
 	//	Brief:	Find same record using primary key and replace it.
 	//	Pre:	data's serial number should be set,
@@ -130,12 +131,14 @@ public:
 	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
 };
+
+
 // Default constructor.
 template <typename T>
 UnSortedList<T>::UnSortedList() {
 	m_Maxsize = MAXLIST;
 	m_Length = 0;
-	m_CurPointer = -1;
+	ResetList();
 	m_Array = new T[m_Maxsize];
 }
 
@@ -146,7 +149,7 @@ UnSortedList<T>::UnSortedList(int max)
 {
 	m_Maxsize = max;
 	m_Length = 0;
-	m_CurPointer = -1;
+	ResetList();
 	m_Array = new T[m_Maxsize];
 }
 
@@ -159,29 +162,11 @@ UnSortedList<T>::~UnSortedList()
 }
 
 
-// Make list empty.
-template <typename T>
-void UnSortedList<T>::MakeEmpty()
-{
-	m_Length = 0;
-	delete[] m_Array;
-	m_Array = new T[m_Maxsize];
-}
-
-
-// Get a number of records in current list.
-template <typename T>
-int UnSortedList<T>::GetLength() const
-{
-	return m_Length;
-}
-
-
 // Check whether capacity of list is full.
 template <typename T>
 bool UnSortedList<T>::IsFull() const
 {
-	return (m_Length == m_Maxsize);
+	return (m_Length > m_Maxsize - 1);
 }
 
 
@@ -193,12 +178,31 @@ bool UnSortedList<T>::IsEmpty() const
 }
 
 
+// Make list empty.
+template <typename T>
+void UnSortedList<T>::MakeEmpty()		
+{
+	m_Length = 0;
+	delete[] m_Array;
+	m_Array = new T[m_Maxsize];
+}
+
+
 // Initialize list iterator.
 template <typename T>
 void UnSortedList<T>::ResetList()
 {
 	m_CurPointer = -1;
 }
+
+
+// Get a number of records in current list.
+template <typename T>
+int UnSortedList<T>::GetLength() const
+{
+	return m_Length;
+}
+
 
 
 // Update pointer to point next record, and get the new record.
@@ -224,7 +228,7 @@ int UnSortedList<T>::GetNextItem(T& data)
 
 // Add a new data into list.
 template <typename T>
-int UnSortedList<T>::Add(T data)
+int UnSortedList<T>::Add(const T& inData)
 //---------------------------------------------------------------
 // (1) 현재 list가 full이라면, 실패(0)을 return.
 //     현재 list가 empty이라면, 첫자리에 삽입 후 성공(1) return.
@@ -239,12 +243,11 @@ int UnSortedList<T>::Add(T data)
 	ResetList();
 	int iPos = GetNextItem(curItem);
 	for (iPos; iPos >= 0; iPos = GetNextItem(curItem)) {
-		if (curItem.Compare(data) == EQUAL) {
+		if (curItem == inData) {
 			return -1;
 		}
 	}
-
-	m_Array[m_Length++] = data;								// (3).
+	m_Array[m_Length++] = inData;							// (3).
 	return 1;
 }
 
@@ -266,9 +269,9 @@ int UnSortedList<T>::Delete(T data)
 	ResetList();
 	int iPos = GetNextItem(curItem);
 	bool found = false;
-	for (iPos; iPos > 0; iPos = GetNextItem(curItem)) {
+	for (iPos; iPos >= 0; iPos = GetNextItem(curItem)) {
 		if (!found) {
-			if (curItem.Compare(data) == EQUAL) {
+			if (curItem == data) {
 				found = true;
 			}
 		}
@@ -287,7 +290,7 @@ int UnSortedList<T>::Delete(T data)
 
 // Find same record using primary key and replace it.
 template <typename T>
-int UnSortedList<T>::Replace(T data)
+int UnSortedList<T>::Replace(const T& data)
 //---------------------------------------------------------------
 // (1) 현재 list의 용량을 확인한다.
 //	   - list가 비어있으면, 실패(0)을 return.
@@ -302,8 +305,8 @@ int UnSortedList<T>::Replace(T data)
 	T curItem;												// (2).
 	ResetList();
 	int iPos = GetNextItem(curItem);
-	for (iPos; iPos > 0; iPos = GetNextItem(curItem)) {
-		if (curItem.Compare(data) == EQUAL) {
+	for (iPos; iPos >= 0; iPos = GetNextItem(curItem)) {
+		if (curItem == data) {
 			m_Array[iPos] = data;
 			return 1;
 		}
@@ -330,13 +333,12 @@ int UnSortedList<T>::Get(T& data)
 	ResetList();
 	int iPos = GetNextItem(curItem);
 	for (iPos; iPos > 0; iPos = GetNextItem(curItem)) {
-		if (curItem.Compare(data) == EQUAL) {
+		if (curItem == data) {
 			data = m_Array[iPos];
 			return 1;
 		}
 	}
 	return 0;												// (3).
 }
-#endif _UNSORTEDLIST_H_
 
 

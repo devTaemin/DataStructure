@@ -1,5 +1,5 @@
-#ifndef _STACK_H_
-#define _STACK_H_
+#pragma once
+#include "pch.h"
 //--------------------------------------------------------------------
 //		Array based on 'Stack'.
 //--------------------------------------------------------------------
@@ -32,35 +32,6 @@ public:
 	//--------------------------------------------------------------------
 
 
-	void MakeEmpty();
-	//--------------------------------------------------------------------
-	//	Brief:	Make Stack empty. 
-	//	Pre:	none.
-	//	Post:	clear Stack.	
-	//--------------------------------------------------------------------
-
-
-	void ResetPointer();
-	//--------------------------------------------------------------------
-	//	Brief:	Make Stack iterator reset. 
-	//	Pre:	none.
-	//	Post:	iterator is reset.
-	//--------------------------------------------------------------------
-
-
-	int GetNextItem(T& data);
-	//--------------------------------------------------------------------
-	//	Brief:	Update pointer to point to next record,
-	//			and get that new record.
-	//	Pre:	Stack and stack iterator should not be initialized.
-	//	Post:	iterator is moved to next item.
-	//	Param:	data		get current iterator's item. 
-	//						it does not need to be initialized
-	//	Return:	index of current iterator's item if it is not end of Stack,
-	//			otherwise return -1.
-	//--------------------------------------------------------------------
-
-
 	bool IsFull() const;
 	//--------------------------------------------------------------------
 	//	Brief:	Check whether stack is full.
@@ -79,7 +50,45 @@ public:
 	//--------------------------------------------------------------------
 
 
-	int Push(T data);
+	void MakeEmpty();
+	//--------------------------------------------------------------------
+	//	Brief:	Make Stack empty. 
+	//	Pre:	none.
+	//	Post:	clear Stack.	
+	//--------------------------------------------------------------------
+
+
+	void ResetList();
+	//--------------------------------------------------------------------
+	//	Brief:	Make Stack iterator reset. 
+	//	Pre:	none.
+	//	Post:	iterator is reset.
+	//--------------------------------------------------------------------
+
+
+	int GetTop() const;
+	//--------------------------------------------------------------------
+	//	Brief:	Return the number of records(Top) in the stack
+	//	Pre:	none.
+	//	Post:	none.
+	//	Return:	number of records(Top) in current stack.
+	//--------------------------------------------------------------------
+
+
+	int GetNextItem(T& data);
+	//--------------------------------------------------------------------
+	//	Brief:	Update pointer to point to next record,
+	//			and get that new record.
+	//	Pre:	Stack and stack iterator should not be initialized.
+	//	Post:	iterator is moved to next item.
+	//	Param:	data		get current iterator's item. 
+	//						it does not need to be initialized
+	//	Return:	index of current iterator's item if it is not end of Stack,
+	//			otherwise return -1.
+	//--------------------------------------------------------------------
+
+
+	int Push(T inData);
 	//--------------------------------------------------------------------
 	//	Brief:	Push new data to the top of the stack.
 	//	Pre:	Stack has been initialized.
@@ -98,7 +107,29 @@ public:
 	//	Return:	return 1, if function works successfully, otherwise 0.
 	//--------------------------------------------------------------------
 
+
+	int Replace(T data);
+	//--------------------------------------------------------------------
+	//	Brief:	Find same record using primary key and replace it.
+	//	Pre:	data's primary key should be set,
+	//	Post:	a item's record is replaced with new information.
+	//	Param:	data		the target data to be replaced.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
+
+
+	int Top(T& data);
+	//--------------------------------------------------------------------
+	//	Brief:	Returns a copy of top item on the stack.
+	//	Pre:	Stack has been initialized.
+	//	Post:	none.
+	//	Param:	data		the target data to be displayed.
+	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
+
 };
+
+
 // Default Constructor.
 template <typename T>
 Stack<T>::Stack()
@@ -129,6 +160,22 @@ Stack<T>::~Stack()
 }
 
 
+// Check whether stack is full.
+template <typename T>
+bool Stack<T>::IsFull() const
+{
+	return (s_Top >= s_Maxsize - 1);
+}
+
+
+// Check whether stack is empty.
+template <typename T>
+bool Stack<T>::IsEmpty() const
+{
+	return (s_Top <= -1);
+}
+
+
 // Make Stack empty. 
 template <typename T>
 void Stack<T>::MakeEmpty()
@@ -141,9 +188,17 @@ void Stack<T>::MakeEmpty()
 
 // Make Stack iterator reset.
 template <typename T>
-void Stack<T>::ResetPointer()
+void Stack<T>::ResetList()
 {
 	s_CurPointer = -1;
+}
+
+
+// Return the number of records(Top) in the stack
+template <typename T>
+int Stack<T>::GetTop() const
+{
+	return s_Top;
 }
 
 
@@ -165,22 +220,6 @@ int Stack<T>::GetNextItem(T& data)
 	}
 	data = s_Stack[s_CurPointer];							// (3).
 	return s_CurPointer;
-}
-
-
-// Check whether stack is full.
-template <typename T>
-bool Stack<T>::IsFull() const
-{
-	return (s_Top == s_Maxsize - 1);
-}
-
-
-// Check whether stack is empty.
-template <typename T>
-bool Stack<T>::IsEmpty() const
-{
-	return (s_Top == -1);
 }
 
 
@@ -213,6 +252,32 @@ int Stack<T>::Pop(T& data)
 	return 1;
 }
 
-#endif _STACK_H_
+
+// Find same record using primary key and replace it.
+template <typename T>
+int Stack<T>::Replace(T data)
+{
+	if (IsEmpty()) { return 0; }
+	T curItem;
+	ResetList();
+	int iPos = GetNextItem(curItem);
+	for (iPos; iPos >= 0; iPos = GetNextItem(curItem)) {
+		if (curItem == data) {
+			s_Stack[iPos] = data;
+			return 1;
+		}
+	}
+	return 0;
+}
+
+
+// Returns a copy of top item on the stack.
+template <typename T>
+int Stack<T>::Top(T& data)
+{
+	if (IsEmpty()) { return 0; }
+	data = s_Stack[s_Top];
+	return 1;
+}
 
 
