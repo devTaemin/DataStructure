@@ -97,17 +97,76 @@ public:
 		c_ItemList = _item.c_ItemList;
 	}
 
+	bool IsItemListEmpty()
+	{
+		return c_ItemList.IsEmpty();
+	}
+	void ResetItemList()
+	{
+		c_ItemList.ResetList();
+	}
+	int GetNextListItem(SimpleItemType& _Item)
+	{
+		SimpleItemType curItem;
+		if (c_ItemList.GetNextItem(curItem)) {
+			_Item = curItem;
+			return 1;
+		}
+		return 0;
+	}
+	int AddItem(ItemType _data)
+	{
+		if (c_ItemList.Add(_data)) { return 1; }
+		return 0;
+	}
 
-	int AddItem(ItemType _data);
-	int DeleteItem(ItemType _data);
-	int GetItem(ItemType& _data);
-	int UpdateItem(ItemType _data);
-	int DisplayAllItem();
+	int DeleteItem(ItemType _data)
+	{
+		if (c_ItemList.Delete(_data)) { return 1; }
+		return 0;
+	}
+	int GetItem(ItemType& _data)
+	{
+		if (c_ItemList.Get(_data)) { return 1; }
+		return 0;
+	}
+	int UpdateItem(ItemType _data)
+	{
+		if (c_ItemList.Replace(_data)) { return 1; }
+		return 0;
+	}
+	void DisplayAllItem()
+	{
+		c_ItemList.ResetList();
+		SimpleItemType curItem;
+		int iPos = c_ItemList.GetNextItem(curItem);
+		for (iPos; iPos > 0; iPos = c_ItemList.GetNextItem(curItem)) {
+			curItem.DisplayRecordOnScreen();
+		}
+	}
 
-	int AddPhoto(string _data);
-	int DeletePhoto(string _data);
-	int GetPhoto(ItemType _data);
-	int DisplayAllPhoto();
-
-
+	int AddPhoto(string _data)
+	{
+		if (m_PhotoList.Add(_data)) { return 1; }
+		return 0;
+	}
+	int DeletePhoto(string _data)
+	{
+		if (m_PhotoList.Delete(_data)) { return 1; }
+		return 0;
+	}
+	int GetPhoto(string _data)
+	{
+		if (m_PhotoList.Get(_data)) { return 1; }
+		return 0;
+	}
+	void DisplayAllPhoto()
+	{
+		m_PhotoList.ResetList();
+		string curPhoto;
+		int iPos = m_PhotoList.GetNextItem(curPhoto);
+		for (iPos; iPos > 0; iPos = m_PhotoList.GetNextItem(curPhoto)) {
+			cout << curPhoto << '\n';
+		}
+	}
 };

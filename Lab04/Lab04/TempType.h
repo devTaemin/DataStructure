@@ -12,16 +12,61 @@ public:
 	{
 		numOfItems = 0;
 	}
-	~TempType();
+	~TempType(){}
 
-	bool IsFull() const;
-	bool IsEmpty() const;
-	int GetNumOfItems() const;
-	int Enqueue(ItemType data);
-	int Dequeue(ItemType& data);
-	void DisplayNumOfItems();
-	void DisplayAllItems();
-	int GetItem(ItemType _data);
-	int DeleteItem(ItemType _data);
-	int ReplaceItem(ItemType _data);
+	bool IsFull() const
+	{
+		return tItemList.IsFull();
+	}
+	bool IsEmpty() const
+	{
+		return tItemList.IsEmpty();
+	}
+	int GetNumOfItems() const
+	{
+		return numOfItems;
+	}
+	int Enqueue(ItemType data)
+	{
+		if (tItemList.EnQueue(data)) { return 1; }
+		return 0;
+	}
+	int Dequeue(ItemType& data)
+	{
+		if (tItemList.DeQueue(data)) { return 1; }
+		return 0;
+	}
+	void DisplayNumOfItems()
+	{
+		cout << "[TEMP : " << numOfItems << "°³]" << '\n';
+	}
+	void DisplayAllItems()
+	{
+		ItemType curItem;
+		tItemList.ResetList();
+		int iPos = tItemList.GetNextItem(curItem);
+		for (iPos; iPos >= 0; iPos = tItemList.GetNextItem(curItem)) {
+			cout << '\n';
+			curItem.DisplaySerialOnScreen();
+			curItem.DisplayNameOnScreen();
+			curItem.DisplayNumOnScreen();
+			curItem.DisplayUsageOnScreen();
+			curItem.DisplayDateOnScreen();
+		}
+	}
+	int GetItem(ItemType _data)
+	{
+		if (tItemList.Get(_data)) { return 1; }
+		return 0;
+	}
+	int DeleteItem(ItemType _data)
+	{
+		if (tItemList.Delete(_data)) { return 1; }
+		return 0;
+	}
+	int ReplaceItem(ItemType _data)
+	{
+		if (tItemList.Replace(_data)) { return 1; }
+		return 0;
+	}
 };

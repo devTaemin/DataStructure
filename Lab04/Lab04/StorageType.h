@@ -7,7 +7,7 @@ private:
 	string m_Name;
 	int numOfContainer;
 	int maxOfContainer;
-	SinglyLinkedList<ContainerType> m_ContainerList;
+	SingleLinkedList<ContainerType> m_ContainerList;
 
 public:
 	StorageType()
@@ -18,7 +18,7 @@ public:
 		maxOfContainer = MAXCONTAINER;
 	}
 
-	~StorageType(){}
+	~StorageType() {}
 
 
 	int GetStorageID() const
@@ -37,7 +37,7 @@ public:
 	{
 		return maxOfContainer;
 	}
-	
+
 
 	void SetStorageID(int inStorageID)
 	{
@@ -100,12 +100,60 @@ public:
 		DisplayNumOfContainerOnScreen();
 	}
 
+	bool operator==(const StorageType& _item) {
+		if (m_StorageID == _item.GetStorageID())
+			return true;
+		return false;
+	}
+	bool operator>(const StorageType& _item) {
+		if (m_StorageID > _item.GetStorageID())
+			return true;
+		return false;
+	}
+	bool operator<(const StorageType& _item) {
+		if (m_StorageID < _item.GetStorageID())
+			return true;
+		return false;
+	}
+	void operator=(const StorageType& _item) {
+		m_StorageID = _item.m_StorageID;
+		m_Name = _item.m_Name;
+		numOfContainer = _item.numOfContainer;
+		maxOfContainer = _item.maxOfContainer;
+		m_ContainerList.Equal(_item.m_ContainerList);
+	}
 
-	int AddContainer(ContainerType _container);
-	int DeleteContainer(ContainerType _container);
-	int UpdateContainer(ContainerType _container);
-	int GetContainer(ContainerType& _container);
+	int AddContainer(ContainerType _container) {
+		if (m_ContainerList.Add(_container)) { 
+			numOfContainer++;
+			return 1; 
+		}
+		return 0;
+	}
+	int DeleteContainer(ContainerType _container) {
+		if (m_ContainerList.Delete(_container)) { 
+			numOfContainer--;
+			return 1; 
+		}
+		return 0;
+	}
+	int UpdateContainer(ContainerType _container) {
+		if (m_ContainerList.Replace(_container)) { return 1; }
+		return 0;
+	}
+	int GetContainer(ContainerType& _container) {
+		if (m_ContainerList.Get(_container)) { return 1; }
+		return 0;
+	}
 
-	int DisplayAllContainer();
-	int DisplayAllContainer();
+	void DisplayAllContainer() {
+		ContainerType curContainer;
+		m_ContainerList.ResetList();
+		int iPos = m_ContainerList.GetNextItem(curContainer);
+		for (iPos; iPos >= 0; iPos = m_ContainerList.GetNextItem(curContainer)) {
+			curContainer.DisplayContainerRecordOnScreen();
+			curContainer.DisplayAllPhoto();
+			curContainer.DisplayAllItem();
+		}
+	}
 };

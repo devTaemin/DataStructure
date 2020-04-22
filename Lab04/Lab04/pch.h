@@ -20,7 +20,7 @@ enum RelationType {LESS, EQUAL, GREATER};
 #include "UnSortedList.h"
 #include "SortedList.h"
 #include "CircularQueue.h"
-#include "SinglyLinkedList.h"
+#include "SingleLinkedList.h"
 
 
 // Type

@@ -17,6 +17,9 @@
     <ClCompile Include="main.cpp">
       <Filter>App</Filter>
     </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -34,9 +37,6 @@
     <ClInclude Include="CircularQueue.h">
       <Filter>DataStructure</Filter>
     </ClInclude>
-    <ClInclude Include="SinglyLinkedList.h">
-      <Filter>DataStructure</Filter>
-    </ClInclude>
     <ClInclude Include="SimpleItemType.h">
       <Filter>Type</Filter>
     </ClInclude>
@@ -51,6 +51,9 @@
     </ClInclude>
     <ClInclude Include="ContainerType.h">
       <Filter>Type</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleLinkedList.h">
+      <Filter>DataStructure</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

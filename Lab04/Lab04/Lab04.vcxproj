@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Application.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -148,7 +149,7 @@
     <ClInclude Include="ItemType.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="SimpleItemType.h" />
-    <ClInclude Include="SinglyLinkedList.h" />
+    <ClInclude Include="SingleLinkedList.h" />
     <ClInclude Include="SortedList.h" />
     <ClInclude Include="StorageType.h" />
     <ClInclude Include="TempType.h" />
