@@ -1,5 +1,9 @@
 #pragma once
-#include "pch.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+#define MAXQUEUE 11
 template <typename T>
 class CircularQueue
 {
@@ -24,10 +28,12 @@ public:
 	void ResetQueue();
 
 	int GetLength();
-	int GetNextItem(T& data);
+	int GetNextItem(T& _data);
 
 	int Add(const T& _data);
-	int Delete(T _data);
+	int Delete(T& _data);
+	
+	void DisplayAll();
 
 	//int Replace(const T& _data);
 	//int Get(T& _data);
@@ -79,7 +85,10 @@ bool CircularQueue<T>::IsEmpty()
 template<typename T>
 void CircularQueue<T>::MakeEmpty()
 {
-	
+	m_Front = m_MaxSize - 1;
+	m_Rear = m_MaxSize - 1;
+	delete[] m_Queue;
+	m_Queue = new T[m_MaxSize];
 }
 
 template<typename T>
@@ -95,25 +104,59 @@ int CircularQueue<T>::GetLength()
 }
 
 template<typename T>
-int CircularQueue<T>::GetNextItem(T& data)
+int CircularQueue<T>::GetNextItem(T& _data)
 {
 	if (IsEmpty()) { return -1; }
-	m_CurPointer++;
-	if (m_CurPointer == m_Length) {
+	m_CurPointer = (m_CurPointer + 1) % m_MaxSize;
+	_data = m_Queue[m_CurPointer];
+	if (m_CurPointer == m_Rear) {
+		ResetQueue();
 		return -1;
 	}
-	data = m_List[m_CurPointer];
-	return m_CurPointer;
+	return 1;
 }
 
 template<typename T>
 int CircularQueue<T>::Add(const T& _data)
 {
-	
+	if (IsFull()) { return 0; }
+	m_Rear = (m_Rear + 1) & m_MaxSize;
+	m_Queue[m_Rear] = _data;
+	m_Length++;
+	return 1;
 }
 
 template<typename T>
-int CircularQueue<T>::Delete(T _data)
+int CircularQueue<T>::Delete(T& _data) // delete하면서 가져올 수 있다.
 {
-	
+	if (IsEmpty()) { return 0; }
+	m_Front = (m_Front + 1) % m_MaxSize;
+	_data = m_Queue[m_Rear];
+	m_Length--;
+	return 1;
+}
+
+template<typename T>
+void CircularQueue<T>::DisplayAll()
+{
+	if (IsEmpty()) { return; }
+	if (m_Front > m_Rear)
+	{
+		for (int i = m_Front + 1; i < m_MaxSize; i++)
+		{
+			cout << m_Queue[i] << " - ";
+		}
+		for (int i = 0; i <= m_Rear; i++)
+		{
+			cout << m_Queue[i] << " - ";
+		}
+	}
+	else
+	{
+		for (int i = m_Front + 1; i < m_Rear; i++)
+		{
+			cout << m_Queue[i] << " - ";
+		}
+	}
+	cout << endl;
 }

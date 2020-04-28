@@ -1,5 +1,9 @@
 #pragma once
-#include "pch.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+#define LISTSIZE 10
 template <typename T>
 class SortedList
 {
@@ -22,7 +26,7 @@ public:
 	void ResetList();
 
 	int GetLength();
-	int GetNextItem(T& data);
+	int GetNextItem(T& _data);
 
 	int Add(const T& _data);
 	int Delete(T _data);
@@ -90,14 +94,14 @@ int SortedList<T>::GetLength()
 }
 
 template<typename T>
-int SortedList<T>::GetNextItem(T& data)
+int SortedList<T>::GetNextItem(T& _data)
 {
 	if (IsEmpty()) { return -1; }
 	m_CurPointer++;
 	if (m_CurPointer == m_Length) {
 		return -1;
 	}
-	data = m_List[m_CurPointer];
+	_data = m_List[m_CurPointer];
 	return m_CurPointer;
 }
 
@@ -119,12 +123,14 @@ int SortedList<T>::Add(const T& _data)
 		m_List[m_Length++] = _data;
 		return 1;
 	}
+	int position;
 	for (int i = 0; i < m_Length; i++) {//중간 입력
 		if (m_List[i] > _data) { // 오름차순
 			for (int j = m_Length; j > i; j--) {
 				m_List[j] = m_List[j - 1];
+				position = j;
 			}
-			m_List[j] = _data;
+			m_List[position] = _data;
 			m_Length++;
 			return 1;
 		}

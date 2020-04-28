@@ -36,9 +36,6 @@
     <ClInclude Include="DoublyIterator.h">
       <Filter>App</Filter>
     </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>App</Filter>
-    </ClInclude>
     <ClInclude Include="TempType.h">
       <Filter>Type</Filter>
     </ClInclude>
@@ -58,6 +55,24 @@
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="ContainerType.cpp">
+      <Filter>Type</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemType.cpp">
+      <Filter>Type</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleItemType.cpp">
+      <Filter>Type</Filter>
+    </ClCompile>
+    <ClCompile Include="StorageType.cpp">
+      <Filter>Type</Filter>
+    </ClCompile>
+    <ClCompile Include="TempType.cpp">
+      <Filter>Type</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

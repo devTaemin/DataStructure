@@ -1,5 +1,9 @@
 #pragma once
-#include "pch.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+#define LISTSIZE 10
 template <typename T>
 class UnSortedList
 {
@@ -22,7 +26,7 @@ public:
 	void ResetList();
 
 	int GetLength();
-	int GetNextItem(T& data);
+	int GetNextItem(T& _data);
 
 	int Add(const T& _data);
 	int Delete(T _data);
@@ -105,14 +109,14 @@ int UnSortedList<T>::GetLength()
 }
 
 template<typename T>
-int UnSortedList<T>::GetNextItem(T& data)
+int UnSortedList<T>::GetNextItem(T& _data)
 {
 	if (IsEmpty()) { return -1; }							
 	m_CurPointer++;											
 	if (m_CurPointer == m_Length) {						
 		return -1;
 	}
-	data = m_List[m_CurPointer];
+	_data = m_List[m_CurPointer];
 	return m_CurPointer;
 }
 
