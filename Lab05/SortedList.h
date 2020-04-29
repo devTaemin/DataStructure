@@ -34,7 +34,13 @@ public:
 	int Get(T& _data);
 	int GetByBinarySearch(T& _data);
 
-	//void operator=(const SortedList& _list)
+	void operator=(SortedList& _list) // 정보를 replace해도 기존 정보를 가지고 있도록 operator를 수정.
+	{
+		m_List = _list.m_List;
+		m_Length = _list.m_Length;
+		m_CurPointer = _list.m_CurPointer;
+		m_MaxSize = _list.m_MaxSize;
+	}
 	//friend ostream& operator<<(ostream& os, const SortedList& _list)
 };
 

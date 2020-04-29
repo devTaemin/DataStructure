@@ -56,6 +56,10 @@ template <typename T>
 T DoublyIterator<T>::Next()
 {
 	m_pCurPointer = m_pCurPointer->next;
+	if(m_pCurPointer==nullptr){
+		T Node;
+		return Node;
+	}
 	return m_pCurPointer->data;
 }
 

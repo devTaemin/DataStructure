@@ -1,10 +1,7 @@
 #include "SimpleItemType.h"
 
-SimpleItemType::SimpleItemType()
-{
-	m_Id = -1;
-	m_Name = "";
-}
+SimpleItemType::SimpleItemType() : m_Id(-1), m_Name("")
+{}
 
 SimpleItemType::~SimpleItemType()
 {

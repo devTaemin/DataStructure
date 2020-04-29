@@ -1,16 +1,11 @@
 #include "ContainerType.h"
 
 
-ContainerType::ContainerType()
-{
-	m_ContainerID = -1;
-	m_Location = "";
-}
+ContainerType::ContainerType() : m_ContainerID(-1), m_Location("")
+{}
 
 ContainerType::~ContainerType()
-{
-
-}
+{}
 
 int ContainerType::GetId() const
 {

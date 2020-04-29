@@ -23,8 +23,11 @@ public:
 	int GetId() const;
 	int GetLength() const;
 	int GetMaxSize() const;
+	SingleLinkedList<ContainerType> GetContainerList() const; //추가
+	void SetContainerList(SingleLinkedList<ContainerType> _con); // 추가
 
 	void SetId(int _id);
+	void SetLength(int _len); // 추가
 	void SetMaxSize(int _max);
 	void SetRecord(int _id, int _max);
 	void SetIdFromKB();

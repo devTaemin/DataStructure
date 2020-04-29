@@ -40,7 +40,8 @@ public:
 
 	void operator=(SingleLinkedList& _list)
 	{
-		MakeEmpty();
+		/*
+		/MakeEmpty();
 		if (!_list.IsEmpty())
 		{
 			_list.ResetList();
@@ -48,7 +49,10 @@ public:
 			while (_list.GetNextItem(item) != -1) {
 				Add(item);
 			}
-		}
+		}*/
+		m_Length = _list.m_Length;
+		m_pSingleList = _list.m_pSingleList;
+		m_pCurPointer = _list.m_pCurPointer;
 	}
 	
 	friend ostream& operator<<(ostream& os, SingleLinkedList& _list) {
@@ -113,10 +117,12 @@ int SingleLinkedList<T>::GetNextItem(T& _data)
 	if (m_pCurPointer == nullptr)
 	{
 		m_pCurPointer = m_pSingleList;
-		return -1; // 0으로 안하고 -1로함.
+		//바꿈
+		//return 1; // 0으로 안하고 -1로함.
 	}
 	else {
 		m_pCurPointer = m_pCurPointer->next;
+		if (m_pCurPointer == nullptr){ return -1; }
 	}
 	_data = m_pCurPointer->data;
 	return 1;

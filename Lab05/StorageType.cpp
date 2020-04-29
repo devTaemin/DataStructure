@@ -34,6 +34,16 @@ int StorageType::GetMaxSize() const
 	return m_MaxSize;
 }
 
+SingleLinkedList<ContainerType> StorageType::GetContainerList() const
+{
+	return ContainerList;
+}
+
+void StorageType::SetContainerList(SingleLinkedList<ContainerType> _con)
+{
+	ContainerList = _con;
+}
+
 bool StorageType::isFull()
 {
 	return (m_Length > m_MaxSize - 1);
@@ -42,6 +52,11 @@ bool StorageType::isFull()
 void StorageType::SetId(int _id)
 {
 	m_StorageID = _id;
+}
+
+void StorageType::SetLength(int _len)
+{
+	m_Length = _len;
 }
 
 void StorageType::SetMaxSize(int _max)

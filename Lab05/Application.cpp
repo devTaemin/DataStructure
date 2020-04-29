@@ -68,7 +68,7 @@ void Application::GetCommand()
 	cout << "\t   8 : Display All container in a storage" << endl;
 	cout << "\t   9 : Display All details of a storage " << endl;
 	cout << "\t------------------------" << endl;
-	cout << "\t=========Container======" << endl;
+	cout << "\t========Container=======" << endl;
 	
 	
 
@@ -165,14 +165,37 @@ int Application::DeleteStorage()
 	return 0;
 }
 
+
 int Application::ReplaceStorage()
 {
 	StorageType targetStorage;
+	StorageType tempStorage;
+	SingleLinkedList<ContainerType> tempContainerList;
+
 	cout << "\t[교체할 저장 공간을 입력하시오.]" << endl;
 	targetStorage.SetRecordFromKB();
-	if (StorageList.Replace(targetStorage) == 1) {
-		cout << "\t[저장 공간 교체에 성공하였습니다.]" << endl;
-		return 1;
+	tempStorage.SetId(targetStorage.GetId());
+	
+
+	if (StorageList.GetByBinarySearch(tempStorage) != 1) { 
+		cout << "\t[검색한 저장 공간은 존재하지 않습니다.]" << endl;
+	}
+	else {
+		int _command;
+		while (1) {
+			cout << "\t[이전에 보관한 컨테이너를 유지하시겠습니까?] - [NO(0) / YES(1)] : ";
+			cin >> _command;
+			if (_command == 1) {
+				targetStorage.SetLength(tempStorage.GetLength());
+				targetStorage.SetContainerList(tempStorage.GetContainerList());
+			}
+			else if (_command == 0) { break; }
+			else { cout << "잘못된 입력입니다." << endl; }
+		}
+		if (StorageList.Replace(targetStorage) == 1) {
+			cout << "\t[저장 공간 교체에 성공하였습니다.]" << endl;
+			return 1;
+		}
 	}
 	cout << "\t[저장 공간 교체에 실패하였습니다.]" << endl;
 	return 0;
@@ -192,13 +215,20 @@ void Application::DisplayAllStorage()
 void Application::DIsplayAllContainer()
 {
 	StorageType tempStorage;
+	cout << "\t[저장 공간을 선택하시오.]" << endl;
+	tempStorage.SetIdFromKB();
 	StorageList.ResetList();
-	int iPos = StorageList.GetNextItem(tempStorage);
-	for (iPos; iPos >= 0; iPos = StorageList.GetNextItem(tempStorage))
-	{
-		tempStorage.DisplayAllRecord();
+	if (StorageList.GetByBinarySearch(tempStorage) != 1){
+		cout << "\t[해당 저장 공간을 찾지 못하였습니다.]" << endl;
+		return;
+	}
+	tempStorage.DisplayAllRecord();
+	cout << "+=============Container=============+" << endl;
+	if (tempStorage.GetLength() != 0) {
 		tempStorage.DisplayAllContainer();
 	}
+	else { cout << "\t      [E M P T Y]" << endl; }
+	cout << "+===================================+" << endl;
 }
 
 void Application::DisplayAllDetailContainer()
@@ -227,15 +257,22 @@ int Application::AddContainer()
 	}
 	else
 	{
+		if (targetStorage.isFull()) {
+			cout << "\t[추가 가능한 컨테이너 용량이 부족합니다.]" << endl;
+			return 0;
+		}
 		ptr = &targetStorage;
-		ContainerType newContainer;
+		//ContainerType newContainer;
+		ContainerType *newContainer=new ContainerType;
 		cout << "\t[생성할 새로운 컨테이너를 입력하세요.]" << endl;
-		newContainer.SetRecordFromKB();
-		if ((*ptr).AddContainer(newContainer) == 1) {
+		newContainer->SetRecordFromKB();
+		if ((*ptr).AddContainer(*newContainer) == 1) {
+			//추가한 부분
+			StorageList.Replace(*ptr);
 			cout << "\t[컨테이너 생성에 성공하였습니다.]" << endl;
 			return 1;
 		}
-		else if ((*ptr).AddContainer(newContainer) == -1) {
+		else if ((*ptr).AddContainer(*newContainer) == -1) {
 			cout << "\t[이미 존재하는 컨테이너 입니다.]" << endl;
 		}
 		cout << "\t[컨테이너 생성에 실패하였습니다.]" << endl;
@@ -243,7 +280,7 @@ int Application::AddContainer()
 	return 0;
 }
 
-int Application::AddContainer(ContainerType& _container)
+int Application::AddContainer(ContainerType& _container) // 고쳐야함
 {
 	StorageType targetStorage;
 	StorageType* ptr;

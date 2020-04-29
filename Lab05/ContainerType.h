@@ -57,10 +57,12 @@ public:
 		m_PhotoList = _container.m_PhotoList;
 	}
 	friend ostream& operator<<(ostream& os, const ContainerType& _container) {
-		os << "Container ID : " << _container.GetId() << endl;
-		os << "Position		: " << _container.GetLocation() << endl;
-		os << "ItemList		: " << endl;
+		os << "+-----------------------------------+" << endl;
+		os << "\tContainer ID : " << _container.GetId() << endl;
+		os << "\tPosition     : " << _container.GetLocation() << endl;
+		os << "\t[ItemList] " << endl;
 		os << _container.m_SimpleItemList << endl;
+		os << "+-----------------------------------+" << endl;
 		return os;
 	}
 };
