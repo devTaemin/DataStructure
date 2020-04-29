@@ -91,7 +91,7 @@ void ContainerType::DisplayAllsItem()
 	cout << m_SimpleItemList << endl;
 }
 
-void ContainerType::DisplayAllDetailsItem(SortedList<ItemType>& ref)
+void ContainerType::DisplayAllDetailsItem(DoubleLinkedList<ItemType>& ref)
 {
 	SimpleItemType temp;
 	m_SimpleItemList.ResetList();

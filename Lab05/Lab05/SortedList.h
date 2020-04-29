@@ -28,9 +28,9 @@ public:
 	int GetLength();
 	int GetNextItem(T& _data);
 
-	int Add(const T& _data);
+	int Add(T& _data);
 	int Delete(T _data);
-	int Replace(const T& _data);
+	int Replace(T& _data);
 	int Get(T& _data);
 	int GetByBinarySearch(T& _data);
 
@@ -59,7 +59,7 @@ SortedList<T>::SortedList(int _max)
 template<typename T>
 SortedList<T>::~SortedList()
 {
-	delete[] m_List;
+	//delete[] m_List;
 }
 
 
@@ -106,7 +106,7 @@ int SortedList<T>::GetNextItem(T& _data)
 }
 
 template<typename T>
-int SortedList<T>::Add(const T& _data)
+int SortedList<T>::Add(T& _data)
 {
 	bool found = false;
 	if (IsFull()) { return 0; }
@@ -123,18 +123,15 @@ int SortedList<T>::Add(const T& _data)
 		m_List[m_Length++] = _data;
 		return 1;
 	}
-	int position;
 	for (int i = 0; i < m_Length; i++) {//중간 입력
 		if (m_List[i] > _data) { // 오름차순
 			for (int j = m_Length; j > i; j--) {
 				m_List[j] = m_List[j - 1];
-				position = j;
 			}
-			m_List[position] = _data;
+			m_List[i] = _data;
 			m_Length++;
 			return 1;
 		}
-
 	}
 	m_List[m_Length++] = _data; // 끝 입력
 	return 1;
@@ -157,7 +154,7 @@ int SortedList<T>::Delete(T _data)
 }
 
 template<typename T>
-int SortedList<T>::Replace(const T& _data)
+int SortedList<T>::Replace(T& _data)
 {
 	if (IsEmpty()) { return 0; }
 	for (int i = 0; i < m_Length; i++) {

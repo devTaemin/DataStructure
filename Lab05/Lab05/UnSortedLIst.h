@@ -74,7 +74,7 @@ UnSortedList<T>::UnSortedList(int _max)
 template<typename T>
 UnSortedList<T>::~UnSortedList()
 {
-	delete[] m_List;
+	//delete[] m_List;
 }
 
 

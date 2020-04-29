@@ -66,7 +66,7 @@ CircularQueue<T>::CircularQueue(int _max)
 template<typename T>
 CircularQueue<T>::~CircularQueue()
 {
-	delete[] m_Queue;
+	//delete[] m_Queue;
 }
 
 

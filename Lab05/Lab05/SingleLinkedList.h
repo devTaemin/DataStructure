@@ -45,8 +45,6 @@ public:
 		{
 			_list.ResetList();
 			T item;
-			//_list.GetNextItem(item); //처음에 받으면 -1을 리턴하니까 loop이전에 받아서 더하기.
-			//Add(item);
 			while (_list.GetNextItem(item) != -1) {
 				Add(item);
 			}
@@ -74,7 +72,7 @@ SingleLinkedList<T>::SingleLinkedList()
 template <typename T>
 SingleLinkedList<T>::~SingleLinkedList()
 {
-	MakeEmpty();
+	//MakeEmpty();
 }
 
 

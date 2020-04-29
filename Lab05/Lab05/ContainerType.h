@@ -1,4 +1,5 @@
 #pragma once
+#include "DoubleLinkedList.h"
 #include "UnSortedLIst.h"
 #include "SortedList.h"
 #include "SimpleItemType.h"
@@ -38,7 +39,7 @@ public:
 
 	void DisplayAllPhoto();
 	void DisplayAllsItem();
-	void DisplayAllDetailsItem(SortedList<ItemType>& ref);
+	void DisplayAllDetailsItem(DoubleLinkedList<ItemType>& ref);
 
 	bool operator==(const ContainerType& _container) {
 		return (m_ContainerID == _container.GetId());

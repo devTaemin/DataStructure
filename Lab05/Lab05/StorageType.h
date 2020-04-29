@@ -1,4 +1,5 @@
 #pragma once
+#include "DoubleLinkedList.h"
 #include "SingleLinkedList.h"
 #include "ContainerType.h"
 #include <iostream>
@@ -23,6 +24,16 @@ public:
 	int GetLength() const;
 	int GetMaxSize() const;
 
+	void SetId(int _id);
+	void SetMaxSize(int _max);
+	void SetRecord(int _id, int _max);
+	void SetIdFromKB();
+	void SetMaxSizeFromKB();
+	void SetRecordFromKB();
+
+
+
+
 	bool isFull();
 
 	int GetContainer(ContainerType& _con);
@@ -30,8 +41,9 @@ public:
 	int DeleteContainer(ContainerType& _con);
 	int UpdateContainer(ContainerType& _con);
 
+	void DisplayAllRecord();
 	void DisplayAllContainer();
-	void DisplayAllDetailsContainer(SortedList<ItemType>& ref)
+	void DisplayAllDetailsContainer(DoubleLinkedList<ItemType>& ref)
 	{
 		ContainerType temp;
 		ContainerList.ResetList();
