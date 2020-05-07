@@ -106,13 +106,13 @@ public:
 		m_Length = _list.m_Length;
 	}
 
-	friend ostream& operator<<(ostream& os, const DoublySortedLinkedList<T>& _list)
+	friend ostream& operator<<(ostream& os, DoublySortedLinkedList<T>& _list)
 	{
 		DoublyIterator<T> itor(_list);					// 이중연결리스트를 포인터에 연결.
 		itor.Next();									// Head 다음 node로 이동.
 		while (itor.NextNotNull()) {					// 현재와 다음 node가 NULL이 아니면 반복.
 			T data;
-			itor.Now(T);								// 이중연결리스트의 node가 가진 data를 참조.
+			itor.Now(data);								// 이중연결리스트의 node가 가진 data를 참조.
 			os << data << endl;							// 해당 자료형을 operator을 이용하여 출력
 			itor.Next();								// 포인터 이동하여 다음 node 지정
 		}
@@ -206,8 +206,9 @@ int DoublySortedLinkedList<T>::Add(T& _data)
 		while (1)
 		{
 			T curData;
-			if (_data == itor.Now(curData)) { return -1; }					// 등록순위가 같다면 중복 입력이므로 실패(-1).
-			else if (_data < itor.Now(curData) && !itor.NextNotNull()) {	// 현재 node보다 작거나, 현재 node가 NUll 혹은 다음 node가 NULL인 경우(현재 Tail node).
+			itor.Now(curData);
+			if (_data == curData) { return -1; }							// 등록순위가 같다면 중복 입력이므로 실패(-1).
+			else if (_data < curData || !itor.NextNotNull()) {				// 현재 node보다 작거나, 현재 node가 NUll 혹은 다음 node가 NULL인 경우(현재 Tail node).
 				DoublyNodeType<T>* node = new DoublyNodeType<T>;			// node 생성.
 				node->data = _data;											// node에 데이터를 저장.
 				node->prev = itor.m_pCurPointer->prev;						// node 이전 node는 기존 node의 이전 node.
@@ -231,7 +232,7 @@ int DoublySortedLinkedList<T>::Delete(T& _data)
 	itor.Next();
 
 	if (IsEmpty()) { return 0; }											// 비어있는 경우 실패(0);
-	while (itor.m_pCurPointer != m_pTail)									// 현재 pointer가 끝에 도달할때 까지 반복.
+	while (itor.NextNotNull() && itor.m_pCurPointer != m_pTail)												// 현재 pointer가 끝에 도달할때 까지 반복.
 	{
 		if (itor.m_pCurPointer->data == _data)
 		{
@@ -258,7 +259,7 @@ int DoublySortedLinkedList<T>::Replace(T& _data)
 	itor.Next();
 
 	if (IsEmpty()) { return 0; }											// 리스트가 비어있으면 실패(0).
-	while (itor.m_pCurPointer != m_pTail)									// 끝 node에 도달할때까지 loop.
+	while (itor.NextNotNull() && itor.m_pCurPointer != m_pTail)									// 끝 node에 도달할때까지 loop.
 	{
 		if (itor.m_pCurPointer->data == _data)								// target data를 발견한다면.
 		{
@@ -279,7 +280,7 @@ int DoublySortedLinkedList<T>::Get(T& _data)
 	itor.Next();
 
 	if (IsEmpty()) { return 0; }											// 리스트가 비어있으면 실패(0).
-	while (itor.m_pCurPointer != m_pTail)									// 끝 node에 도달할때까지 loop.
+	while (itor.NextNotNull() && itor.m_pCurPointer != m_pTail)									// 끝 node에 도달할때까지 loop.
 	{
 		if (itor.m_pCurPointer->data == _data)								// target data를 발견한다면.
 		{

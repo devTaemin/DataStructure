@@ -18,8 +18,9 @@ class Application
 {
 private:
 
-	DoublySortedLinkedList<WorkerListType> MasterList;
+	WorkerListType MasterList;
 	int m_Command;
+	int m_Ticket;
 
 public:
 
@@ -46,7 +47,9 @@ public:
 	//	Pre:	none.
 	//	Post:	none.
 	//--------------------------------------------------------------------
-
+	
+	// WorkerType을 List화 하는 경우 구현.
+	/*
 	void AddList();
 	//--------------------------------------------------------------------
 	//	Brief:	Add worker list.
@@ -67,7 +70,7 @@ public:
 	//	Pre:	none.
 	//	Post:	list's record is updated.
 	//--------------------------------------------------------------------
-
+	*/
 	void AddWorker();
 	//--------------------------------------------------------------------
 	//	Brief:	Add new worker in a list.
@@ -89,19 +92,14 @@ public:
 	//	Post:	worker's record is updated in a list.
 	//--------------------------------------------------------------------
 
-	void DisplayOneList();
-	//--------------------------------------------------------------------
-	//	Brief:	Display one workerlist.
-	//	Pre:	none.
-	//	Post:	none.
-	//--------------------------------------------------------------------
-
+	/*
 	void DisplayAllList();
 	//--------------------------------------------------------------------
 	//	Brief:	Display all workerlist.
 	//	Pre:	none.
 	//	Post:	none.
 	//--------------------------------------------------------------------
+	*/
 
 	void DisplayBySequence();
 	//--------------------------------------------------------------------
@@ -110,17 +108,17 @@ public:
 	//	Post:	none.
 	//--------------------------------------------------------------------
 
-	void DisplayByName();
+	void SearchByName();
 	//--------------------------------------------------------------------
-	//	Brief:	Display worker by searching worker's name 
+	//	Brief:	Search worker by searching worker's name 
 	//          in order of sequence.
 	//	Pre:	none.
 	//	Post:	none.
 	//--------------------------------------------------------------------
 
-	void DisplayBySkill();
+	void SearchBySkill();
 	//--------------------------------------------------------------------
-	//	Brief:	Display worker by searching worker's skill level 
+	//	Brief:	Search worker by searching worker's skill level 
 	//          in order of sequence.
 	//	Pre:	none.
 	//	Post:	none.

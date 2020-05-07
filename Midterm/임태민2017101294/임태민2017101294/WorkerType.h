@@ -155,15 +155,12 @@ public:
 	//	Param:	_wage		worker's target wage.
 	//--------------------------------------------------------------------
 
-	void SetScore(int _TotalWorker, int _wantedSkill, int _wantedAgeGroup, double _wantedWage);
+	void SetScore(double _score);
 	//--------------------------------------------------------------------
 	//	Brief:	Set worker's Score.
 	//	Pre:	none.
 	//	Post:	none.
-	//	Param:	_TotalWorker		Total number of listed workers.
-	//	Param:	_wantedSkill		Skill level that employer wants.
-	//	Param:	_wantedAgeGroup		Age that employer wants.
-	//	Param:	_wantedWage			Wage that employer wants.
+	//	Param:	_score				Worker's score
 	//--------------------------------------------------------------------
 
 	void SetRecord(string _name, string _num, int _skill, int _age, double _wage);
@@ -256,12 +253,14 @@ public:
 
 	friend ostream& operator<<(ostream& os, const WorkerType& _worker)
 	{
-		os << "\tName         : " << _worker.GetName() << endl;
-		os << "\tPhone-number : " << _worker.GetNumber() << endl;
-		os << "\tSkill-level  : " << _worker.GetSkill() << endl;
-		os << "\tAge          : " << _worker.GetAge() << " [Age group : (" << _worker.GetAgeGroup() << ") ]" << endl;
-		os << "\tTarget-Wage  : " << _worker.GetTargetWage() << endl;
-		os << "\tWorker-Score : " << _worker.GetScore() << endl;
+		os << "\t     +------------- Worker Record ------------+" << endl;
+		os << "\t       Ticket-Number: " << _worker.GetSequence() << endl;
+		os << "\t       Name         : " << _worker.GetName() << endl;
+		os << "\t       Phone-number : " << _worker.GetNumber() << endl;
+		os << "\t       Skill-level  : " << _worker.GetSkill() << endl;
+		os << "\t       Age          : " << _worker.GetAge() << "  |  [Age group : (" << _worker.GetAgeGroup() << ") ]" << endl;
+		os << "\t       Target-Wage  : " << _worker.GetTargetWage() << endl;
+		os << "\t     +----------------------------------------+" << endl;
 		return os;
 	}
 

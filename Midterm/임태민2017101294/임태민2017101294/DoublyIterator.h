@@ -23,7 +23,7 @@ private:
 
 public:
 	
-	DoublyIterator(const DoublySortedLinkedList<T>& _list) : m_pList(_list), m_pCurPointer(_list.m_pHead){}
+	DoublyIterator(DoublySortedLinkedList<T>& _list) : m_pList(_list), m_pCurPointer(_list.m_pHead){}
 	//--------------------------------------------------------------------
 	//		Constructor.
 	//--------------------------------------------------------------------
@@ -51,12 +51,13 @@ public:
 	//	Post:	Pointer moves to the next pointer.
 	//--------------------------------------------------------------------
 
-	void Now(T& _data);
+	int Now(T& _data);
 	//--------------------------------------------------------------------
 	//	Brief:	Refer to the data that current pointer designated.
 	//	Pre:	Iterator has initialized.
 	//	Post:	none.
 	//	Param:	_data		copying vaiable.
+	//	Return:	return 1 if fuction works well, otherwise return 0.
 	//--------------------------------------------------------------------
 };
 
@@ -90,7 +91,12 @@ void DoublyIterator<T>::Next()
 
 // Refer to the data that current pointer designated.
 template <typename T>
-void DoublyIterator<T>::Now(T& _data)
+int DoublyIterator<T>::Now(T& _data)
 {
-	_data = m_pCurPointer->data;										// 현재 포인터가 가지고 있는 데이터를 참조.
+	if (NextNotNull() && m_pCurPointer != m_pList.m_pTail) {
+		_data = m_pCurPointer->data;										// 현재 포인터가 가지고 있는 데이터를 참조.
+		return 1;															// 성공.
+	}
+	return 0;																// 실패.
+	
 }

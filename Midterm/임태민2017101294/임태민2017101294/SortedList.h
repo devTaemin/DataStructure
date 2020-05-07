@@ -132,6 +132,7 @@ public:
 	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
 
+	
 	void operator=(const SortedList& _list)
 	{
 		m_Length = _list.m_Length;

@@ -80,7 +80,7 @@ public:
 	//	Return:	m_TicketNumber.
 	//--------------------------------------------------------------------
 
-	int AddList(WorkerType& _worker);
+	int AddWorker(WorkerType& _worker);
 	//--------------------------------------------------------------------
 	//	Brief:	Add a new worker into list.
 	//	Pre:	list should be initialized.
@@ -89,7 +89,7 @@ public:
 	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
 
-	int DeleteList(WorkerType& _worker);
+	int DeleteWorker(WorkerType& _worker);
 	//--------------------------------------------------------------------
 	//	Brief:	Delete worker in accordance with data's primary key.
 	//	Pre:	data's primary key should be set.
@@ -98,7 +98,7 @@ public:
 	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
 
-	int ReplaceList(WorkerType& _worker);
+	int ReplaceWorker(WorkerType& _worker);
 	//--------------------------------------------------------------------
 	//	Brief:	Find same worker using primary key and replace it.
 	//	Pre:	data's serial number should be set,
@@ -107,7 +107,7 @@ public:
 	//	Return:	return 1 if this function works well, otherwise 0.
 	//--------------------------------------------------------------------
 
-	int GetList(WorkerType& _worker);
+	int GetWorker(WorkerType& _worker);
 	//--------------------------------------------------------------------
 	//	Brief:	Find the worker whose primary key matches with the primary 
 	//			key of target. and get the worker in target.
@@ -115,6 +115,44 @@ public:
 	//	Post:	matching worker is founded and refered the record by target.
 	//	Param:	_worker		the target worker to retrieve.
 	//	Return:	return 1 if this function works well, otherwise 0.
+	//--------------------------------------------------------------------
+
+	void FindAllWorkerByName(WorkerType& _worker);
+	//--------------------------------------------------------------------
+	//	Brief:	Find the All worker whose primary key matches with the 
+	//			Primary key of target. and get the worker in target.
+	//	Pre:	the list should be initialized.
+	//	Post:	matching worker is founded and refered the record by target.
+	//	Param:	_worker		the target worker to retrieve.
+	//--------------------------------------------------------------------
+
+	void FindAllWorkerBySkill(WorkerType& _worker);
+	//--------------------------------------------------------------------
+	//	Brief:	Find the All worker whose primary key matches with the 
+	//			Primary key of target. and get the worker in target.
+	//	Pre:	the list should be initialized.
+	//	Post:	matching worker is founded and refered the record by target.
+	//	Param:	_worker		the target worker to retrieve.
+	//--------------------------------------------------------------------
+
+	void GetWorkerByConditions(WorkerType& _worker, int _max);
+	//--------------------------------------------------------------------
+	//	Brief:	Find the All worker whose conditions matches with the 
+	//			conditions of target. and remove from list.
+	//	Pre:	the list should be initialized.
+	//	Post:	matching worker is founded and removed from list.
+	//	Param:	_worker		the target worker to retrieve.
+	//	Param:	_max		max number to retrieve.
+	//--------------------------------------------------------------------
+
+	void GetWorkerByScore(WorkerType& _worker, int _max);
+	//--------------------------------------------------------------------
+	//	Brief:	Find the All worker whose score condition matches with the 
+	//			score condition of target. and remove from list.
+	//	Pre:	the list should be initialized.
+	//	Post:	matching worker is founded and removed from list.
+	//	Param:	_worker		the target worker to retrieve.
+	//	Param:	_max		max number to retrieve.
 	//--------------------------------------------------------------------
 
 	void DisplayListName();
@@ -145,13 +183,35 @@ public:
 	//	Post:	none.
 	//--------------------------------------------------------------------
 
+	void swap(WorkerType* arr, int a, int b) {
+		WorkerType temp = arr[a];
+		arr[a] = arr[b];
+		arr[b] = temp;
+	}
+
+	void QuickSortByScore(WorkerType* arr, int start, int end) {
+		double pivot = arr[start].GetScore();
+		int left = start + 1;
+		int right = end;
+
+		if (start >= end) return;									// 시작이 끝보다 크면 종료.
+		while (left <= right) {
+			while (left <= end && arr[left].GetScore() <= pivot) { left++; }	//  
+			while (right > start && arr[right].GetScore() >= pivot) { right--; }
+			if (left > right) {swap(arr, start, right);}
+			else { swap(arr, left, right); }
+		}
+		QuickSortByScore(arr, start, right - 1);
+		QuickSortByScore(arr, right + 1, end);
+	}
+
 	bool operator==(const WorkerListType& _list) {
 		return (m_ListName == _list.m_ListName);
 	}
 	bool operator<(const WorkerListType& _list) {
 		return (m_ListName < _list.m_ListName);
 	}
-	bool operator==(const WorkerListType& _list) {
+	bool operator>(const WorkerListType& _list) {
 		return (m_ListName > _list.m_ListName);
 	}
 	void operator=(const WorkerListType& _list)
@@ -162,7 +222,7 @@ public:
 		m_TicketNumber = _list.m_TicketNumber;
 	}
 
-	friend ostream& operator<<(ostream& os, const WorkerListType& _list)
+	friend ostream& operator<<(ostream& os, WorkerListType& _list)
 	{
 		os << "\t+--------------------------------------------------+" << endl;
 		os << "\t|                   WORKER LIST                    |" << endl;

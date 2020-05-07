@@ -53,7 +53,7 @@ string WorkerType::GetName() const
 // Get worker's Phone number.
 string WorkerType::GetNumber() const
 {
-	return m_Name;
+	return m_PhoneNumber;
 }
 
 
@@ -151,14 +151,9 @@ void WorkerType::SetTargetWage(double _wage)
 
 
 // Set worker's Score.
-void WorkerType::SetScore(int _TotalWorker, int _wantedSkill, int _wantedAgeGroup, double _wantedWage)
+void WorkerType::SetScore(double _score)
 {
-	double score;
-	score = (20.0 * abs(m_Skill - _wantedSkill) / 4.0)
-		+ (20.0 * abs(m_AgeGroup - _wantedAgeGroup) / 2.0)
-		+ (30.0 * abs(m_TargetWage - _wantedWage) / 100000.0)
-		+ (30 * m_Sequence / _TotalWorker);
-	m_Score = score;
+	m_Score = _score;
 }
 
 
@@ -236,10 +231,12 @@ void WorkerType::SetTargetWageFromKB()
 // Set worker's Record from keyboard.
 void WorkerType::SetRecordFromKB()
 {
-	SetSequenceFromKB();
+	cout << endl;
+	cout << "\t-------SET RECORD-------" << endl;
 	SetNameFromKB();
 	SetNumberFromKB();
 	SetSkillFromKB();
 	SetAgeFromKB();
 	SetTargetWageFromKB();
+	cout << "\t------------------------" << endl;
 }
