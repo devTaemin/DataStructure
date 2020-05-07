@@ -1,0 +1,19 @@
+다른점 
+- WorkerType
+1) WorkerType m_TargetWage의 datatype을 double로 수정 
+2) WorkerType m_Score의 datatype을 double로 수정
+3) WorkerType의 domain에 [int AgeGroup]을 추가
+4) WorkerType의 SetScore을 수정
+
+- AgeType, SkillType 제거
+1) 작성하다보니 비효율적, WorkerType에 group을 추가함.
+
+
+- WorkerListType
+1) 기본 리스트의 자료형을 doubly로 수정. => 수량제한 없애기위해, 그에따라 CurPointer 삭제
+2) MaxNumOfWorker -> 등록순위로 수정. 등록순위는 list가 있는한 계속있어야해서 
+3) SortedList<AgeType> 삭제
+
+
+- DataStructure
+1) DoublySortedLinkedList / DoublyIterator 추가
