@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Application">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="DataStructure">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Type">
+      <UniqueIdentifier>{e4a75ed9-2eff-4ffc-9159-d42f07ddda42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Header Files">
+      <UniqueIdentifier>{f7bff99a-340f-4848-81fe-fdd44b6c7264}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Source Files">
+      <UniqueIdentifier>{7a6a4f3b-bff5-45fd-b993-ac1749c56e9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataStructure\Header Files">
+      <UniqueIdentifier>{4eb477ee-697f-41b8-8d80-2cfdcbf03f0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataStructure\Source Files">
+      <UniqueIdentifier>{409207ef-df8d-41e7-b138-953ea61b6cae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Type\Header Files">
+      <UniqueIdentifier>{71f5b516-20e1-450a-9799-1e4f49bcabd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Type\Source Files">
+      <UniqueIdentifier>{0534e3cd-bd26-4727-8ddc-3420fc3db976}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ItemType.h">
+      <Filter>Type\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ContainerType.h">
+      <Filter>Type\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StorageType.h">
+      <Filter>Type\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Application\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pch.h">
+      <Filter>Application\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AVL.h">
+      <Filter>DataStructure\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhotoType.h">
+      <Filter>Type\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DoublyIterator.h">
+      <Filter>DataStructure\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DoublySortedLinkedList.h">
+      <Filter>DataStructure\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleItemType.h">
+      <Filter>Type\Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ItemType.cpp">
+      <Filter>Type\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ContainerType.cpp">
+      <Filter>Type\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StorageType.cpp">
+      <Filter>Type\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Application\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Pch.cpp">
+      <Filter>Application\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Application\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AVL.cpp">
+      <Filter>DataStructure\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhotoType.cpp">
+      <Filter>Type\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DoublyIterator.cpp">
+      <Filter>DataStructure\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DoublySortedLinkedList.cpp">
+      <Filter>DataStructure\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleItemType.cpp">
+      <Filter>Type\Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
