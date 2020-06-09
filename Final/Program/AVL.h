@@ -81,25 +81,25 @@ private:
 	//----------------------------------------------------------------
 
 
-	BinaryTreeNode<T>* RecursiveInsert(BinaryTreeNode<T>* _node, T _data);
+	BinaryTreeNode<T>* RecursiveInsert(BinaryTreeNode<T>* _node, T _data, bool& _func);
 	//----------------------------------------------------------------
 	//		Recursive function for adding node.
 	//----------------------------------------------------------------
 
 
-	BinaryTreeNode<T>* RecursivePointerInsert(BinaryTreeNode<T>* _node, T _data);
+	BinaryTreeNode<T>* RecursivePointerInsert(BinaryTreeNode<T>* _node, T _data, bool& _func);
 	//----------------------------------------------------------------
 	//		Recursive function for adding node.
 	//----------------------------------------------------------------
 
 
-	BinaryTreeNode<T>* RecursiveDelete(BinaryTreeNode<T>* _node, T _data);
+	BinaryTreeNode<T>* RecursiveDelete(BinaryTreeNode<T>* _node, T _data, bool& _func);
 	//----------------------------------------------------------------
 	//		Recursive function for deleting node.
 	//----------------------------------------------------------------
 
 
-	BinaryTreeNode<T>* RecursivePointerDelete(BinaryTreeNode<T>* _node, T _data);
+	BinaryTreeNode<T>* RecursivePointerDelete(BinaryTreeNode<T>* _node, T _data, bool& _func);
 	//----------------------------------------------------------------
 	//		Recursive function for deleting node.
 	//----------------------------------------------------------------
@@ -159,14 +159,14 @@ public:
 	//----------------------------------------------------------------
 
 
-	void Add(T& _item);
+	void Add(T& _item, bool& _func);
 	//----------------------------------------------------------------
 	//	Brief  : Add new node in tree.
 	//	Pre    : None.
 	//	Post   : New node is added in tree.
 	//----------------------------------------------------------------
 
-	void AddPointerItem(T& _item);
+	void AddPointerItem(T& _item, bool& _func);
 	//----------------------------------------------------------------
 	//	Brief  : Add new node in tree.
 	//	Pre    : None.
@@ -174,7 +174,7 @@ public:
 	//----------------------------------------------------------------
 
 
-	void Delete(T& _item);
+	void Delete(T& _item, bool& _func);
 	//----------------------------------------------------------------
 	//	Brief  : Delete target node from tree.
 	//	Pre    : None.
@@ -182,7 +182,7 @@ public:
 	//----------------------------------------------------------------
 
 
-	void DeletePointerItem(T& _item);
+	void DeletePointerItem(T& _item, bool& _func);
 	//----------------------------------------------------------------
 	//	Brief  : Delete target node from tree.
 	//	Pre    : None.
@@ -206,7 +206,7 @@ public:
 	//----------------------------------------------------------------
 
 
-	void Replace(T& _item);
+	void Replace(T& _item, bool& _found);
 	//----------------------------------------------------------------
 	//	Brief  : Replace target node's content in tree.
 	//	Pre    : None.
@@ -214,7 +214,7 @@ public:
 	//----------------------------------------------------------------
 
 
-	void ReplacePointerItem(T& _item);
+	void ReplacePointerItem(T& _item, bool& _found);
 	//----------------------------------------------------------------
 	//	Brief  : Replace target node's content in tree.
 	//	Pre    : None.
@@ -332,7 +332,7 @@ int AVLTree<T>::GetLength() const
 
 // Add new node in tree.
 template <typename T>
-void AVLTree<T>::Add(T& _item)
+void AVLTree<T>::Add(T& _item, bool& _func)
 //----------------------------------------------------------------
 //	(1) Call recursive function to add item.
 //----------------------------------------------------------------
@@ -348,13 +348,13 @@ void AVLTree<T>::Add(T& _item)
 	}
 	else 
 	{
-		m_Root = RecursiveInsert(m_Root, _item);
+		m_Root = RecursiveInsert(m_Root, _item, _func);
 	}
 }
 
 // Add new node in tree.
 template <typename T>
-void AVLTree<T>::AddPointerItem(T& _item)
+void AVLTree<T>::AddPointerItem(T& _item, bool& _func)
 //----------------------------------------------------------------
 //	(1) Call recursive function to add item.
 //----------------------------------------------------------------
@@ -370,7 +370,7 @@ void AVLTree<T>::AddPointerItem(T& _item)
 	}
 	else
 	{
-		m_Root = RecursivePointerInsert(m_Root, _item);
+		m_Root = RecursivePointerInsert(m_Root, _item, _func);
 	}
 }
 
@@ -378,23 +378,23 @@ void AVLTree<T>::AddPointerItem(T& _item)
 
 // Delete target node from tree.
 template <typename T>
-void AVLTree<T>::Delete(T& _item)
+void AVLTree<T>::Delete(T& _item, bool& _func)
 //----------------------------------------------------------------
 //	(1) Call recursive function to delete item.
 //----------------------------------------------------------------
 {
-	m_Root = RecursiveDelete(m_Root, _item);
+	m_Root = RecursiveDelete(m_Root, _item, _func);
 }
 
 
 // Delete target node from tree.
 template<typename T>
-void AVLTree<T>::DeletePointerItem(T& _item)
+void AVLTree<T>::DeletePointerItem(T& _item, bool& _func)
 //----------------------------------------------------------------
 //	(1) Call recursive function to delete item.
 //----------------------------------------------------------------
 {
-	m_Root = RecursivePointerDelete(m_Root, _item);
+	m_Root = RecursivePointerDelete(m_Root, _item, _func);
 }
 
 // Retrieve target node from tree.
@@ -463,11 +463,12 @@ void AVLTree<T>::RetrievePointerItem(T& _item, bool& _found) const
 	{
 		T target = TempNode->data;
 		int tID = target->GetID();
-		if (tID > _item->GetID())							//(2.1)
+		int CompareID = _item->GetID();
+		if (tID > CompareID)							//(2.1)
 		{
 			TempNode = TempNode->left;
 		}
-		else if (tID < _item->GetID())						//(2.2)
+		else if (tID < CompareID)						//(2.2)
 		{
 			TempNode = TempNode->right;
 		}
@@ -483,14 +484,14 @@ void AVLTree<T>::RetrievePointerItem(T& _item, bool& _found) const
 
 // Replace target node's content in tree.
 template <typename T>
-void AVLTree<T>::Replace(T& _item)
+void AVLTree<T>::Replace(T& _item, bool& _found)
 //----------------------------------------------------------------
 //	
 //----------------------------------------------------------------
 {
 	BinaryTreeNode<T>* TempNode;
 	TempNode = m_Root;
-
+	_found = false;
 	while (TempNode != nullptr)
 	{
 		if (TempNode->data > _item)
@@ -504,6 +505,7 @@ void AVLTree<T>::Replace(T& _item)
 		else
 		{
 			TempNode->data = _item;
+			_found = true;
 			break;
 		}
 	}
@@ -512,14 +514,14 @@ void AVLTree<T>::Replace(T& _item)
 
 // Replace target node's content in tree.
 template <typename T>
-void AVLTree<T>::ReplacePointerItem(T& _item)
+void AVLTree<T>::ReplacePointerItem(T& _item, bool& _found)
 //----------------------------------------------------------------
 //	
 //----------------------------------------------------------------
 {
 	BinaryTreeNode<T>* TempNode;
 	TempNode = m_Root;
-	//비교 고치기
+	_found = false;
 	while (TempNode != nullptr)
 	{
 		T target = TempNode->data;
@@ -535,6 +537,7 @@ void AVLTree<T>::ReplacePointerItem(T& _item)
 		else
 		{
 			TempNode->data = _item;
+			_found = true;
 			break;
 		}
 	}
@@ -686,7 +689,7 @@ BinaryTreeNode<T>* AVLTree<T>::Rotate_RL(BinaryTreeNode<T>* _parent)
 
 // Recursive function for adding node.
 template <typename T>
-BinaryTreeNode<T>* AVLTree<T>::RecursiveInsert(BinaryTreeNode<T>* _node, T _data)
+BinaryTreeNode<T>* AVLTree<T>::RecursiveInsert(BinaryTreeNode<T>* _node, T _data, bool& _func)
 //----------------------------------------------------------------
 //	(1)	 If node equals to 'nullptr', then create node dynamically,
 //		 store the data, connect left and right node 'nullptr', and
@@ -706,16 +709,7 @@ BinaryTreeNode<T>* AVLTree<T>::RecursiveInsert(BinaryTreeNode<T>* _node, T _data
 //		- Display the error message.
 //----------------------------------------------------------------
 {
-	//if (_node == nullptr)									//	(1)
-	//{
-	//	_node = new BinaryTreeNode<T>;
-	//	_node->left = nullptr;
-	//	_node->right = nullptr;
-	//	_node->data = _data;
-	//	m_Length++;
-	//}
-	//else													//	(2)
-	//{
+	bool func;
 	if (_node->data > _data)							//(2.1)
 	{
 		if (_node->left == nullptr)
@@ -726,10 +720,11 @@ BinaryTreeNode<T>* AVLTree<T>::RecursiveInsert(BinaryTreeNode<T>* _node, T _data
 			NewNode->right = nullptr;
 			_node->left = NewNode;
 			m_Length++;
+			_func = true;
 		}
 		else
 		{
-			RecursiveInsert(_node->left, _data);
+			RecursiveInsert(_node->left, _data, func);
 		}
 		_node = MakeBalance(_node);
 	}
@@ -743,16 +738,18 @@ BinaryTreeNode<T>* AVLTree<T>::RecursiveInsert(BinaryTreeNode<T>* _node, T _data
 			NewNode->right = nullptr;
 			_node->right = NewNode;
 			m_Length++;
+			_func = true;
 		}
 		else
 		{
-			RecursiveInsert(_node->right, _data);
+			RecursiveInsert(_node->right, _data, func);
 		}
 		_node = MakeBalance(_node);
 	}
 	else												//(2.3)
 	{
 		cout << "\t---[ERROR: DUPLICATED ITEM]---" << endl;
+		_func = false;
 	}
 	//}
 	return _node;
@@ -760,7 +757,7 @@ BinaryTreeNode<T>* AVLTree<T>::RecursiveInsert(BinaryTreeNode<T>* _node, T _data
 
 
 template<typename T>
-BinaryTreeNode<T>* AVLTree<T>::RecursivePointerInsert(BinaryTreeNode<T>* _node, T _data)
+BinaryTreeNode<T>* AVLTree<T>::RecursivePointerInsert(BinaryTreeNode<T>* _node, T _data, bool& _func)
 //----------------------------------------------------------------
 //	(1)	 If node equals to 'nullptr', then create node dynamically,
 //		 store the data, connect left and right node 'nullptr', and
@@ -780,16 +777,7 @@ BinaryTreeNode<T>* AVLTree<T>::RecursivePointerInsert(BinaryTreeNode<T>* _node, 
 //		- Display the error message.
 //----------------------------------------------------------------
 {
-	//if (_node == nullptr)									//	(1)
-	//{
-	//	_node = new BinaryTreeNode<T>;
-	//	_node->left = nullptr;
-	//	_node->right = nullptr;
-	//	_node->data = _data;
-	//	m_Length++;
-	//}
-	//else													//	(2)
-	//{
+	bool func;
 	T target = _node->data;
 	if (target->GetID() > _data->GetID())							//(2.1)
 	{
@@ -801,10 +789,11 @@ BinaryTreeNode<T>* AVLTree<T>::RecursivePointerInsert(BinaryTreeNode<T>* _node, 
 			NewNode->right = nullptr;
 			_node->left = NewNode;
 			this->m_Length++;
+			_func = true;
 		}
 		else
 		{
-			RecursiveInsert(_node->left, _data);
+			RecursiveInsert(_node->left, _data, func);
 		}
 		_node = MakeBalance(_node);
 	}
@@ -818,24 +807,27 @@ BinaryTreeNode<T>* AVLTree<T>::RecursivePointerInsert(BinaryTreeNode<T>* _node, 
 			NewNode->right = nullptr;
 			_node->right = NewNode;
 			this->m_Length++;
+			_func = true;
 		}
 		else
 		{
-			RecursiveInsert(_node->right, _data);
+			RecursiveInsert(_node->right, _data, func);
 		}
 		_node = MakeBalance(_node);
 	}
 	else												//(2.3)
 	{
 		cout << "\t---[ERROR: DUPLICATED ITEM]---" << endl;
+		_func = false;
 	}
 	//}
 	return _node;
 }
 
+
 // Recursive function for deleting node.
 template <typename T>
-BinaryTreeNode<T>* AVLTree<T>::RecursiveDelete(BinaryTreeNode<T>* _node, T _data)
+BinaryTreeNode<T>* AVLTree<T>::RecursiveDelete(BinaryTreeNode<T>* _node, T _data, bool& _func)
 //----------------------------------------------------------------
 //	(1)	 If Tree is empty, or there's no item in AVL Tree, stop function.
 //	(2)	 If Tree's node is not nullptr,
@@ -857,23 +849,27 @@ BinaryTreeNode<T>* AVLTree<T>::RecursiveDelete(BinaryTreeNode<T>* _node, T _data
 //		 and make balnce of AVL Tree from the target node.
 //----------------------------------------------------------------
 {
+	bool func;
 	if (_node == nullptr)												// (1)
 	{
 		cout << "\t---[ERROR: NO TARGET DATA IN AVL TREE]---" << endl;
+		_func = false;
 	}
 	else																//	(2)
 	{
 		if (_node->data > _data)										//(2.1)
 		{
-			_node->left = RecursiveDelete(_node->left, _data);
+			_node->left = RecursiveDelete(_node->left, _data, func);
 			_node = MakeBalance(_node);
 			m_Length--;
+			_func = true;
 		}
 		else if (_node->data < _data)									//(2.2)
 		{
-			_node->right = RecursiveDelete(_node->right, _data);
+			_node->right = RecursiveDelete(_node->right, _data, func);
 			_node = MakeBalance(_node);
 			m_Length--;
+			_func = true;
 		}
 		else															//	(3)
 		{
@@ -882,6 +878,7 @@ BinaryTreeNode<T>* AVLTree<T>::RecursiveDelete(BinaryTreeNode<T>* _node, T _data
 				delete _node;
 				_node = nullptr;
 				m_Length--;
+				_func = true;
 				return _node;
 			}
 			else if (_node->left == nullptr && _node->right != nullptr) //(3.2)
@@ -889,6 +886,7 @@ BinaryTreeNode<T>* AVLTree<T>::RecursiveDelete(BinaryTreeNode<T>* _node, T _data
 				BinaryTreeNode<T>* TempNode = _node->right;
 				delete _node;
 				m_Length--;
+				_func = true;
 				return TempNode;
 			}
 			else if (_node->left != nullptr && _node->right == nullptr) //(3.3)
@@ -896,6 +894,7 @@ BinaryTreeNode<T>* AVLTree<T>::RecursiveDelete(BinaryTreeNode<T>* _node, T _data
 				BinaryTreeNode<T>* TempNode = _node->left;
 				delete _node;
 				m_Length--;
+				_func = true;
 				return TempNode;
 			}
 			else														//(3.4)
@@ -906,9 +905,10 @@ BinaryTreeNode<T>* AVLTree<T>::RecursiveDelete(BinaryTreeNode<T>* _node, T _data
 					dummy = dummy->right;
 				}
 				_node->data = dummy->data;
-				_node->left = RecursiveDelete(_node->left, _node->data);
+				_node->left = RecursiveDelete(_node->left, _node->data, func);
 				_node = MakeBalance(_node);
 				m_Length--;
+				_func = true;
 				return _node;
 			}
 		}
@@ -919,7 +919,7 @@ BinaryTreeNode<T>* AVLTree<T>::RecursiveDelete(BinaryTreeNode<T>* _node, T _data
 
 // Recursive function for deleting node.
 template <typename T>
-BinaryTreeNode<T>* AVLTree<T>::RecursivePointerDelete(BinaryTreeNode<T>* _node, T _data)
+BinaryTreeNode<T>* AVLTree<T>::RecursivePointerDelete(BinaryTreeNode<T>* _node, T _data, bool& _func)
 //----------------------------------------------------------------
 //	(1)	 If Tree is empty, or there's no item in AVL Tree, stop function.
 //	(2)	 If Tree's node is not nullptr,
@@ -941,9 +941,11 @@ BinaryTreeNode<T>* AVLTree<T>::RecursivePointerDelete(BinaryTreeNode<T>* _node, 
 //		 and make balnce of AVL Tree from the target node.
 //----------------------------------------------------------------
 {
+	bool func;
 	if (_node == nullptr)												// (1)
 	{
 		cout << "\t---[ERROR: NO TARGET DATA IN AVL TREE]---" << endl;
+		_func = false;
 	}
 	else																//	(2)
 	{
@@ -951,15 +953,17 @@ BinaryTreeNode<T>* AVLTree<T>::RecursivePointerDelete(BinaryTreeNode<T>* _node, 
 		
 		if (target->GetID() > _data->GetID())							//(2.1) 
 		{
-			_node->left = RecursiveDelete(_node->left, _data);
+			_node->left = RecursiveDelete(_node->left, _data, func);
 			_node = MakeBalance(_node);
 			m_Length--;
+			_func = true;
 		}
 		else if (target->GetID() < _data->GetID())						//(2.2)
 		{
-			_node->right = RecursiveDelete(_node->right, _data);
+			_node->right = RecursiveDelete(_node->right, _data, func);
 			_node = MakeBalance(_node);
 			m_Length--;
+			_func = true;
 		}
 		else															//	(3)
 		{
@@ -968,6 +972,7 @@ BinaryTreeNode<T>* AVLTree<T>::RecursivePointerDelete(BinaryTreeNode<T>* _node, 
 				delete _node;
 				_node = nullptr;
 				m_Length--;
+				_func = true;
 				return _node;
 			}
 			else if (_node->left == nullptr && _node->right != nullptr) //(3.2)
@@ -975,6 +980,7 @@ BinaryTreeNode<T>* AVLTree<T>::RecursivePointerDelete(BinaryTreeNode<T>* _node, 
 				BinaryTreeNode<T>* TempNode = _node->right;
 				delete _node;
 				m_Length--;
+				_func = true;
 				return TempNode;
 			}
 			else if (_node->left != nullptr && _node->right == nullptr) //(3.3)
@@ -982,6 +988,7 @@ BinaryTreeNode<T>* AVLTree<T>::RecursivePointerDelete(BinaryTreeNode<T>* _node, 
 				BinaryTreeNode<T>* TempNode = _node->left;
 				delete _node;
 				m_Length--;
+				_func = true;
 				return TempNode;
 			}
 			else														//(3.4)
@@ -992,9 +999,10 @@ BinaryTreeNode<T>* AVLTree<T>::RecursivePointerDelete(BinaryTreeNode<T>* _node, 
 					dummy = dummy->right;
 				}
 				_node->data = dummy->data;
-				_node->left = RecursiveDelete(_node->left, _node->data);
+				_node->left = RecursiveDelete(_node->left, _node->data, func);
 				_node = MakeBalance(_node);
 				m_Length--;
+				_func = true;
 				return _node;
 			}
 		}

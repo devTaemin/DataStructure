@@ -141,11 +141,13 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="AVL.h" />
+    <ClInclude Include="ClothType.h" />
     <ClInclude Include="ContainerType.h" />
     <ClInclude Include="DoublyIterator.h" />
     <ClInclude Include="DoublySortedLinkedList.h" />
     <ClInclude Include="FoodType.h" />
     <ClInclude Include="ItemType.h" />
+    <ClInclude Include="LivingType.h" />
     <ClInclude Include="Pch.h" />
     <ClInclude Include="PhotoType.h" />
     <ClInclude Include="SimpleItemType.h" />
@@ -154,11 +156,13 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AVL.cpp" />
+    <ClCompile Include="ClothType.cpp" />
     <ClCompile Include="ContainerType.cpp" />
     <ClCompile Include="DoublyIterator.cpp" />
     <ClCompile Include="DoublySortedLinkedList.cpp" />
     <ClCompile Include="FoodType.cpp" />
     <ClCompile Include="ItemType.cpp" />
+    <ClCompile Include="LivingType.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pch.cpp" />
     <ClCompile Include="PhotoType.cpp" />

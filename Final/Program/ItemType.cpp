@@ -1,6 +1,13 @@
 #include "Pch.h"
 
 
+// Get Type number.
+int ItemType::GetType() const
+{
+	return m_Type;
+}
+
+
 // Get commodity serial.
 int ItemType::GetID() const
 {
@@ -19,6 +26,13 @@ string ItemType::GetName() const
 int ItemType::GetNum() const
 {
 	return m_Num;
+}
+
+
+// Get commodity price.
+int ItemType::GetPrice() const
+{
+	return m_Price;
 }
 
 
@@ -43,12 +57,20 @@ void ItemType::SetNum(int inNum)
 }
 
 
+// Set commodity price.
+void ItemType::SetPrice(int inPrice)
+{
+	m_Price = inPrice;
+}
+
+
 // Set commodity record.
-void ItemType::SetRecord(int inSerial, string inName, int inNum)
+void ItemType::SetRecord(int inSerial, string inName, int inNum, int inPrice)
 {
 	SetSerial(inSerial);
 	SetName(inName);
 	SetNum(inNum);
+	SetPrice(inPrice);
 }
 
 
@@ -76,12 +98,21 @@ void ItemType::SetNumFromKB()
 }
 
 
+// Set commodity price from keyboard.
+void ItemType::SetPriceFromKB()
+{
+	cout << "\tPrice : ";
+	cin >> m_Price;
+}
+
+
 // Set commodity record from keyboard.
 void ItemType::SetRecordFromKB()
 {
 	SetSerialFromKB();
 	SetNameFromKB();
 	SetNumFromKB();
+	SetPriceFromKB();
 }
 
 
@@ -106,6 +137,13 @@ void ItemType::DisplayNumOnScreen()
 };
 
 
+// Display commodity price on screen.
+void ItemType::DisplayPriceOnScreen()
+{
+	cout << "\tPrice  : " << m_Price << endl;
+};
+
+
 // Display a commodity record on screen.
 void ItemType::DisplayRecordOnScreen()
 {
@@ -114,6 +152,7 @@ void ItemType::DisplayRecordOnScreen()
 	DisplaySerialOnScreen();
 	DisplayNameOnScreen();
 	DisplayNumOnScreen();
+	DisplayPriceOnScreen();
 	cout << "--------------------------" << endl;
 };
 
@@ -124,6 +163,7 @@ int ItemType::ReadDataFromFile(ifstream& fin)
 	fin >> m_Serial;
 	fin >> m_Name;
 	fin >> m_Num;
+	fin >> m_Price;
 
 	return 1;
 };
@@ -136,6 +176,7 @@ int ItemType::WriteDataToFile(ofstream& fout)
 	fout << m_Serial << " ";
 	fout << m_Name << " ";
 	fout << m_Num << " ";
+	fout << m_Price << " ";
 
 	return 1;
 }

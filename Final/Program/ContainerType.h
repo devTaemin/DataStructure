@@ -7,7 +7,9 @@ class ContainerType
 private:
 	int m_ContainerID;									///< container id.
 	string m_ContainerLocation;							///< location of container.
+
 	AVLTree<SimpleItemType> m_SimpleItemTree;			///< structure for storing items.
+	DoublySortedLinkedList<int> m_ItemIDs;				///< Item IDs.
 	DoublySortedLinkedList<PhotoType> m_PhotoList;		///< structure for photos.
 
 public:
@@ -38,6 +40,15 @@ public:
 	//	Pre:	container location is set.
 	//	Post:	none.
 	//	Return: container location.
+	//--------------------------------------------------------------------
+
+
+	int GetItemNumbers() const;
+	//--------------------------------------------------------------------
+	//	Brief:	Get Item numbers.
+	//	Pre:	container is set.
+	//	Post:	none.
+	//	Return: item numbers.
 	//--------------------------------------------------------------------
 
 
@@ -143,6 +154,7 @@ public:
 		m_ContainerID = _con.m_ContainerID;
 		m_ContainerLocation = _con.m_ContainerLocation;
 		m_SimpleItemTree = _con.m_SimpleItemTree;
+		m_ItemIDs = _con.m_ItemIDs;
 		m_PhotoList = _con.m_PhotoList;
 	}
 
@@ -153,12 +165,22 @@ public:
 		_out << "\t+--------------------------+" << endl;
 		_out << "\t[ContainerID]: " << _con.m_ContainerID << endl;
 		_out << "\t[Location]   : " << _con.m_ContainerLocation << endl;
+		_out << "\t[Item-Number]: " << _con.GetItemNumbers() << endl;
 		_out << "\t+--------------------------+" << endl;
 		
-
 		return _out;
 	}
 
+
+	bool IsEmpty()
+	//--------------------------------------------------------------------
+	//	Brief:	Check whether item is empty or not.
+	//  Pre:	ContainerType이 선언되어 있어야한다.
+	//  Post:	none.
+	//--------------------------------------------------------------------
+	{
+		return m_SimpleItemTree.IsEmpty();
+	}
 
 	bool IsFound(ItemType*& _data)
 	//--------------------------------------------------------------------
@@ -176,7 +198,7 @@ public:
 	}
 
 	
-	void AddItem(ItemType*& _data)
+	void AddItem(ItemType*& _data, bool& _func)
 	//--------------------------------------------------------------------
 	//	Brief:	SimpleItemType의 자료를 Container에 추가한다.
 	//  Pre:	ContainerType이 선언되어 있어야한다.
@@ -186,11 +208,16 @@ public:
 	{
 		SimpleItemType s_Item;
 		s_Item.GetRecordFromItemType(_data);
-		m_SimpleItemTree.Add(s_Item);
+		m_SimpleItemTree.Add(s_Item, _func);
+		if (_func)
+		{
+			int inID = _data->GetID();
+			m_ItemIDs.Add(inID);
+		}
 	}
 
 
-	void DeleteItem(ItemType*& _data)
+	void DeleteItem(ItemType*& _data, bool& _func)
 	//--------------------------------------------------------------------
 	//	Brief:	SimpleItemType의 자료를 Container에서 삭제한다.
 	//  Pre:	ContainerType이 선언되어 있어야한다.
@@ -200,11 +227,16 @@ public:
 	{
 		SimpleItemType s_Item;
 		s_Item.GetRecordFromItemType(_data);
-		m_SimpleItemTree.Delete(s_Item);
+		m_SimpleItemTree.Delete(s_Item, _func);
+		if (_func)
+		{
+			int deleteID = _data->GetID();
+			m_ItemIDs.Delete(deleteID);
+		}
 	}
 
 
-	void UpdateItem(ItemType*& _data)
+	void UpdateItem(ItemType*& _data, bool& _found)
 	//--------------------------------------------------------------------
 	//	Brief:	SimpleItemType의 자료를 Container에서 교체한다.
 	//  Pre:	ContainerType이 선언되어 있어야한다.
@@ -214,7 +246,7 @@ public:
 	{
 		SimpleItemType s_Item;
 		s_Item.GetRecordFromItemType(_data);
-		m_SimpleItemTree.Replace(s_Item);
+		m_SimpleItemTree.Replace(s_Item, _found);
 	}
 
 
@@ -226,6 +258,29 @@ public:
 	//--------------------------------------------------------------------
 	{
 		m_SimpleItemTree.PrintTree(cout);
+	}
+
+
+	void DisplayAllDetailsContainer(const AVLTree<ItemType*>& _master)
+		//--------------------------------------------------------------------
+		//	Brief:	Container가 저장한 모든 자료를 출력한다.
+		//	pre:	Container is initialized.
+		//	Post:	None.
+		//--------------------------------------------------------------------
+	{
+		bool func;
+		SimpleItemType curSimpleItem;
+		DoublyIterator<int> itor(m_ItemIDs);
+		itor.Next();
+		while (itor.NextNotNull())
+		{
+			int data;
+			itor.Now(data);
+			curSimpleItem.SetSerial(data);
+			m_SimpleItemTree.Retrieve(curSimpleItem, func);
+			curSimpleItem.DisplayDetails(_master);
+			itor.Next();
+		}
 	}
 
 

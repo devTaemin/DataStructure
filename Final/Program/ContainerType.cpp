@@ -25,6 +25,13 @@ string ContainerType::GetContainerLocation() const
 }
 
 
+// Get Item numbers.
+int ContainerType::GetItemNumbers() const
+{
+	return m_SimpleItemTree.GetLength();
+}
+
+
 // Set container id.
 void ContainerType::SetContainerID(int inContainerID)
 {

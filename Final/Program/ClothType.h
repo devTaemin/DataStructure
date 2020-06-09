@@ -1,32 +1,54 @@
 #pragma once
 //--------------------------------------------------------------------
-//		SimpleItem information class.
+//		Cloth Item information class.
 //--------------------------------------------------------------------
-class SimpleItemType
+class ClothType : public ItemType
 {
 private:
-	int m_Serial;					///<  물건의 고유번호.
-	string m_Name;					///<  물건의 이름.
+	int m_Type;						///<  ClothType을 알려주는 타입번호.
+	int m_Size;						///<  옷 사이즈.
+	string m_Material;				///<  소재
 
 
 public:
-	SimpleItemType()
+	ClothType() :ItemType()
 		//--------------------------------------------------------------------
 		//		Default Constructor.
 		//--------------------------------------------------------------------
 	{
-		m_Serial = -1;
-		m_Name = "";
+		m_Type = 2;
+		m_Size = -1;
+		m_Material = "";
 	}
 
 
-	~SimpleItemType() {}
+	ClothType(int _serial, string _name, int _num, int _price, int _size, string _material) : ItemType(_serial, _name, _num, _price)
+		//--------------------------------------------------------------------
+		//		Constructor.
+		//--------------------------------------------------------------------
+	{
+		m_Type = 2;
+		m_Size = _size;
+		m_Material = _material;
+	}
+
+
+	~ClothType() {}
 	//--------------------------------------------------------------------
 	//		Destructor.
 	//--------------------------------------------------------------------
 
 
-	int GetSerial() const;
+	int GetType() const;
+	//--------------------------------------------------------------------
+	//	Brief:	Get Type number.
+	//	Pre:	none.
+	//	Post:	none.
+	//	Return: Type number.
+	//--------------------------------------------------------------------
+
+
+	int GetID() const;
 	//--------------------------------------------------------------------
 	//	Brief:	Get commodity serial.
 	//	Pre:	commodity serial is set.
@@ -35,56 +57,69 @@ public:
 	//--------------------------------------------------------------------
 
 
-	string GetName() const;
+	int GetSize() const;
 	//--------------------------------------------------------------------
-	//	Brief:	Get commodity name.
-	//	Pre:	commodity name is set.
+	//	Brief:	Get cloth size.
+	//	Pre:	none.
 	//	Post:	none.
-	//	Return: commodity name.
+	//	Return: cloth size.
 	//--------------------------------------------------------------------
 
 
-	void SetSerial(int inSerial);
+	string GetMaterial() const;
 	//--------------------------------------------------------------------
-	//	Brief:	Set commodity serial.
+	//	Brief:	Get cloth material.
 	//	Pre:	none.
-	//	Post:	commodity serial is set.
-	//	Param:	inName		commodity name.
+	//	Post:	none.
+	//	Return: cloth material.
 	//--------------------------------------------------------------------
 
 
-	void SetName(string inName);
+	void SetSize(int _size);
 	//--------------------------------------------------------------------
-	//	Brief:	Set commodity name.
+	//	Brief:	Set cloth size.
 	//	Pre:	none.
-	//	Post:	commodity name is set.
-	//	Param:	inName		commodity name.
+	//	Post:	cloth size is set.
+	//	Param:	_size		cloth size.
 	//--------------------------------------------------------------------
 
 
-	void SetRecord(int inSerial, string inName);
+	void SetMaterial(string _material);
+	//--------------------------------------------------------------------
+	//	Brief:	Set cloth material.
+	//	Pre:	none.
+	//	Post:	cloth material is set.
+	//	Param:	_material		cloth material
+	//--------------------------------------------------------------------
+
+
+	void SetRecord(int _serial, string _name, int _num, int _price, int _size, string _material);
 	//--------------------------------------------------------------------
 	//	Brief:	Set commodity record.
 	//	Pre:	none.
 	//	Post:	commodity record is set.
-	//	Param:	inContainerID	container id.
-	//	Param:	inName			commodity name.
+	//	Param:	_serial			commodity id.
+	//	Param:	_name			commodity name.
+	//	Param:	_num			commodity number.
+	//  Param:  _price			commodity price.
+	//	Param:	_size			cloth size.
+	//	Param:	_material		cloth material.
 	//--------------------------------------------------------------------
 
 
-	void SetSerialFromKB();
+	void SetSizeFromKB();
 	//--------------------------------------------------------------------
-	//	Brief:	Set commodity serial from keyboard
+	//	Brief:	Set cloth size from keyboard
 	//	Pre:	none.
-	//	Post:	commodity serial is set.
+	//	Post:	cloth size is set.
 	//--------------------------------------------------------------------
 
 
-	void SetNameFromKB();
+	void SetMaterialFromKB();
 	//--------------------------------------------------------------------
-	//	Brief:	Set commodity name from keyboard
+	//	Brief:	Set cloth material from keyboard
 	//	Pre:	none.
-	//	Post:	commodity name is set.
+	//	Post:	cloth material is set.
 	//--------------------------------------------------------------------
 
 
@@ -96,19 +131,19 @@ public:
 	//--------------------------------------------------------------------
 
 
-	void DisplaySerialOnScreen();
+	void DisplaySizeOnScreen();
 	//--------------------------------------------------------------------
-	//	Brief:	Display commodity serial on screen.
-	//	Pre:	commodity serial is set.
-	//	Post:	commodity serial is on screen.
+	//	Brief:	Display cloth size on screen.
+	//	Pre:	commodity size is set.
+	//	Post:	commodity size is on screen.
 	//--------------------------------------------------------------------
 
 
-	void DisplayNameOnScreen();
+	void DisplayMaterialOnScreen();
 	//--------------------------------------------------------------------
-	//	Brief:	Display commodity name on screen.
-	//	Pre:	commodity name is set.
-	//	Post:	commodity name is on screen.
+	//	Brief:	Display cloth material on screen.
+	//	Pre:	commodity material is set.
+	//	Post:	commodity material is on screen.
 	//--------------------------------------------------------------------
 
 
@@ -140,53 +175,28 @@ public:
 	//--------------------------------------------------------------------
 
 
-	void GetRecordFromItemType(ItemType& _item);
-	//--------------------------------------------------------------------
-	//	Brief:	Get an information from itemType.
-	//	Pre:	the target item is initialized.
-	//	Post:	target item's information is copied.
-	//	Param:	_item		target item for copying.
-	//--------------------------------------------------------------------
-
-
-	// Overload operator==
-	bool operator==(const SimpleItemType& _sitem) {
-		if (m_Serial == _sitem.GetSerial())
-			return true;
-		return false;
-	}
-
-
-	// Overload operator>
-	bool operator>(const SimpleItemType& _sitem) {
-		if (m_Serial > _sitem.GetSerial())
-			return true;
-		return false;
-	}
-
-
-	// Overload operator<
-	bool operator<(const SimpleItemType& _sitem) {
-		if (m_Serial < _sitem.GetSerial())
-			return true;
-		return false;
-	}
-
-
 	// Overload operator=
-	void operator=(const SimpleItemType& _sitem) {
-		m_Serial = _sitem.GetSerial();
-		m_Name = _sitem.GetName();
+	void operator=(const ItemType*& _item) {
+		m_Serial = _item->GetID();
+		m_Name = _item->GetName();
+		m_Num = _item->GetNum();
+		m_Price = _item->GetPrice();
+		m_Size = this->GetSize();
+		m_Material = this->GetMaterial();
 	}
 
 
-	// Overload operator<<
-	friend ostream& operator<<(ostream& _out, SimpleItemType& _sitem)
+	void print(ostream& _out) const
 	{
-		_out << "\t----------------------------" << endl;
-		_out << "\tID   : " << _sitem.GetSerial() << endl;
-		_out << "\tNAME : " << _sitem.GetName() << endl;
-
-		return _out;
+		_out << "\t+--------------------------+" << endl;
+		_out << "\t|        CLOTHTYPE         |" << endl;
+		_out << "\t+--------------------------+" << endl;
+		_out << "\tID   : " << GetID() << endl;
+		_out << "\tNAME : " << GetName() << endl;
+		_out << "\tNUM  : " << GetNum() << endl;
+		_out << "\tPRICE: " << GetPrice() << endl;
+		_out << "\tSIZE : " << this->GetSize() << endl;
+		_out << "\tMATERIAL : " << this->GetMaterial() << endl;
+		_out << "\t+--------------------------+" << endl;
 	}
 };

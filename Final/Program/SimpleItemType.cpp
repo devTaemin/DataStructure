@@ -1,6 +1,13 @@
 #include "Pch.h"
 
 
+// Get Type number.
+int SimpleItemType::GetType() const
+{
+	return m_Type;
+}
+
+
 // Get commodity serial.
 int SimpleItemType::GetID() const
 {
@@ -89,9 +96,51 @@ void SimpleItemType::DisplayRecordOnScreen()
 };
 
 
+// Display commodity detail record on screen.
+void SimpleItemType::DisplayDetails(const AVLTree<ItemType*>& _master)
+{
+	bool func;
+	ItemType* curItem;
+	int ID = this->GetID();
+	int Type = this->GetType();
+	
+	switch (Type)
+	{
+	case 0:
+		curItem = new ItemType();
+		curItem->SetSerial(ID);
+		_master.RetrievePointerItem(curItem, func);
+		cout << curItem << endl;
+		break;
+	case 1:
+		curItem = new FoodType();
+		curItem->SetSerial(ID);
+		_master.RetrievePointerItem(curItem, func);
+		cout << curItem << endl;
+		break;
+	case 2:
+		curItem = new ClothType();
+		curItem->SetSerial(ID);
+		_master.RetrievePointerItem(curItem, func);
+		cout << curItem << endl;
+		break;
+	case 3:
+		curItem = new LivingType();
+		curItem->SetSerial(ID);
+		_master.RetrievePointerItem(curItem, func);
+		cout << curItem << endl;
+		break;
+	default:
+		cout << "[ERROR: ILLEGAL COMMAND]" << endl;
+		break;
+	}
+}
+
+
 // Read a record from file.
 int SimpleItemType::ReadDataFromFile(ifstream& fin)
 {
+	fin >> m_Type;
 	fin >> m_Serial;
 	fin >> m_Name;
 
@@ -103,6 +152,7 @@ int SimpleItemType::ReadDataFromFile(ifstream& fin)
 int SimpleItemType::WriteDataToFile(ofstream& fout)
 {
 	fout << endl;
+	fout << m_Type << " ";
 	fout << m_Serial << " ";
 	fout << m_Name << " ";
 
@@ -113,6 +163,7 @@ int SimpleItemType::WriteDataToFile(ofstream& fout)
 // Get an information from itemType.
 void SimpleItemType::GetRecordFromItemType(ItemType*& _item)
 {
+	m_Type = _item->GetType();
 	m_Serial = _item->GetID();
 	m_Name = _item->GetName();
 }

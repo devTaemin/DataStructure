@@ -1,28 +1,39 @@
 #pragma once
 //--------------------------------------------------------------------
-//		SimpleItem information class.
+//		Living Item information class.
 //--------------------------------------------------------------------
-class SimpleItemType
+class LivingType : public ItemType
 {
 private:
-	int m_Type;
-	int m_Serial;					///<  물건의 고유번호.
-	string m_Name;					///<  물건의 이름.
+	int m_Type;							///<  LivingType을 알려주는 타입번호.
+	string m_Color;						///<  가구 색상.
+	string m_Material;					///<  소재
 
 
 public:
-	SimpleItemType()
+	LivingType() :ItemType()
 		//--------------------------------------------------------------------
 		//		Default Constructor.
 		//--------------------------------------------------------------------
 	{
-		m_Type = -1;
-		m_Serial = -1;
-		m_Name = "";
+		m_Type = 3;
+		m_Color = "";
+		m_Material = "";
 	}
 
 
-	~SimpleItemType() {}
+	LivingType(int _serial, string _name, int _num, int _price, string _color, string _material) : ItemType(_serial, _name, _num, _price)
+		//--------------------------------------------------------------------
+		//		Constructor.
+		//--------------------------------------------------------------------
+	{
+		m_Type = 3;
+		m_Color = _color;
+		m_Material = _material;
+	}
+
+
+	~LivingType() {}
 	//--------------------------------------------------------------------
 	//		Destructor.
 	//--------------------------------------------------------------------
@@ -37,65 +48,69 @@ public:
 	//--------------------------------------------------------------------
 
 
-	int GetID() const;
+	string GetColor() const;
 	//--------------------------------------------------------------------
-	//	Brief:	Get commodity serial.
-	//	Pre:	commodity serial is set.
-	//	Post:	none.
-	//	Return: commodity serial.
-	//--------------------------------------------------------------------
-
-
-	string GetName() const;
-	//--------------------------------------------------------------------
-	//	Brief:	Get commodity name.
-	//	Pre:	commodity name is set.
-	//	Post:	none.
-	//	Return: commodity name.
-	//--------------------------------------------------------------------
-
-
-	void SetSerial(int inSerial);
-	//--------------------------------------------------------------------
-	//	Brief:	Set commodity serial.
+	//	Brief:	Get living color.
 	//	Pre:	none.
-	//	Post:	commodity serial is set.
-	//	Param:	inName		commodity name.
+	//	Post:	none.
+	//	Return: living color.
 	//--------------------------------------------------------------------
 
 
-	void SetName(string inName);
+	string GetMaterial() const;
 	//--------------------------------------------------------------------
-	//	Brief:	Set commodity name.
+	//	Brief:	Get living material.
 	//	Pre:	none.
-	//	Post:	commodity name is set.
-	//	Param:	inName		commodity name.
+	//	Post:	none.
+	//	Return: living material.
 	//--------------------------------------------------------------------
 
 
-	void SetRecord(int inSerial, string inName);
+	void SetColor(string _color);
+	//--------------------------------------------------------------------
+	//	Brief:	Set living size.
+	//	Pre:	none.
+	//	Post:	living size is set.
+	//	Param:	_size		living size.
+	//--------------------------------------------------------------------
+
+
+	void SetMaterial(string _material);
+	//--------------------------------------------------------------------
+	//	Brief:	Set living material.
+	//	Pre:	none.
+	//	Post:	living material is set.
+	//	Param:	_material		living material
+	//--------------------------------------------------------------------
+
+
+	void SetRecord(int _serial, string _name, int _num, int _price, string _color, string _material);
 	//--------------------------------------------------------------------
 	//	Brief:	Set commodity record.
 	//	Pre:	none.
 	//	Post:	commodity record is set.
-	//	Param:	inContainerID	container id.
-	//	Param:	inName			commodity name.
+	//	Param:	_serial			commodity id.
+	//	Param:	_name			commodity name.
+	//	Param:	_num			commodity number.
+	//  Param:  _price			commodity price.
+	//	Param:	_color			living color.
+	//	Param:	_material		living material.
 	//--------------------------------------------------------------------
 
 
-	void SetSerialFromKB();
+	void SetColorFromKB();
 	//--------------------------------------------------------------------
-	//	Brief:	Set commodity serial from keyboard
+	//	Brief:	Set living color from keyboard
 	//	Pre:	none.
-	//	Post:	commodity serial is set.
+	//	Post:	living color is set.
 	//--------------------------------------------------------------------
 
 
-	void SetNameFromKB();
+	void SetMaterialFromKB();
 	//--------------------------------------------------------------------
-	//	Brief:	Set commodity name from keyboard
+	//	Brief:	Set living material from keyboard
 	//	Pre:	none.
-	//	Post:	commodity name is set.
+	//	Post:	living material is set.
 	//--------------------------------------------------------------------
 
 
@@ -107,19 +122,19 @@ public:
 	//--------------------------------------------------------------------
 
 
-	void DisplaySerialOnScreen();
+	void DisplayColorOnScreen();
 	//--------------------------------------------------------------------
-	//	Brief:	Display commodity serial on screen.
-	//	Pre:	commodity serial is set.
-	//	Post:	commodity serial is on screen.
+	//	Brief:	Display living color on screen.
+	//	Pre:	commodity color is set.
+	//	Post:	commodity color is on screen.
 	//--------------------------------------------------------------------
 
 
-	void DisplayNameOnScreen();
+	void DisplayMaterialOnScreen();
 	//--------------------------------------------------------------------
-	//	Brief:	Display commodity name on screen.
-	//	Pre:	commodity name is set.
-	//	Post:	commodity name is on screen.
+	//	Brief:	Display living material on screen.
+	//	Pre:	commodity material is set.
+	//	Post:	commodity material is on screen.
 	//--------------------------------------------------------------------
 
 
@@ -128,15 +143,6 @@ public:
 	//	Brief:	Display commodity record on screen.
 	//	Pre:	commodity record is set.
 	//	Post:	commodity record is on screen.
-	//--------------------------------------------------------------------
-
-
-	void DisplayDetails(const AVLTree<ItemType*>& _master);
-	//--------------------------------------------------------------------
-	//	Brief:	Display commodity detail record on screen.
-	//	Pre:	commodity record is set.
-	//	Post:	commodity record is on screen.
-	//	Param:	_master			Source of details.
 	//--------------------------------------------------------------------
 
 
@@ -160,55 +166,28 @@ public:
 	//--------------------------------------------------------------------
 
 
-	void GetRecordFromItemType(ItemType*& _item);
-	//--------------------------------------------------------------------
-	//	Brief:	Get an information from itemType.
-	//	Pre:	the target item is initialized.
-	//	Post:	target item's information is copied.
-	//	Param:	_item		target item for copying.
-	//--------------------------------------------------------------------
-
-
-	// Overload operator==
-	bool operator==(const SimpleItemType& _sitem) {
-		if (m_Serial == _sitem.GetID())
-			return true;
-		return false;
-	}
-
-
-	// Overload operator>
-	bool operator>(const SimpleItemType& _sitem) {
-		if (m_Serial > _sitem.GetID())
-			return true;
-		return false;
-	}
-
-
-	// Overload operator<
-	bool operator<(const SimpleItemType& _sitem) {
-		if (m_Serial < _sitem.GetID())
-			return true;
-		return false;
-	}
-
-
 	// Overload operator=
-	void operator=(const SimpleItemType& _sitem) {
-		m_Type = _sitem.GetType();
-		m_Serial = _sitem.GetID();
-		m_Name = _sitem.GetName();
+	void operator=(const LivingType*& _item) {
+		m_Serial = _item->GetID();
+		m_Name = _item->GetName();
+		m_Num = _item->GetNum();
+		m_Price = _item->GetPrice();
+		m_Color = this->GetColor();
+		m_Material = this->GetMaterial();
 	}
 
 
-	// Overload operator<<
-	friend ostream& operator<<(ostream& _out, SimpleItemType& _sitem)
+	void print(ostream& _out)
 	{
 		_out << "\t+--------------------------+" << endl;
-		_out << "\tID   : " << _sitem.GetID() << endl;
-		_out << "\tNAME : " << _sitem.GetName() << endl;
+		_out << "\t|        LIVINGTYPE        |" << endl;
 		_out << "\t+--------------------------+" << endl;
-
-		return _out;
+		_out << "\tID   : " << GetID() << endl;
+		_out << "\tNAME : " << GetName() << endl;
+		_out << "\tNUM  : " << GetNum() << endl;
+		_out << "\tPRICE: " << GetPrice() << endl;
+		_out << "\tCOLOR: " << this->GetColor() << endl;
+		_out << "\tMATERIAL : " << this->GetMaterial() << endl;
+		_out << "\t+--------------------------+" << endl;
 	}
 };

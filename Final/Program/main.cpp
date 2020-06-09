@@ -21,11 +21,12 @@
 //
 //
 //
-//  Thanks to Dong-Hoon Han
-//	
+//  Thanks to Helper 'Dong-Hoon Han' 
+//	Thanks to TA, Professor.
+//	For advices.
 //	
 //
-//																	  @Date	    2020.05.30
+//																	  @Date	    2020.06.09
 //																	  @Author   Taemin Im
 //-----------------------------------------------------------------------------------------
 #include "Pch.h"

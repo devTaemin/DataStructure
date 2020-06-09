@@ -3,12 +3,13 @@
 //		Item information class.
 //--------------------------------------------------------------------
 class ItemType
-{
+{				
 protected:
+	int m_Type;						///<  ItemType을 알려주는 타입번호.
 	int m_Serial;					///<  물건의 고유번호.
 	string m_Name;					///<  물건의 이름.
 	int m_Num;						///<  물건의 수량.
-
+	int m_Price;					///<  물건의 가격.
 
 public:
 	ItemType()
@@ -16,20 +17,24 @@ public:
 	//		Default Constructor.
 	//--------------------------------------------------------------------
 	{
+		m_Type = 0;
 		m_Serial = -1;
 		m_Name = "";
 		m_Num = -1;
+		m_Price = 0;
 	}
 
 
-	ItemType(int _serial, string _name, int _num)
+	ItemType(int _serial, string _name, int _num, int _price)
 	//--------------------------------------------------------------------
 	//		Constructor.
 	//--------------------------------------------------------------------
 	{
+		m_Type = 0;
 		m_Serial = _serial;
 		m_Name = _name;
 		m_Num = _num;
+		m_Price = _price;
 	}
 
 
@@ -39,7 +44,16 @@ public:
 	//--------------------------------------------------------------------
 
 
-	int GetID() const;
+	virtual int GetType() const;
+	//--------------------------------------------------------------------
+	//	Brief:	Get Type number.
+	//	Pre:	none.
+	//	Post:	none.
+	//	Return: Type number.
+	//--------------------------------------------------------------------
+
+
+	virtual int GetID() const;
 	//--------------------------------------------------------------------
 	//	Brief:	Get commodity serial.
 	//	Pre:	commodity serial is set.
@@ -63,6 +77,15 @@ public:
 	//	Pre:	commodity number is set.
 	//	Post:	none.
 	//	Return: commodity number.
+	//--------------------------------------------------------------------
+
+
+	int GetPrice() const;
+	//--------------------------------------------------------------------
+	//	Brief:  Get commodity price.
+	//	Pre:	commodity price is set.
+	//	Post:	none.
+	//	Return: commodity price.
 	//--------------------------------------------------------------------
 
 
@@ -93,7 +116,16 @@ public:
 	//--------------------------------------------------------------------
 
 
-	virtual void SetRecord(int inSerial, string inName, int inNum);
+	void SetPrice(int inPrice);
+	//--------------------------------------------------------------------
+	//	Brief:	Set commodity price.
+	//	Pre:	none.
+	//	Post:	commodity price is set.
+	//	Param:	inPrice		commodity price.
+	//--------------------------------------------------------------------
+
+
+	virtual void SetRecord(int inSerial, string inName, int inNum, int inPrice);
 	//--------------------------------------------------------------------
 	//	Brief:	Set commodity record.
 	//	Pre:	none.
@@ -101,6 +133,7 @@ public:
 	//	Param:	inSerial		commodity id.
 	//	Param:	inName			commodity name.
 	//	Param:	inNum			commodity number.
+	//  Param:  inPrice			commodity price.
 	//--------------------------------------------------------------------
 
 
@@ -125,6 +158,14 @@ public:
 	//	Brief:	Set commodity number from keyboard.
 	//	Pre:	none.
 	//	Post:	commodity number is set.
+	//--------------------------------------------------------------------
+
+
+	void SetPriceFromKB();
+	//--------------------------------------------------------------------
+	//	Brief:	Set commodity price from keyboard.
+	//	Pre:	none.
+	//	Post:	commodity price is set.
 	//--------------------------------------------------------------------
 
 
@@ -160,6 +201,14 @@ public:
 	//--------------------------------------------------------------------
 
 
+	void DisplayPriceOnScreen();
+	//--------------------------------------------------------------------
+	//	Brief:	Display commodity price on screen.
+	//	Pre:	commodity price is set.
+	//	Post:	commodity price is on screen.
+	//--------------------------------------------------------------------
+
+
 	virtual void DisplayRecordOnScreen();
 	//--------------------------------------------------------------------
 	//	Brief:	Display commodity record on screen.
@@ -189,7 +238,7 @@ public:
 
 
 	// Overload operator==
-	bool operator==(const ItemType*& _item) {
+	virtual bool operator==(const ItemType*& _item) {
 		if (m_Serial == _item->m_Serial)
 			return true;
 		return false;
@@ -197,7 +246,7 @@ public:
 
 
 	// Overload operator>
-	bool operator>(const ItemType*& _item) {
+	virtual bool operator>(const ItemType*& _item) {
 		if (m_Serial > _item->m_Serial)
 			return true;
 		return false;
@@ -205,7 +254,7 @@ public:
 
 
 	// Overload operator<
-	bool operator<(const ItemType*& _item) {
+	virtual bool operator<(const ItemType*& _item) {
 		if (m_Serial < _item->m_Serial)
 			return true;
 		return false;
@@ -213,22 +262,31 @@ public:
 
 
 	// Overload operator=
-	void operator=(const ItemType*& _item) {
+	virtual void operator=(const ItemType*& _item) {
 		m_Serial = _item->GetID();
 		m_Name = _item->GetName();
 		m_Num = _item->GetNum();
+		m_Price = _item->GetPrice();
 	}
 
 
 	// Overload operator<<
 	friend ostream& operator<<(ostream& _out, ItemType*& _item)
 	{
-		_out << "\t+--------------------------+" << endl;
-		_out << "\tID   : " << _item->GetID() << endl;
-		_out << "\tNAME : " << _item->GetName() << endl;
-		_out << "\tNUM  : " << _item->GetNum() << endl;
-		_out << "\t+--------------------------+" << endl;
-
+		_item->print(_out);
 		return _out;
+	}
+
+
+	virtual void print(ostream& _out) const
+	{
+		_out << "\t+--------------------------+" << endl;
+		_out << "\t|        ITEMTYPE          |" << endl;
+		_out << "\t+--------------------------+" << endl;
+		_out << "\tID   : " << GetID() << endl;
+		_out << "\tNAME : " << GetName() << endl;
+		_out << "\tNUM  : " << GetNum() << endl;
+		_out << "\tPRICE: " << GetPrice() << endl;
+		_out << "\t+--------------------------+" << endl;
 	}
 };

@@ -25,6 +25,13 @@ string StorageType::GetStorageLocation() const
 }
 
 
+// Get Storage ID.
+int StorageType::GetContainerNumbers() const
+{
+	return m_ContainerTree.GetLength();
+}
+
+
 // Set Storage id.
 void StorageType::SetStorageID(int inStorageID)
 {

@@ -65,6 +65,10 @@ public:
 	void ItemDisplay();
 
 	void Functions();		// For extra functions
+	void DisplayDetailsAll();
+	void DisplayDetailsStorage();
+	void DisplayDetailsContainer();
+	void DisplayPhoto();
 
 
 	/*

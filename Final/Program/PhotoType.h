@@ -110,9 +110,13 @@ public:
 	// Overload operator<<
 	friend ostream& operator<<(ostream& _out, PhotoType& _photo)
 	{
-		_out << "\t----------------------------" << endl;
-
-
+		_out << "\t+--------------------------+" << endl;
+		_out << "\t|        PHOTOTYPE         |" << endl;
+		_out << "\t+--------------------------+" << endl;
+		_out << "[PHOTO-ID] : " << _photo.m_PhotoID << endl;
+		_out << "[PHOTO-ADDRESS]" << endl;
+		_out << "|=> " << _photo.m_address << endl;
+		_out << "\t+--------------------------+" << endl;
 		return _out;
 	}
 };

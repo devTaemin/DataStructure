@@ -1,6 +1,13 @@
 #include "Pch.h"
 
 
+// Get Type number.
+int FoodType::GetType() const
+{
+	return m_Type;
+}
+
+
 // Get purchase date.
 int FoodType::GetPurchaserDate() const
 {
@@ -30,11 +37,9 @@ void FoodType::SetExpirationDate(int _date)
 
 
 // Set commodity record.
-void FoodType::SetRecord(int _serial, string _name, int _num, int _pDate, int _eDate)
+void FoodType::SetRecord(int _serial, string _name, int _num, int _price, int _pDate, int _eDate)
 {
-	SetSerial(_serial);
-	SetName(_name);
-	SetNum(_num);
+	ItemType::SetRecord(_serial, _name, _num, _price);
 	SetPurchaserDate(_pDate);
 	SetExpirationDate(_eDate);
 }
@@ -82,9 +87,7 @@ void FoodType::DisplayExpirationDateOnScreen()
 // Display commodity record on screen.
 void FoodType::DisplayRecordOnScreen()
 {
-	DisplaySerialOnScreen();
-	DisplayNameOnScreen();
-	DisplayNumOnScreen();
+	ItemType::DisplayRecordOnScreen();
 	DisplayPurchaseDateOnScreen();
 	DisplayExpirationDateOnScreen();
 }
@@ -93,12 +96,13 @@ void FoodType::DisplayRecordOnScreen()
 // Read a record from a file.
 int FoodType::ReadDataFromFile(ifstream& fin)
 {
-	int serial; string name; int num;
-	fin >> serial; fin >> name; fin >> num;
+	int serial; string name; int num; int price;
+	fin >> m_Type; fin >> serial; fin >> name; fin >> num; fin >> price;
 
 	SetSerial(serial);
 	SetName(name);
 	SetNum(num);
+	SetPrice(price);
 	fin >> m_PurchaseDate;
 	fin >> m_ExpirationDate;
 
@@ -111,9 +115,11 @@ int FoodType::WriteDataToFile(ofstream& fout)
 {
 
 	fout << endl;
+	fout << GetType() << " ";
 	fout << GetID() << " ";
 	fout << GetName() << " ";
 	fout << GetNum() << " ";
+	fout << GetPrice() << " ";
 	fout << m_PurchaseDate << " ";
 	fout << m_ExpirationDate << " ";
 

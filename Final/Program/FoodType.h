@@ -1,13 +1,11 @@
 #pragma once
 //--------------------------------------------------------------------
-//		Item information class.
+//		Food Item information class.
 //--------------------------------------------------------------------
 class FoodType : public ItemType
 {
 private:
-	//int m_Serial;						///<  물건의 고유번호.
-	//string m_Name;					///<  물건의 이름.
-	//int m_Num;						///<  물건의 수량.
+	int m_Type;							///<  FoodType을 알려주는 타입번호.
 	int m_PurchaseDate;					///<  구매일
 	int m_ExpirationDate;				///<  유통기한
 
@@ -18,16 +16,18 @@ public:
 	//		Default Constructor.
 	//--------------------------------------------------------------------
 	{
+		m_Type = 1;
 		m_PurchaseDate = -1;
 		m_ExpirationDate = -1;
 	}
 
 
-	FoodType(int _serial, string _name, int _num, int _pDate, int _eDate) : ItemType(_serial, _name, _num) 
+	FoodType(int _serial, string _name, int _num, int _price, int _pDate, int _eDate) : ItemType(_serial, _name, _num, _price) 
 	//--------------------------------------------------------------------
 	//		Constructor.
 	//--------------------------------------------------------------------
 	{
+		m_Type = 1;
 		m_PurchaseDate = _pDate;
 		m_ExpirationDate = _eDate;
 	}
@@ -36,6 +36,15 @@ public:
 	~FoodType() {}
 	//--------------------------------------------------------------------
 	//		Destructor.
+	//--------------------------------------------------------------------
+
+
+	int GetType() const;
+	//--------------------------------------------------------------------
+	//	Brief:	Get Type number.
+	//	Pre:	none.
+	//	Post:	none.
+	//	Return: Type number.
 	//--------------------------------------------------------------------
 
 
@@ -75,7 +84,7 @@ public:
 	//--------------------------------------------------------------------
 
 
-	void SetRecord(int _serial, string _name, int _num, int _pDate, int _eDate);
+	void SetRecord(int _serial, string _name, int _num, int _price, int _pDate, int _eDate);
 	//--------------------------------------------------------------------
 	//	Brief:	Set commodity record.
 	//	Pre:	none.
@@ -83,6 +92,7 @@ public:
 	//	Param:	_serial			commodity id.
 	//	Param:	_name			commodity name.
 	//	Param:	_num			commodity number.
+	//  Param:  _price			commodity price.
 	//	Param:	_pDate			purchase date.
 	//	Param:	_eDate			expiration date.
 	//--------------------------------------------------------------------
@@ -156,17 +166,28 @@ public:
 	//--------------------------------------------------------------------
 
 
-	// Overload operator<<
-	friend ostream& operator<<(ostream& _out, FoodType*& _item)
-	{
-		_out << "\t----------------------------" << endl;
-		_out << "\tID   : " << _item->GetID() << endl;
-		_out << "\tNAME : " << _item->GetName() << endl;
-		_out << "\tNUM  : " << _item->GetNum() << endl;
-		_out << "\tDATE : " << _item->GetPurchaserDate() << endl;
-		_out << "\tEX   : " << _item->GetExpirationDate() << endl;
-		_out << "\t----------------------------" << endl;
+	// Overload operator=
+	void operator=(const FoodType*& _item) {
+		m_Serial = _item->GetID();
+		m_Name = _item->GetName();
+		m_Num = _item->GetNum();
+		m_Price = _item->GetPrice();
+		m_PurchaseDate = this->GetPurchaserDate();
+		m_ExpirationDate = this->GetExpirationDate();
+	}
 
-		return _out;
+
+	void print(ostream& _out) const
+	{
+		_out << "\t+--------------------------+" << endl;
+		_out << "\t|         FOODTYPE         |" << endl;
+		_out << "\t+--------------------------+" << endl;
+		_out << "\tID   : " << GetID() << endl;
+		_out << "\tNAME : " << GetName() << endl;
+		_out << "\tNUM  : " << GetNum() << endl;
+		_out << "\tPRICE: " << GetPrice() << endl;
+		_out << "\tDATE : " << this->GetPurchaserDate() << endl;
+		_out << "\tEX   : " << this->GetExpirationDate() << endl;
+		_out << "\t+--------------------------+" << endl;
 	}
 };

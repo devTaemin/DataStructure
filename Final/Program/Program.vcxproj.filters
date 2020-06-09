@@ -65,6 +65,12 @@
     <ClInclude Include="FoodType.h">
       <Filter>Type\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ClothType.h">
+      <Filter>Type\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LivingType.h">
+      <Filter>Type\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ItemType.cpp">
@@ -101,6 +107,12 @@
       <Filter>Type\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FoodType.cpp">
+      <Filter>Type\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClothType.cpp">
+      <Filter>Type\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LivingType.cpp">
       <Filter>Type\Source Files</Filter>
     </ClCompile>
   </ItemGroup>

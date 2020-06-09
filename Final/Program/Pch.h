@@ -15,6 +15,7 @@ using namespace std;
 #include "DoublyIterator.h"
 #include "DoublySortedLinkedList.h"
 
+
 // TYPE
 #include "PhotoType.h"
 #include "ItemType.h"
@@ -22,7 +23,11 @@ using namespace std;
 #include "ContainerType.h"
 #include "StorageType.h"
 
+
+// DERIVED FROM ITEMTYPE
 #include "FoodType.h"
+#include "ClothType.h"
+#include "LivingType.h"
 
 
 
